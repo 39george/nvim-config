@@ -1,0 +1,31 @@
+{
+  "$schema": "https://raw.githubusercontent.com/LuaLS/vscode-lua/master/setting/schema.json",
+  "workspace.library": [
+      "/home/george/.local/share/nvim/lazy",
+      "/home/george/bin/nvim/share/nvim/runtime",
+  ],
+  "workspace.checkThirdParty": "Disable",
+  "workspace.userThirdParty": [],
+  "runtime.version": "Lua 5.4",
+  "runtime.pathStrict": false,
+  "runtime.path": [],
+  "hint.enable": true
+}
+
+{
+  "$schema": "https://raw.githubusercontent.com/LuaLS/vscode-lua/master/setting/schema.json",
+  "workspace.library": [
+    "/home/george/bin/nvim/share/nvim/runtime",
+    "/home/george/bin/nvim/share/nvim/runtime/lua",
+    "/home/george/.config/nvim/lua",
+    "/home/george/.local/share/nvim/lazy/which-key.nvim/lua",
+    "/home/george/.local/share/nvim/lazy/neotest/lua",
+    "/home/george/.local/share/nvim/lazy/neotest-golang/lua",
+    "/home/george/.local/share/nvim/lazy/conform.nvim/lua",
+    "${3rd}/luv/library",
+  ],
+  "workspace.checkThirdParty": false,
+  "runtime.version": "LuaJIT",
+  "runtime.pathStrict": true,
+  "runtime.path": ["?.lua", "?/init.lua"],
+}
