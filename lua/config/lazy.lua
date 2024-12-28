@@ -2,6 +2,9 @@
 -- Removed all trailing .nvim form plugins names
 -- All trailing .<value> in plugin name replaced with -<value>
 
+-- Session options
+vim.o.sessionoptions = "buffers,curdir,folds,help,tabpages,winsize,terminal"
+
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.uv.fs_stat(lazypath) then
@@ -78,3 +81,19 @@ require("config.keymap")
 require("config.neovide")
 require("config.tabwidth")
 require("config.filetype")
+
+-- Enable cliboard support in wsl
+if vim.fn.has("wsl") == 1 then
+  vim.g.clipboard = {
+    name = "WslClipboard",
+    copy = {
+      ["+"] = "clip.exe",
+      ["*"] = "clip.exe",
+    },
+    paste = {
+      ["+"] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+      ["*"] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+    },
+    cache_enabled = 0,
+  }
+end
