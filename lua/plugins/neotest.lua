@@ -13,10 +13,8 @@ return {
       ["neotest-golang"] = {
         go_test_args = {
           "-v",
-          -- "-race",
-          "-coverprofile="
-            .. vim.fn.getcwd()
-            .. "/coverage.out",
+          "-race",
+          "-coverprofile=" .. vim.fn.getcwd() .. "/coverage.out",
         },
       },
       "rustaceanvim.neotest",
