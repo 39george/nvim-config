@@ -2,9 +2,10 @@
 return {
   "nvim-tree/nvim-tree.lua",
   dependencies = { "nvim-tree/nvim-web-devicons" }, -- Ensure you have web dev icons if you want them
-  lazy = true,
+  -- stylua: ignore
   keys = {
     { "<leader>e", "<cmd>NvimTreeToggle<CR>", desc = "Toggle File Tree" },
+    { "<leader>E", "<cmd>NvimTreeFindFile<CR>", desc = "Reveal current buffer in File Tree" },
   },
   opts = function()
     local function my_on_attach(bufnr)
