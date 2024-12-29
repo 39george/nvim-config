@@ -78,7 +78,6 @@ require("lazy").setup({
   },
 })
 require("config.keymap")
-require("config.neovide")
 require("config.tabwidth")
 require("config.filetype")
 
