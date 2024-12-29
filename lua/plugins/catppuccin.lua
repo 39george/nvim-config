@@ -9,7 +9,6 @@ return {
       integrations = {
         neotest = true,
         which_key = true,
-        lsp_trouble = true,
         grug_far = true,
         headlines = true,
         barbar = true,
@@ -46,7 +45,7 @@ return {
           BufferInactiveERROR = { bg = colors.mantle, fg = colors.red },
 
           MiniCursorwordCurrent = { link = "Visual" },
-          MiniCursorword = { link = "Visual" }
+          MiniCursorword = { link = "Visual" },
         }
       end,
     }
