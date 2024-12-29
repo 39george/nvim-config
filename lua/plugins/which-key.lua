@@ -36,7 +36,7 @@ return {
       { "<leader>s", group = "Search" },
       { "<leader>t", group = "Tests" },
       { "<leader>u", group = "UI" },
-      { "<leader>x", group = "Location/Todo/Quickfix/Diagnostics(Trouble)" },
+      { "<leader>x", group = "Location/Quickfix" },
 
       -- Fastaction
       { mode = { "n", "x" }, desc = "Code action", icon = "", },
