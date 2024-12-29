@@ -144,9 +144,10 @@ vim.keymap.set( "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", { desc = "Re
 vim.keymap.set( "n", "gI", "<cmd>lua vim.lsp.buf.implementation()<CR>", { desc = "Goto Implementation" })
 vim.keymap.set( "n", "gy", "<cmd>lua vim.lsp.buf.type_definition()<CR>", { desc = "Goto T[y]pe Definition" })
 vim.keymap.set( "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", { desc = "Goto Declaration" })
-
--- Rebind Ctrl-D and Ctrl-U
--- vim.api.nvim_set_keymap("n", "<C-D>", "8j", { noremap = true, silent = true })
--- vim.api.nvim_set_keymap("n", "<C-U>", "8k", { noremap = true, silent = true })
+-- To avoid ↑ collision
+vim.keymap.del( "n", "gri")
+vim.keymap.del( "n", "grr")
+vim.keymap.del( { "n", "x" }, "gra")
+vim.keymap.del( "n", "grn")
 
 -- stylua: ignore end
