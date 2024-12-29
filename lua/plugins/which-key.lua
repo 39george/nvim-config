@@ -44,9 +44,14 @@ return {
       { "<leader>cr", vim.lsp.buf.rename, desc = "Rename", icon = "󰤌" },
 
       -- Proxies
-      { "<leader>w", proxy = "<c-w>", group = "windows", expand = function()
-          return require("which-key.extras").expand.win()
-        end
+      {
+        -- Window
+        { "<leader>w", proxy = "<c-w>", group = "windows", expand = function()
+            return require("which-key.extras").expand.win()
+          end
+        },
+        { "<c-w>L", desc = "Move window to the right" },
+        { "<c-w>H", desc = "Move window to the left" },
       },
       { "<leader>y", icon = "" },
       { "<leader>K", icon = "" },
