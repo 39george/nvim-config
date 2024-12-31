@@ -56,9 +56,42 @@ return {
       { "<leader>y", icon = "" },
       { "<leader>K", icon = "" },
       { "<leader><Tab>", icon = "󰓩" },
+
       -- For neovim docs
       { "<C-]>", desc = "Jump to a subject", icon = "g" },
     })
     -- stylua: ignore end
+
+    -- Filetype mappings
+
+    -- Http mappings
+    -- stylua: ignore
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = "http",
+      callback = function()
+        local map = vim.keymap.set
+        local currentBuffer = 0
+
+        -- stylua: ignore
+        map( "n", "<leader>hr", ":Rest run<CR>", { desc = "Run request under the cursor", buffer = true })
+        map( "n", "<leader>hc", ":Rest cookies<CR>", { desc = "Edit cookies file", buffer = true })
+        map( "n", "<leader>hl", ":Rest last<CR>", { desc = "Run last request", buffer = true })
+        map( "n", "<leader>hL", ":Rest logs<CR>", { desc = "Edit logs", buffer = true })
+        map( "n", "<leader>he", ":Rest env show<CR>", { desc = "Show dotenv file registered to current .http file", buffer = true })
+
+        wk.add({
+          { "<leader>h", group = "Rest", icon = "", expand = function()
+              return {
+                { "<leader>hc", buffer = currentBuffer, desc = "Edit cookies file", },
+                { "<leader>hr", buffer = currentBuffer, desc = "Run request under the cursor", },
+                { "<leader>hl", buffer = currentBuffer, desc = "Run last request", },
+                { "<leader>hL", buffer = currentBuffer, desc = "Edit logs", },
+                { "<leader>he", buffer = currentBuffer, desc = "Show dotenv file registered to current .http file", },
+              }
+            end,
+          },
+        })
+      end,
+    })
   end,
 }
