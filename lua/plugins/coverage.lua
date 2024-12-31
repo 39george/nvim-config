@@ -12,9 +12,9 @@ return {
   opts = {
     auto_reload = true,
     highlights = {
-      covered = { link = "@text.diff.add" },
-      partial = { link = "@text.warning" },
-      uncovered = { link = "@text.danger" },
+      covered = { link = "@diffAdded" },
+      partial = { link = "@diffOldFile" },
+      uncovered = { link = "@diffRemoved" },
     },
     signs = {
       covered = { text = "█" },
