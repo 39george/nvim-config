@@ -16,6 +16,11 @@ return {
     { "<leader>sg", function() require("fzf-lua").grep_project() end, desc = "Fzf grep project" },
   },
   opts = {
+    winopts = {
+      border = "rounded",
+      backdrop = 80,
+      treesitter = true,
+    },
     fzf_colors = true,
     keymap = {
       builtin = {

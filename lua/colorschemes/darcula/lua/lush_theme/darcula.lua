@@ -227,7 +227,7 @@ Todo       { gui=bf };  --  anything that needs extra attention
 ---- TREESITTER ----------------------------------------------------------------
 
 sym"@constant"                 { Normal };
-sym"@constant.builtin"         { Normal,   gui=it };    -- constant that are built in the language: `nil` in Lua.
+sym"@constant.builtin"         { Normal,   gui=it };      -- constant that are built in the language: `nil` in Lua.
 sym"@constant.macro"           { Constant,   gui=bf };    -- constants that are defined by macros: `NULL` in C.
 sym"@number"                   { Number };
 sym"@float"                    { Float };
@@ -244,9 +244,10 @@ sym"@property.yaml"            { fg=yellow };
 sym"@property.toml"            { Keyword };
 sym"@parameter"                { fg=fg };
 sym"@parameter.reference"      { fg=fg };
-sym"@variable"                 { fg=fg };                 -- Any variable name that does not have another highlight
+sym"@variable"                 { fg=fg };                     -- Any variable name that does not have another highlight
 sym"@variable.member"          { fg=purple };                 -- Any variable name that does not have another highlight
-sym"@variable.builtin"         { Constant,      gui=it }; -- Variable names that are defined by the languages like `this` or `self`.
+sym"@variable.parameter"       { fg=fg.saturate(60).da(10) }; -- Any variable name that does not have another highlight
+sym"@variable.builtin"         { Constant, gui=it };          -- Variable names that are defined by the languages like `this` or `self`.
 
 sym"@function"                 { Function };
 sym"@function.builtin"         { Function };
@@ -311,5 +312,8 @@ MiniCursorWordCurrent { bg=black_olive };
 NeotestAdapterName    { fg=fg.da(47).de(125) };
 NeotestDir            { Directory };
 NeotestFile           { fg=purple};
+
+FzfLuaHeaderText      { fg=yellow };
+
 }end)
 -- stylua: ignore end
