@@ -142,7 +142,12 @@ SpellCap     { fg=magenta, gui=un };
 SpellLocal   { fg=orange,  gui=un };
 SpellRare    { fg=yellow,  gui=un };
 
-DiagnosticHint { fg=cyan.li(50).sa(50) };
+DiagnosticHint           { fg=cyan.li(50).sa(50) };
+DiagnosticError          { fg=red };
+DiagnosticWarn           { fg=yellow };
+DiagnosticUnderlineHint  { gui="undercurl", sp=cyan.li(50).sa(50) };
+DiagnosticUnderlineError { gui="undercurl", sp=red };
+DiagnosticUnderlineWarn { gui="undercurl", sp=yellow };
 
 
 ---- Language Server Protocol highlight groups ---------------------------------
