@@ -11,10 +11,10 @@ return {
   lazy = true,
   event = "BufEnter *.http",
   init = function()
-    ---@type rest.Opts
     vim.g.rest_nvim = {
+      ---@type rest.Opts
       highlight = {
-        enable = true
+        enable = true,
       },
     }
   end,
