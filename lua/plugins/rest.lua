@@ -14,7 +14,7 @@ return {
     vim.g.rest_nvim = {
       ---@type rest.Opts
       highlight = {
-        enable = true,
+        enable = false,
       },
     }
   end,

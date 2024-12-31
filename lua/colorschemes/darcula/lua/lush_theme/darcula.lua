@@ -105,6 +105,8 @@ TabLineFill  { bg=overbg };                -- where there are no labels
 TabLineSel   { bg=mid.li(7) };                 -- active tab page label
 
 WinSeparator { fg=c0, bg=c0 };
+WinBar       { bg=c1, fg=red };
+WinBarNC       { bg=c1, fg=teal };
 Search       { fg=bg,      bg=yellow };    -- Last search pattern highlighting (see 'hlsearch')
 IncSearch    { Search };                   -- 'incsearch' highlighting; also used for the text replaced with ":s///c"
 Substitute   { Search };                   -- |:substitute| replacement text highlighting
