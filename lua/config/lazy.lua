@@ -47,6 +47,7 @@ vim.cmd("set nohls")
 vim.cmd("set nowrap")
 vim.cmd("set expandtab")
 vim.cmd("set mousescroll=ver:1,hor:2")
+vim.cmd("set cursorline")
 
 -- Manual folding
 vim.o.foldcolumn = "1" -- '0' is not bad
@@ -61,10 +62,13 @@ vim.wo.foldminlines = 1
 -- Setup lazy.nvim
 require("lazy").setup({
   spec = {
-    import = "plugins",
+    -- Load all plugins
+    { import = "plugins" },
+    -- Load local colorschemes
+    require("colorschemes.plugins"),
   },
   -- Try to load one of these colorschemes when starting an installation during startup
-  install = { colorscheme = { "catppuccin-mocha", "darcula-solid" } },
+  install = { colorscheme = { "darcula", "catppuccin" } },
   -- Automatically check for plugin updates
   checker = { enabled = false },
   defaults = {
@@ -77,6 +81,7 @@ require("lazy").setup({
     notify = true, -- get a notification when changes are found
   },
 })
+
 require("config.keymap")
 require("config.tabwidth")
 require("config.filetype")
