@@ -38,18 +38,20 @@ local bg      = c0    -- base background
 local overbg  = c1    -- other backgrounds
 local subtle  = c2    -- out-of-buffer elements
 
-local fg      = hsl(210, 7, 82)
-local comment = hsl(0, 0, 54)    -- comments
-local folder  = hsl(223, 8, 82)
-local treebg  = hsl(220, 3, 19)
-local mid     = c2   -- either foreground or background
-local faded_fg   = fg.darken(45)    -- non-important text elements
-local pop     = c7
+local fg                  = hsl(210, 7, 82)
+local comment             = hsl(0, 0, 54)    -- comments
+local folder              = hsl(223, 8, 82)
+local treebg              = hsl(220, 3, 19)
+local mid                 = c2   -- either foreground or background
+local fadefg              = hsl("#606366")    -- non-importanj text elements
+local line_number_current = hsl("#A4A3A3")
+local pop                 = c7
+local selection           = hsl("#214283")
 
 -- Color palette
 local red     = hsl(1, 77, 59)
 local salmon  = hsl(10,  90, 70)
-local orange  = hsl(27, 61, 50)
+local orange  = hsl(20, 50, 61)
 local yellow  = hsl(37, 100, 71)
 
 local green   = hsl(83, 27, 53)
@@ -62,7 +64,7 @@ local magenta = hsl(310,  40, 70)
 
 local black_olive = hsl(110, 10, 23)
 
-return lush(function(injected_functions) 
+return lush(function(injected_functions)
 local sym = injected_functions.sym
 return {
 Normal       { fg=fg,      bg=bg };
@@ -83,8 +85,8 @@ CursorColumn { bg=subtle };
 CursorLine   { CursorColumn };
 MatchParen   { fg=pop,     bg=mid };
 
-LineNr       { fg=faded_fg };
-CursorLineNr { fg=orange };
+LineNr       { fg=fadefg };
+CursorLineNr { fg=line_number_current };
 SignColumn   { LineNr };
 VertSplit    { fg=overbg,  bg=bg };    -- column separating vertically split windows
 Folded       { fg=comment, bg=overbg };
@@ -98,23 +100,23 @@ WildMenu     { Pmenu };                    -- current match in 'wildmenu' comple
 QuickFixLine { fg=pop };                   -- Current |quickfix| item in the quickfix window
 
 StatusLine   { bg=subtle };
-StatusLineNC { fg=faded_fg,   bg=overbg };
+StatusLineNC { fg=fadefg,   bg=overbg };
 
 TabLine      { fg=fg.da(30), bg=mid };                   -- not active tab page label
 TabLineFill  { bg=overbg };                -- where there are no labels
 TabLineSel   { bg=mid.li(7) };                 -- active tab page label
 
 WinSeparator { fg=c0, bg=c0 };
-WinBar       { bg=c1, fg=red };
-WinBarNC       { bg=c1, fg=teal };
-Search       { fg=bg,      bg=yellow };    -- Last search pattern highlighting (see 'hlsearch')
+WinBar       { fg=fg, bg=bg };
+WinBarNC     { fg=fg, bg=bg.da(10) };
+Search       { fg=bg, bg=yellow };         -- Last search pattern highlighting (see 'hlsearch')
 IncSearch    { Search };                   -- 'incsearch' highlighting; also used for the text replaced with ":s///c"
 Substitute   { Search };                   -- |:substitute| replacement text highlighting
 
-Visual       { bg=c2 };                    -- Visual mode selection
+Visual       { bg=selection };             -- Visual mode selection
 VisualNOS    { bg=subtle };                -- Visual mode selection when Vim is "Not Owning the Selection".
 
-ModeMsg      { fg=faded_fg };                 -- 'showmode' message (e.g. "-- INSERT -- ")
+ModeMsg      { fg=fadefg };                 -- 'showmode' message (e.g. "-- INSERT -- ")
 MsgArea      { Normal };                   -- Area for messages and cmdline
 MsgSeparator { fg=orange };                -- Separator for scrolled messages `msgsep` flag of 'display'
 MoreMsg      { fg=green };                 -- |more-prompt|
@@ -209,14 +211,14 @@ Typedef        { Type };
 Special        { fg=orange };  -- (preferred) any special symbol
 SpecialChar    { Special };    -- special character in a constant
 Tag            { fg=yellow };  -- you can use CTRL-] on this
-Delimiter      { Special };    -- character that needs attention
+Delimiter      { fg=fg };    -- character that needs attention
 SpecialComment { Special };    -- special things inside a comment
 Debug          { Special };    -- debugging statements
 
 Underlined { gui = un };
 Bold       { gui = bf };
 Italic     { gui = it };
-Ignore     { fg=faded_fg };           --  left blank, hidden  |hl-Ignore|
+Ignore     { fg=fadefg };           --  left blank, hidden  |hl-Ignore|
 Error      { fg=red };             --  any erroneous construct
 Todo       { gui=bf };  --  anything that needs extra attention
 
@@ -238,7 +240,7 @@ sym"@symbol"                   { fg=green, gui=it };      -- For identifiers ref
 
 sym"@field"                    { fg=purple };
 sym"@property"                 { fg=purple };
-sym"@property.yaml"            { Keyword };
+sym"@property.yaml"            { fg=yellow };
 sym"@property.toml"            { Keyword };
 sym"@parameter"                { fg=fg };
 sym"@parameter.reference"      { fg=fg };
