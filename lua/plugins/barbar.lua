@@ -11,6 +11,7 @@ return {
   init = function()
     vim.g.barbar_auto_setup = false
   end,
+  -- stylua: ignore
   opts = {
     animation = false,
     icons = {
@@ -21,15 +22,15 @@ return {
       button = "",
       -- Enables / disables diagnostic symbols
       diagnostics = {
-        [vim.diagnostic.severity.ERROR] = { enabled = true, icon = "ﬀ" },
+        [vim.diagnostic.severity.ERROR] = { enabled = true, icon = Icons.diagnostics.Error, },
         [vim.diagnostic.severity.WARN] = { enabled = false },
         [vim.diagnostic.severity.INFO] = { enabled = false },
-        [vim.diagnostic.severity.HINT] = { enabled = true },
+        [vim.diagnostic.severity.HINT] = { enabled = true, icon = Icons.diagnostics.Hint },
       },
       gitsigns = {
-        added = { enabled = true, icon = "+" },
-        changed = { enabled = true, icon = "~" },
-        deleted = { enabled = true, icon = "-" },
+        added = { enabled = true, icon = Icons.git.added },
+        changed = { enabled = true, icon = Icons.git.modified },
+        deleted = { enabled = true, icon = Icons.git.removed },
       },
 
       -- Configure the icons on the bufferline based on the visibility of a buffer.

@@ -13,9 +13,9 @@ return {
       untracked = { text = "▎" },
     },
     signs_staged = {
-      add = { text = "▎" },
-      change = { text = "▎" },
-      delete = { text = "" },
+      add = { text = Icons.git.added },
+      change = { text = Icons.git.modified },
+      delete = { text = Icons.git.removed },
       topdelete = { text = "" },
       changedelete = { text = "▎" },
     },

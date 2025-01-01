@@ -68,6 +68,9 @@ return {
       -- Set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
       -- Adjusts spacing to ensure icons are aligned
       nerd_font_variant = "mono",
+      kind_icons = vim.tbl_extend("keep", {
+        Color = "██", -- Use block instead of icon for color items to make swatches more usable
+      }, Icons.kinds),
     },
     completion = {
       -- Show documentation when selecting a completion item

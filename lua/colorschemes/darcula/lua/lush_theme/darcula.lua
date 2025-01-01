@@ -68,7 +68,7 @@ local black_olive = hsl(110, 10, 23)
 return lush(function(injected_functions)
 local sym = injected_functions.sym
 return {
-Normal       { fg=fg };
+Normal       { fg=fg, bg=bg };
 NormalFloat  { fg=fg,      bg=overbg.li(3) };
 NormalNC     { fg=fg,      bg=bg.da(10) }; -- normal text in non-current windows
 
@@ -185,7 +185,7 @@ LspDiagnosticsUnderlineHint          { gui=un };    -- underline "Hint" diagnost
 ---- Standard highlight groups -------------------------------------------------
 -- See :help group-name
 
-Constant       { fg=Normal.fg };
+Constant       { fg=fg };
 Number         { fg=blue };
 Float          { Number };
 Boolean        { Constant };
@@ -319,7 +319,9 @@ NeotestAdapterName    { fg=fg.da(47).de(125) };
 NeotestDir            { Directory };
 NeotestFile           { fg=purple};
 
-FzfLuaHeaderText      { fg=yellow };
+-- FzfLua
+FzfLuaHeaderText       { fg=yellow };
+FzfLuaTitle            { fg=c7, bg=cyan.li(10) };
 
 }end)
 -- stylua: ignore end
