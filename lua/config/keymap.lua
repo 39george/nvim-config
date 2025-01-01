@@ -11,7 +11,7 @@ vim.keymap.set( "n", "<C-l>", "<C-w>l", { desc = "Go to Right Window", remap = t
 
 -- better up/down
 -- 'gj' and 'gk' will treat wrapped lines as separate lines for moving,
--- by defaul j and k do not that
+-- by default j and k do not that
 vim.keymap.set( { "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
 vim.keymap.set( { "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
 vim.keymap.set( { "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
@@ -58,15 +58,15 @@ vim.keymap.set( "x", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev S
 vim.keymap.set( "o", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev Search Result" })
 
 -- Add undo break-points
-vim.keymap.set("i", ",", ",<c-g>u")
-vim.keymap.set("i", ".", ".<c-g>u")
-vim.keymap.set("i", ";", ";<c-g>u")
+vim.keymap.set( "i", ",", ",<c-g>u" )
+vim.keymap.set( "i", ".", ".<c-g>u" )
+vim.keymap.set( "i", ";", ";<c-g>u" )
 
 -- save file
 vim.keymap.set({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save File" })
 
 -- keywordprg
-vim.keymap.set("n", "<leader>K", "<cmd>norm! K<cr>", { desc = "Keywordprg" })
+vim.keymap.set( "n", "<leader>K", "<cmd>norm! K<cr>", { desc = "Keywordprg" })
 
 -- better indenting
 vim.keymap.set( "v", "<", "<gv")
@@ -103,8 +103,8 @@ local diagnostic_goto = function(next, severity)
   end
 end
 vim.keymap.set( "n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
-vim.keymap.set("n", "]d", diagnostic_goto(true), { desc = "Next Diagnostic" })
-vim.keymap.set("n", "[d", diagnostic_goto(false), { desc = "Prev Diagnostic" })
+vim.keymap.set( "n", "]d", diagnostic_goto(true), { desc = "Next Diagnostic" })
+vim.keymap.set( "n", "[d", diagnostic_goto(false), { desc = "Prev Diagnostic" })
 vim.keymap.set( "n", "]e", diagnostic_goto(true, "ERROR"), { desc = "Next Error" })
 vim.keymap.set( "n", "[e", diagnostic_goto(false, "ERROR"), { desc = "Prev Error" })
 vim.keymap.set( "n", "]w", diagnostic_goto(true, "WARN"), { desc = "Next Warning" })
@@ -114,13 +114,13 @@ vim.keymap.set( "n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warnin
 vim.keymap.set("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit All" })
 
 -- highlights under cursor
-vim.keymap.set("n", "<leader>ui", vim.show_pos, { desc = "Inspect Pos" })
+vim.keymap.set( "n", "<leader>ui", vim.show_pos, { desc = "Inspect Pos" })
 vim.keymap.set( "n", "<leader>uI", "<cmd>InspectTree<cr>", { desc = "Inspect Tree" })
 
 -- Terminal Mappings
--- There also <C-\><C-n> for excaping from terminal input
-vim.keymap.set("t", "<C-/>", "<cmd>close<cr>", { desc = "Hide Terminal" })
-vim.keymap.set("t", "<c-_>", "<cmd>close<cr>", { desc = "which_key_ignore" })
+-- There also <C-\><C-n> for escaping from terminal input
+vim.keymap.set( "t", "<C-/>", "<cmd>close<cr>", { desc = "Hide Terminal" })
+vim.keymap.set( "t", "<c-_>", "<cmd>close<cr>", { desc = "which_key_ignore" })
 
 -- windows
 vim.keymap.set( "n", "<leader>-", "<C-W>s", { desc = "Split Window Below", remap = true })
@@ -128,11 +128,11 @@ vim.keymap.set( "n", "<leader>|", "<C-W>v", { desc = "Split Window Right", remap
 
 -- tabs
 -- Not using tabs currently
-vim.keymap.set("n", "<leader><tab>l", "<cmd>tablast<cr>", { desc = "Last Tab" })
+vim.keymap.set( "n", "<leader><tab>l", "<cmd>tablast<cr>", { desc = "Last Tab" })
 vim.keymap.set( "n", "<leader><tab>o", "<cmd>tabonly<cr>", { desc = "Close Other Tabs" })
 vim.keymap.set( "n", "<leader><tab>f", "<cmd>tabfirst<cr>", { desc = "First Tab" })
 vim.keymap.set( "n", "<leader><tab><tab>", "<cmd>tabnew<cr>", { desc = "New Tab" })
-vim.keymap.set("n", "<leader><tab>]", "<cmd>tabnext<cr>", { desc = "Next Tab" })
+vim.keymap.set( "n", "<leader><tab>]", "<cmd>tabnext<cr>", { desc = "Next Tab" })
 vim.keymap.set( "n", "<leader><tab>d", "<cmd>tabclose<cr>", { desc = "Close Tab" })
 vim.keymap.set( "n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 
@@ -149,5 +149,23 @@ vim.keymap.del( "n", "gri")
 vim.keymap.del( "n", "grr")
 vim.keymap.del( { "n", "x" }, "gra")
 vim.keymap.del( "n", "grn")
+
+-- Temporary fix until release nvim-0.11 ready, and blink updated
+if vim.fn.has('nvim-0.11') == 1 then
+  -- Ensure that forced and not configurable `<Tab>` and `<S-Tab>`
+  -- buffer-local mappings don't override already present ones
+  local expand_orig = vim.snippet.expand
+  vim.snippet.expand = function(...)
+    local tab_map = vim.fn.maparg('<Tab>', 'i', false, true)
+    local stab_map = vim.fn.maparg('<S-Tab>', 'i', false, true)
+    expand_orig(...)
+    vim.schedule(function()
+      tab_map.buffer, stab_map.buffer = 1, 1
+      -- Override temporarily forced buffer-local mappings
+      vim.fn.mapset('i', false, tab_map)
+      vim.fn.mapset('i', false, stab_map)
+    end)
+  end
+end
 
 -- stylua: ignore end
