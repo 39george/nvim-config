@@ -5,5 +5,10 @@ return {
   lazy = true,
   event = { "BufReadPost", "BufNewFile", "BufWritePre" },
   opts = {
+    notification = {
+      window = {
+        winblend = 0, -- Background color opacity in the notification window
+      },
+    },
   },
 }
