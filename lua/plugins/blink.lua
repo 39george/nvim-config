@@ -12,6 +12,20 @@ return {
   ---@module 'blink.cmp'
   ---@type blink.cmp.Config
   opts = {
+    snippets = {
+      -- Function to use when expanding LSP provided snippets
+      expand = function(snippet)
+        vim.snippet.expand(snippet)
+      end,
+      -- Function to use when checking if a snippet is active
+      active = function(filter)
+        return vim.snippet.active(filter)
+      end,
+      -- Function to use when jumping between tab stops in a snippet, where direction can be negative or positive
+      jump = function(direction)
+        vim.snippet.jump(direction)
+      end,
+    },
     -- 'default' for mappings similar to built-in completion
     -- 'super-tab' for mappings similar to vscode (tab to accept, arrow keys to navigate)
     -- 'enter' for mappings similar to 'super-tab' but with 'enter' to accept
@@ -20,14 +34,19 @@ return {
       preset = "none",
       ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
       ["<C-e>"] = { "hide", "fallback" },
-      -- ["<CR>"] = { "fallback" },
+      ["<C-y>"] = { "select_and_accept" },
 
       ["<Tab>"] = {
-        --- @param cmp table
+        ---@param cmp table
         function(cmp)
           if cmp.snippet_active() then
-            return cmp.accept()
+            if cmp.is_visible() then
+              return cmp.select_and_accept()
+            else
+              return cmp.accept()
+            end
           else
+            print("sn not active")
             return cmp.select_and_accept()
           end
         end,
