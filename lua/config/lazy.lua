@@ -48,6 +48,7 @@ vim.cmd("set nowrap")
 vim.cmd("set expandtab")
 vim.cmd("set mousescroll=ver:1,hor:2")
 vim.cmd("set cursorline")
+vim.cmd("set spell")
 
 -- Manual folding
 vim.o.foldcolumn = "1" -- '0' is not bad
@@ -86,7 +87,7 @@ require("config.keymap")
 require("config.tabwidth")
 require("config.filetype")
 
--- Enable cliboard support in wsl
+-- Enable clipboard support in wsl
 if vim.fn.has("wsl") == 1 then
   vim.g.clipboard = {
     name = "WslClipboard",
