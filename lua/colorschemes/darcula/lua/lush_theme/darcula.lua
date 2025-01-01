@@ -57,10 +57,11 @@ local yellow      = hsl(37, 100, 71)
 local green       = hsl(83, 27, 53)
 local teal        = hsl(150,  40, 50)
 local cyan        = hsl(180, 58, 38)
+local celadon     = hsl(115, 42, 71)
 
 local blue        = hsl(215, 80, 63).li(10)
 local purple      = hsl(279, 30, 62)
-local magenta     = hsl(310,  40, 70)
+local magenta     = hsl(310,  53, 76)
 local sky_magenta  = hsl(310, 40, 64)
 
 local black_olive = hsl(110, 10, 23)
@@ -189,7 +190,7 @@ Constant       { fg=fg };
 Number         { fg=blue };
 Float          { Number };
 Boolean        { Constant };
-Character      { fg=orange };
+Character      { fg=salmon };
 String         { fg=green };
 
 Identifier     { fg=fg };
@@ -252,7 +253,7 @@ sym"@parameter"                { fg=fg };
 sym"@parameter.reference"      { fg=fg };
 sym"@variable"                 { fg=fg };                     -- Any variable name that does not have another highlight
 sym"@variable.member"          { fg=purple };                 -- Any variable name that does not have another highlight
-sym"@variable.parameter"       { fg=fg.saturate(60).da(10) }; -- Any variable name that does not have another highlight
+sym"@variable.parameter"       { fg=celadon };
 sym"@variable.builtin"         { Constant, gui=it };          -- Variable names that are defined by the languages like `this` or `self`.
 
 sym"@function"                 { Function };
@@ -322,6 +323,15 @@ NeotestFile           { fg=purple};
 -- FzfLua
 FzfLuaHeaderText       { fg=yellow };
 FzfLuaTitle            { fg=c7, bg=cyan.li(10) };
+
+-- Lazy
+LazyNormal             { Normal };
+LazyReasonEvent        { Changed };
+LazyReasonKeys         { fg=blue.li(50) };
+LazyReasonPlugin       { fg=sky_magenta.li(30).sa(40) };
+LazyReasonStart        { fg=purple.li(30).sa(50) };
+LazySpecial            { Comment };
+LazyLocal              { fg=orange };
 
 }end)
 -- stylua: ignore end
