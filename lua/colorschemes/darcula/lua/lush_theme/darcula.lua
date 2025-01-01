@@ -41,40 +41,41 @@ local subtle  = c2    -- out-of-buffer elements
 local fg                  = hsl(210, 7, 82)
 local comment             = hsl(0, 0, 54)    -- comments
 local folder              = hsl(223, 8, 82)
-local treebg              = hsl(220, 3, 19)
+local treebg              = hsl(220, 3, 18)
 local mid                 = c2   -- either foreground or background
-local fadefg              = hsl("#606366")    -- non-importanj text elements
+local fadefg              = hsl("#606366")    -- non-important text elements
 local line_number_current = hsl("#A4A3A3")
 local pop                 = c7
 local selection           = hsl("#214283")
 
 -- Color palette
-local red     = hsl(1, 77, 59)
-local salmon  = hsl(10,  90, 70)
-local orange  = hsl(20, 50, 61)
-local yellow  = hsl(37, 100, 71)
+local red         = hsl(1, 77, 59)
+local salmon      = hsl(10,  90, 70)
+local orange      = hsl(20, 50, 61)
+local yellow      = hsl(37, 100, 71)
 
-local green   = hsl(83, 27, 53)
-local teal    = hsl(150,  40, 50)
-local cyan    = hsl(180, 58, 38)
+local green       = hsl(83, 27, 53)
+local teal        = hsl(150,  40, 50)
+local cyan        = hsl(180, 58, 38)
 
-local blue    = hsl(215, 80, 63).li(10)
-local purple  = hsl(279, 30, 62)
-local magenta = hsl(310,  40, 70)
+local blue        = hsl(215, 80, 63).li(10)
+local purple      = hsl(279, 30, 62)
+local magenta     = hsl(310,  40, 70)
+local sky_magenta  = hsl(310, 40, 64)
 
 local black_olive = hsl(110, 10, 23)
 
 return lush(function(injected_functions)
 local sym = injected_functions.sym
 return {
-Normal       { fg=fg,      bg=bg };
-NormalFloat  { fg=fg,      bg=overbg };
+Normal       { fg=fg };
+NormalFloat  { fg=fg,      bg=overbg.li(3) };
 NormalNC     { fg=fg,      bg=bg.da(10) }; -- normal text in non-current windows
 
 Comment      { fg=comment,  gui=it };
-Whitespace   { fg=mid };                  -- 'listchars'
-Conceal      { fg=hsl(0, 0, 25) };
-NonText      { fg=treebg };              -- characters that don't exist in the text
+Whitespace   { fg=mid.li(20) };                  -- 'listchars'
+Conceal      { fg=hsl(0, 0, 29) };
+NonText      { fg=treebg.li(15) };              -- characters that don't exist in the text
 SpecialKey   { Whitespace };              -- Unprintable characters: text displayed differently from what it really is
 
 
@@ -93,8 +94,8 @@ Folded       { fg=comment, bg=overbg };
 FoldColumn   { LineNr };
 
 Pmenu        { bg=overbg };                -- Popup menu normal item
-PmenuSel     { bg=mid };                   -- selected item
-PmenuSbar    { Pmenu };                    -- scrollbar
+PmenuSel     { bg=subtle.li(3) };                   -- selected item
+PmenuSbar    { bg=overbg.da(7) };                    -- scrollbar
 PmenuThumb   { PmenuSel };                 -- Thumb of the scrollbar
 WildMenu     { Pmenu };                    -- current match in 'wildmenu' completion
 QuickFixLine { fg=pop };                   -- Current |quickfix| item in the quickfix window
@@ -137,7 +138,7 @@ DiffText     { DiffChange, gui=un };
 DiffAdded    { DiffAdd };
 DiffRemoved  { DiffDelete };
 
-SpellBad     { fg=red,     gui=un };
+SpellBad     { sp=orange,  gui="underline" };
 SpellCap     { fg=magenta, gui=un };
 SpellLocal   { fg=orange,  gui=un };
 SpellRare    { fg=yellow,  gui=un };
@@ -184,7 +185,7 @@ LspDiagnosticsUnderlineHint          { gui=un };    -- underline "Hint" diagnost
 ---- Standard highlight groups -------------------------------------------------
 -- See :help group-name
 
-Constant       { fg=orange };
+Constant       { fg=Normal.fg };
 Number         { fg=blue };
 Float          { Number };
 Boolean        { Constant };
@@ -216,23 +217,23 @@ Typedef        { Type };
 Special        { fg=orange };  -- (preferred) any special symbol
 SpecialChar    { Special };    -- special character in a constant
 Tag            { fg=yellow };  -- you can use CTRL-] on this
-Delimiter      { fg=fg };    -- character that needs attention
+Delimiter      { fg=fg };      -- character that needs attention
 SpecialComment { Special };    -- special things inside a comment
 Debug          { Special };    -- debugging statements
 
 Underlined { gui = un };
 Bold       { gui = bf };
 Italic     { gui = it };
-Ignore     { fg=fadefg };           --  left blank, hidden  |hl-Ignore|
+Ignore     { fg=fadefg };          --  left blank, hidden  |hl-Ignore|
 Error      { fg=red };             --  any erroneous construct
-Todo       { gui=bf };  --  anything that needs extra attention
+Todo       { gui=bf };             --  anything that needs extra attention
 
 
 
 ---- TREESITTER ----------------------------------------------------------------
 
-sym"@constant"                 { Normal };
-sym"@constant.builtin"         { Normal,   gui=it };      -- constant that are built in the language: `nil` in Lua.
+sym"@constant"                 { Constant };
+sym"@constant.builtin"         { Constant,   gui=it };      -- constant that are built in the language: `nil` in Lua.
 sym"@constant.macro"           { Constant,   gui=bf };    -- constants that are defined by macros: `NULL` in C.
 sym"@number"                   { Number };
 sym"@float"                    { Float };
@@ -256,7 +257,7 @@ sym"@variable.builtin"         { Constant, gui=it };          -- Variable names 
 
 sym"@function"                 { Function };
 sym"@function.builtin"         { Function };
-sym"@function.macro"           { Function };              -- macro defined fuctions: each `macro_rules` in Rust
+sym"@function.macro"           { Function };              -- macro defined functions: each `macro_rules` in Rust
 sym"@method"                   { Function };
 sym"@constructor"              { fg=fg };                 -- For constructor: `{}` in Lua and Java constructors.
 sym"@keyword.function"         { Keyword };
@@ -278,8 +279,8 @@ sym"@type.sql"                 { Type };
 sym"@type.builtin"             { Type,     gui=it };
 
 sym"@punctuation.delimiter"    { Delimiter };             -- delimiters ie: `.`
-sym"@punctuation.bracket"      { fg=fg };                 -- brackets and parens.
-sym"@punctuation.special"      { Delimiter };             -- special punctutation that does not fall in the catagories before.
+sym"@punctuation.bracket"      { fg=fg };                 -- brackets and parents.
+sym"@punctuation.special"      { Delimiter };             -- special punctuation that does not fall in the categories before.
 
 sym"@comment"                  { Comment };
 sym"@tag"                      { Tag };                   -- Tags like html tag names.
