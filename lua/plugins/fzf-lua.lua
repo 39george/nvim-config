@@ -4,7 +4,7 @@ return {
   "ibhagwan/fzf-lua",
   -- optional for icon support
   dependencies = { "nvim-tree/nvim-web-devicons" },
-  lazy = true,
+  cmd = { "FzfLua" },
   -- stylua: ignore
   keys = {
     { "<C-P>", function() require("fzf-lua").files() end, desc = "Fzf files" },
