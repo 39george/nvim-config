@@ -93,3 +93,8 @@ extern
 NvimTree
 MiniCursorWord
 Neotest
+bufferline
+orderable
+barbar
+fzf
+FzfLua
