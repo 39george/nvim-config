@@ -349,5 +349,11 @@ UfoFoldedBg  { bg=subtle.li(5) };
 -- GitSignsDeleteInline       { Visual };
 -- GitSignsChangeInline       { Visual };
 -- GitSignsDeleteVirtLn       { Visual };
+
+-- Indent-blankline
+IblIndent                   { fg=treebg.li(7) };
+
+-- Nvim-treesitter-context
+TreesitterContextLineNumber { bg=bg }
 }end)
 -- stylua: ignore end
