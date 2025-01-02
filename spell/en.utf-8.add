@@ -166,3 +166,5 @@ postgres
 str
 Gitsigns
 blankline
+scrolloff
+EOF
