@@ -333,5 +333,8 @@ LazyReasonStart        { fg=purple.li(30).sa(50) };
 LazySpecial            { Comment };
 LazyLocal              { fg=orange };
 
+-- Ufo
+UfoFoldedBg  { bg=subtle.li(5) };
+
 }end)
 -- stylua: ignore end

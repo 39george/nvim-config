@@ -39,6 +39,7 @@ vim.g.maplocalleader = "\\"
 
 vim.opt.scrolloff = 5
 
+vim.cmd("set termguicolors")
 vim.cmd("set number")
 vim.cmd("set relativenumber")
 vim.cmd("set shiftwidth=4")
@@ -49,16 +50,6 @@ vim.cmd("set expandtab")
 vim.cmd("set mousescroll=ver:1,hor:2")
 vim.cmd("set cursorline")
 vim.cmd("set spell")
-
--- Manual folding
-vim.o.foldcolumn = "1" -- '0' is not bad
-vim.cmd([[
-	set foldtext=substitute(getline(v:foldstart),'\\t',repeat('\ ',&tabstop),'g').'...'.trim(getline(v:foldend))
-]])
-vim.wo.foldmethod = "manual"
-vim.wo.fillchars = "fold: "
-vim.wo.foldnestmax = 3
-vim.wo.foldminlines = 1
 
 -- Setup lazy.nvim
 require("lazy").setup({
