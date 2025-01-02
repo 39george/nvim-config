@@ -8,7 +8,7 @@ return {
   -- Will be loaded as nvim-lspconfig's dependency
   lazy = true,
   -- use a release tag to download pre-built binaries
-  version = "*",
+  version = "0.8.2", -- in 0.9.0 path completion was broken for my config
   ---@module 'blink.cmp'
   ---@type blink.cmp.Config
   opts = {
@@ -40,13 +40,8 @@ return {
         ---@param cmp table
         function(cmp)
           if cmp.snippet_active() then
-            if cmp.is_visible() then
-              return cmp.select_and_accept()
-            else
-              return cmp.accept()
-            end
+            return cmp.accept()
           else
-            print("sn not active")
             return cmp.select_and_accept()
           end
         end,
