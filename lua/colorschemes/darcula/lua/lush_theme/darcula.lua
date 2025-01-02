@@ -132,10 +132,10 @@ Title        { fg=blue };                  -- titles for output from ":set all" 
 Added        { fg=green.li(50).saturate(100) };
 Changed      { fg=yellow.li(10).saturate(100) };
 Removed      { fg=red.li(20).saturate(100)};
-DiffAdd      { fg=green.da(20) };
-DiffDelete   { fg=red };
-DiffChange   { fg=yellow.da(20) };
-DiffText     { DiffChange, gui=un };
+DiffAdd      { bg=teal.da(56).desaturate(40) };
+DiffDelete   { bg=red.da(61).desaturate(76) };
+DiffChange   { bg=blue.da(64).de(70) };
+DiffText     { bg=DiffChange.bg.li(20).sa(10) };
 DiffAdded    { DiffAdd };
 DiffRemoved  { DiffDelete };
 
@@ -336,5 +336,18 @@ LazyLocal              { fg=orange };
 -- Ufo
 UfoFoldedBg  { bg=subtle.li(5) };
 
+-- Gitsigns
+-- GitSignsAdd        { Added };
+-- GitSignsChange     { Changed };
+-- GitSignsDelete     { Removed };
+--
+-- GitSignsCurrentLineBlame  { fg=blue };
+
+-- GitSignsAddPreview      { Added };
+-- GitSignsDeletePreview   { Visual };
+-- GitSignsAddInline       { Visual };
+-- GitSignsDeleteInline       { Visual };
+-- GitSignsChangeInline       { Visual };
+-- GitSignsDeleteVirtLn       { Visual };
 }end)
 -- stylua: ignore end
