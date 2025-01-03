@@ -174,3 +174,13 @@ rmq
 msg
 json
 identicon
+HostParam
+getResponseStatusRatioForHost
+GetRatioOfSuccessResponsesForHostIdRow
+StartTimestamp
+timestamp
+EndTimestamp
+RFC3339
+autohighlighting
+darcula
+colorscheme
