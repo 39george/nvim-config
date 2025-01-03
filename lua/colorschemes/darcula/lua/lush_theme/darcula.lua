@@ -64,7 +64,7 @@ local purple      = hsl(279, 30, 62)
 local magenta     = hsl(310,  53, 76)
 local sky_magenta  = hsl(310, 40, 64)
 
-local black_olive = hsl(110, 10, 23)
+local onyx = hsl(209, 4, 24)
 
 return lush(function(injected_functions)
 local sym = injected_functions.sym
@@ -83,7 +83,7 @@ SpecialKey   { Whitespace };              -- Unprintable characters: text displa
 Cursor       { fg=bg,      bg=fg };
 TermCursor   { fg=bg,      bg=fg };
 ColorColumn  { bg=overbg };
-CursorColumn { bg=subtle };
+CursorColumn { bg=subtle.da(10) };
 CursorLine   { CursorColumn };
 MatchParen   { fg=pop,     bg=mid };
 
@@ -300,7 +300,8 @@ sym"@error"                    { fg=red };                -- syntax/parser error
 
 -- Other stuff
 HelpHyperTextJump {fg=yellow};
-markdownLinkText {fg=fg};
+markdownLinkText  {fg=fg};
+Yank              { fg=bg, bg=celadon.li(25).sa(45) };
 
 -- NvimTree
 NvimTreeNormal           { bg=treebg, fg=fg };
@@ -312,8 +313,8 @@ NvimTreeGitRenamedIcon   { Changed };
 NvimTreeGitDirtyIcon     { Changed };
 
 -- MiniCursorWord
-MiniCursorWord        { bg=black_olive };
-MiniCursorWordCurrent { bg=black_olive };
+MiniCursorWord        { bg=onyx };
+MiniCursorWordCurrent { bg=onyx };
 
 -- Neotest
 NeotestAdapterName    { fg=fg.da(47).de(125) };
