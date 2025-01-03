@@ -19,8 +19,17 @@ return {
       topdelete = { text = "" },
       changedelete = { text = "▎" },
     },
+    current_line_blame_opts = {
+      virt_text = true,
+      virt_text_pos = "eol", -- 'eol' | 'overlay' | 'right_align'
+      delay = 200,
+      ignore_whitespace = false,
+      virt_text_priority = 100,
+      use_focus = true,
+    },
     on_attach = function(buffer)
       local gs = package.loaded.gitsigns
+      local gs = require("gitsigns")
 
       local function map(mode, l, r, desc)
         vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc })
@@ -42,6 +51,7 @@ return {
     map("n", "<leader>ghd", gs.diffthis, "Diff This")
     map("n", "<leader>ghD", function() gs.diffthis("~") end, "Diff This ~")
     map("n", "<leader>ghR", gs.refresh, "Refresh gitsigns")
+    map("n", "<leader>ghl", gs.toggle_current_line_blame, "Refresh gitsigns")
     map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns Select Hunk")
     end,
   },
