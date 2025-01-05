@@ -80,16 +80,7 @@ return {
         map( "n", "<leader>he", ":Rest env show<CR>", { desc = "Show dotenv file registered to current .http file", buffer = true })
 
         wk.add({
-          { "<leader>h", group = "Rest", icon = "", expand = function()
-              return {
-                { "<leader>hc", buffer = currentBuffer, desc = "Edit cookies file", },
-                { "<leader>hr", buffer = currentBuffer, desc = "Run request under the cursor", },
-                { "<leader>hl", buffer = currentBuffer, desc = "Run last request", },
-                { "<leader>hL", buffer = currentBuffer, desc = "Edit logs", },
-                { "<leader>he", buffer = currentBuffer, desc = "Show dotenv file registered to current .http file", },
-              }
-            end,
-          },
+          { "<leader>h", group = "Rest", icon = ""  }
         })
       end,
     })
