@@ -70,17 +70,19 @@ return {
       pattern = "http",
       callback = function()
         local map = vim.keymap.set
-        local currentBuffer = 0
+        local kulala = require("kulala")
 
         -- stylua: ignore
-        map( "n", "<leader>hr", ":Rest run<CR>", { desc = "Run request under the cursor", buffer = true })
-        map( "n", "<leader>hc", ":Rest cookies<CR>", { desc = "Edit cookies file", buffer = true })
-        map( "n", "<leader>hl", ":Rest last<CR>", { desc = "Run last request", buffer = true })
-        map( "n", "<leader>hL", ":Rest logs<CR>", { desc = "Edit logs", buffer = true })
-        map( "n", "<leader>he", ":Rest env show<CR>", { desc = "Show dotenv file registered to current .http file", buffer = true })
+        map( "n", "<leader>hr", kulala.run, { desc = "Run request under the cursor", buffer = true })
+        map( "n", "<leader>hi", kulala.inspect, { desc = "Inspect request", buffer = true })
+        map( "n", "<leader>hn", kulala.jump_next, { desc = "Jump next request", buffer = true })
+        map( "n", "<leader>hp", kulala.jump_prev, { desc = "Jump previous request", buffer = true })
+        map( "n", "<leader>hc", kulala.copy, { desc = "Copy as curl", buffer = true })
+        map( "n", "<leader>hG", kulala.scripts_clear_global, { desc = "Clear global variables", buffer = true })
+        map( "n", "<leader>hC", kulala.clear_cached_files, { desc = "Clear cache files", buffer = true })
 
         wk.add({
-          { "<leader>h", group = "Rest", icon = ""  }
+          { "<leader>h", group = "Kulala", icon = ""  }
         })
       end,
     })
