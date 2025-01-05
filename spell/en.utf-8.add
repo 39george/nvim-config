@@ -233,3 +233,9 @@ pretransfer
 pathresolver
 kulala
 jsonpath
+GetRequestsTopWithPercentageRow
+GetUsersTop
+GetUsersTopRow
+int32
+addrs
+keymappings
