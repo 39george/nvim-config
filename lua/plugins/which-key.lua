@@ -75,8 +75,8 @@ return {
         -- stylua: ignore
         map( "n", "<leader>hr", kulala.run, { desc = "Run request under the cursor", buffer = true })
         map( "n", "<leader>hi", kulala.inspect, { desc = "Inspect request", buffer = true })
-        map( "n", "<leader>hn", kulala.jump_next, { desc = "Jump next request", buffer = true })
-        map( "n", "<leader>hp", kulala.jump_prev, { desc = "Jump previous request", buffer = true })
+        map( "n", "<leader>h]", kulala.jump_next, { desc = "Jump next request", buffer = true })
+        map( "n", "<leader>h[", kulala.jump_prev, { desc = "Jump previous request", buffer = true })
         map( "n", "<leader>hc", kulala.copy, { desc = "Copy as curl", buffer = true })
         map( "n", "<leader>hG", kulala.scripts_clear_global, { desc = "Clear global variables", buffer = true })
         map( "n", "<leader>hC", kulala.clear_cached_files, { desc = "Clear cache files", buffer = true })

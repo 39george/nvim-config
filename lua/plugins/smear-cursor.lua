@@ -1,5 +1,5 @@
 return {
   "sphamba/smear-cursor.nvim",
-  cond = false,
+  cond = not vim.env.NOANIM,
   opts = {},
 }

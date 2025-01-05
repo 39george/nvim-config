@@ -51,7 +51,7 @@ return {
     map("n", "<leader>ghd", gs.diffthis, "Diff This")
     map("n", "<leader>ghD", function() gs.diffthis("~") end, "Diff This ~")
     map("n", "<leader>ghR", gs.refresh, "Refresh gitsigns")
-    map("n", "<leader>ghl", gs.toggle_current_line_blame, "Refresh gitsigns")
+    map("n", "<leader>ghl", gs.toggle_current_line_blame, "Toggle current line blame")
     map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", "GitSigns Select Hunk")
     end,
   },
