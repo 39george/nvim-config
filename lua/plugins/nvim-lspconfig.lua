@@ -170,6 +170,7 @@ return {
           cmd = { "clangd" },
           filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto" },
           root_dir = function(fname)
+            local util = require("lspconfig.util")
             return util.root_pattern(
               ".clangd",
               ".clang-tidy",
