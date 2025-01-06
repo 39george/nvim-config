@@ -259,7 +259,7 @@ return lush(function(injected_functions)
 
     sym "@function" { Function },
     sym "@function.builtin" { Function },
-    sym "@function.macro" { Function }, -- macro defined functions: each `macro_rules` in Rust
+    sym "@function.macro" { fg = coral }, -- macro defined functions: each `macro_rules` in Rust
     sym "@method" { Function },
     sym "@constructor" { fg = fg },     -- For constructor: `{}` in Lua and Java constructors.
     sym "@keyword.function" { Keyword },
