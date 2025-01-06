@@ -51,8 +51,8 @@ local selection           = hsl("#214283")
 
 -- Color palette
 local red                 = hsl(1, 77, 59)
-local salmon              = hsl(10, 90, 70)
-local crayola             = hsl(354, 96, 74)
+local coral               = hsl(18, 83, 63)
+local crayola             = hsl(350, 96, 74)
 local orange              = hsl(20, 50, 61)
 local yellow              = hsl(37, 100, 71)
 
@@ -186,13 +186,12 @@ return lush(function(injected_functions)
 
 
     ---- Standard highlight groups -------------------------------------------------
-    -- See :help group-name
 
     Constant { fg = fg },
     Number { fg = blue },
     Float { Number },
     Boolean { Constant },
-    Character { fg = salmon },
+    Character { Number },
     String { fg = green },
 
     Identifier { fg = fg },
@@ -299,6 +298,9 @@ return lush(function(injected_functions)
 
     sym "@error" { fg = red },                -- syntax/parser errors.
 
+    ---- LSP -----------------------------------------------------------------------
+
+    sym "@lsp.type.macro" { fg = coral },
 
     -- Other stuff
     HelpHyperTextJump { fg = yellow },
