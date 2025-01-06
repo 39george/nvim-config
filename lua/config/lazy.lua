@@ -67,6 +67,8 @@ vim.cmd("set mousescroll=ver:1,hor:2")
 vim.cmd("set cursorline")
 vim.cmd("set spell")
 
+vim.o.guifont = "JetBrains Mono:h11.25"
+
 -- Setup lazy.nvim
 require("lazy").setup({
   spec = {
