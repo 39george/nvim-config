@@ -145,7 +145,7 @@ vim.keymap.set( "n", "gI", "<cmd>lua vim.lsp.buf.implementation()<CR>", { desc =
 vim.keymap.set( "n", "gy", "<cmd>lua vim.lsp.buf.type_definition()<CR>", { desc = "Goto T[y]pe Definition" })
 vim.keymap.set( "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", { desc = "Goto Declaration" })
 -- To avoid ↑ collision
-if not vim.fn.has('win32') then 
+if not vim.fn.has("win32") then 
   vim.keymap.del( "n", "gri")
   vim.keymap.del( "n", "grr")
   vim.keymap.del( { "n", "x" }, "gra")
