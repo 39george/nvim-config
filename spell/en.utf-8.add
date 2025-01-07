@@ -242,3 +242,15 @@ keymappings
 Fastaction
 cartesian
 clangd
+TranslateMessage
+helloworld
+www
+IShellDispatch2
+BSTR
+ShellWindows
+CSIDL
+Shell32
+CMake
+WIN32
+win32
+Neoscroll
