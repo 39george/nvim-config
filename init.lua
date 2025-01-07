@@ -1,3 +1,7 @@
+if vim.fn.has("win32") then
+  vim.g.loaded_man = nil
+end
+
 require("config.icons")
 require("config.lazy")
 vim.cmd("colorscheme darcula")
