@@ -1,3 +1,10 @@
+local duration_multiplier
+if vim.fn.has("win32") then
+  duration_multiplier = 0.5
+else
+  duration_multiplier = 0.9
+end
+
 return {
   "karb94/neoscroll.nvim",
   event = { "BufReadPost", "BufNewFile", "BufWritePre" },
@@ -9,7 +16,7 @@ return {
     stop_eof = true, -- Stop at <EOF> when scrolling downwards
     respect_scrolloff = false, -- Stop scrolling when the cursor reaches the scrolloff margin of the file
     cursor_scrolls_alone = true, -- The cursor will keep on scrolling even if the window cannot scroll further
-    duration_multiplier = 0.9, -- Global duration multiplier
+    duration_multiplier = duration_multiplier, -- Global duration multiplier
     easing = "linear", -- Default easing function
     pre_hook = nil, -- Function to run before the scrolling animation starts
     post_hook = nil, -- Function to run after the scrolling animation ends
