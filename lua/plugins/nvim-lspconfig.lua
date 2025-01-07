@@ -252,6 +252,25 @@ return {
             },
           },
         },
+        neocmake = {
+          cmd = { "neocmakelsp", "--stdio" },
+          filetypes = { "cmake" },
+          root_dir = function(fname)
+            return lspconfig.util.root_pattern(
+              unpack({ ".git", "build", "cmake" })
+            )(fname)
+          end,
+          single_file_support = true,
+          init_options = {
+            format = {
+              enable = true,
+            },
+            lint = {
+              enable = true,
+            },
+            scan_cmake_in_package = true, -- default is true
+          },
+        },
       },
     }
     return opts
