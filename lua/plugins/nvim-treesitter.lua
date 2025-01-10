@@ -58,6 +58,7 @@ return {
       -- cmake
       -- bash
       -- awk
+      -- python
       auto_install = false,
       incremental_selection = {
         enable = true,

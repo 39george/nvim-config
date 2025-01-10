@@ -271,6 +271,106 @@ return {
             scan_cmake_in_package = true, -- default is true
           },
         },
+        yamlls = {
+          cmd = { "yaml-language-server", "--stdio" },
+          filetypes = { "yaml", "yaml.docker-compose", "yaml.gitlab" },
+          root_dir = function(fname)
+            return vim.fs.dirname(
+              vim.fs.find(".git", { path = fname, upward = true })[1]
+            )
+          end,
+          single_file_support = true,
+          settings = {
+            redhat = { telemetry = { enabled = false } },
+          },
+        },
+        docker_compose_language_service = {
+          default_config = {
+            cmd = { "docker-compose-langserver", "--stdio" },
+            filetypes = { "yaml.docker-compose" },
+            root_dir = lspconfig.util.root_pattern(
+              "docker-compose.yaml",
+              "docker-compose.yml",
+              "compose.yaml",
+              "compose.yml"
+            ),
+            single_file_support = true,
+          },
+        },
+        pyright = {
+          cmd = { "pyright-langserver", "--stdio" },
+          filetypes = { "python" },
+          root_dir = function(fname)
+            return lspconfig.util.root_pattern(unpack({
+              "pyproject.toml",
+              "setup.py",
+              "setup.cfg",
+              "requirements.txt",
+              "Pipfile",
+              "pyrightconfig.json",
+              ".git",
+            }))(fname)
+          end,
+          single_file_support = true,
+          settings = {
+            python = {
+              analysis = {
+                autoSearchPaths = true,
+                useLibraryCodeForTypes = true,
+                diagnosticMode = "openFilesOnly",
+              },
+            },
+          },
+          commands = {
+            PyrightOrganizeImports = {
+              function()
+                local params = {
+                  command = "pyright.organizeimports",
+                  arguments = { vim.uri_from_bufnr(0) },
+                }
+
+                local clients = lspconfig.util.get_lsp_clients({
+                  bufnr = vim.api.nvim_get_current_buf(),
+                  name = "pyright",
+                })
+                for _, client in ipairs(clients) do
+                  client.request("workspace/executeCommand", params, nil, 0)
+                end
+              end,
+              description = "Organize Imports",
+            },
+            PyrightSetPythonPath = {
+              function(path)
+                local clients = lspconfig.util.get_lsp_clients({
+                  bufnr = vim.api.nvim_get_current_buf(),
+                  name = "pyright",
+                })
+                for _, client in ipairs(clients) do
+                  if client.settings then
+                    client.settings.python = vim.tbl_deep_extend(
+                      "force",
+                      client.settings.python,
+                      { pythonPath = path }
+                    )
+                  else
+                    client.config.settings = vim.tbl_deep_extend(
+                      "force",
+                      client.config.settings,
+                      { python = { pythonPath = path } }
+                    )
+                  end
+                  client.notify(
+                    "workspace/didChangeConfiguration",
+                    { settings = nil }
+                  )
+                end
+              end,
+              description = "Reconfigure pyright with the provided python path",
+              nargs = 1,
+              complete = "file",
+            },
+          },
+        },
       },
     }
     return opts

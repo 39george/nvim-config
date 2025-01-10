@@ -13,7 +13,7 @@ return {
       -- Good defaults
       lua = { "stylua" },
       -- Conform will run multiple formatters sequentially
-      python = { "isort", "black" },
+      python = { "ruff" },
       -- You can customize some of the format options for the filetype (:help conform.format)
       rust = { "rustfmt", lsp_format = "fallback" },
       -- Conform will run the first available formatter
@@ -24,6 +24,14 @@ return {
     formatters = {
       shfmt = {
         prepend_args = { "-i", "2" },
+      },
+      ruff = {
+        -- This can be a string or a function that returns a string.
+        -- When defining a new formatter, this is the only field that is required
+        command = "ruff",
+        -- A list of strings, or a function that returns a list of strings
+        -- Return a single string instead of a list to run the command in a shell
+        args = { "format", "--stdin-filename", "$FILENAME" },
       },
     },
     -- Set default options
