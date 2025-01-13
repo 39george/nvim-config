@@ -9,6 +9,7 @@ return {
     { "<leader>cf", function() require("conform") vim.cmd("Format") end, mode = "", desc = "Format buffer(selection)" },
   },
   opts = {
+    log_level = vim.log.levels.DEBUG,
     formatters_by_ft = {
       -- Good defaults
       lua = { "stylua" },
@@ -17,7 +18,8 @@ return {
       -- You can customize some of the format options for the filetype (:help conform.format)
       rust = { "rustfmt", lsp_format = "fallback" },
       -- Conform will run the first available formatter
-      javascript = { "prettierd", "prettier", stop_after_first = true },
+      javascript = { "prettier", stop_after_first = true },
+      json = { "prettier" },
       sh = { "shfmt" },
       go = { "goimports", "gofmt" },
     },
@@ -32,6 +34,10 @@ return {
         -- A list of strings, or a function that returns a list of strings
         -- Return a single string instead of a list to run the command in a shell
         args = { "format", "--stdin-filename", "$FILENAME" },
+      },
+      prettier = {
+        command = "prettier",
+        args = { "--stdin-filepath", "$FILENAME" },
       },
     },
     -- Set default options
