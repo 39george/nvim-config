@@ -8,7 +8,8 @@ return {
   -- Will be loaded as nvim-lspconfig's dependency
   lazy = true,
   -- use a release tag to download pre-built binaries
-  version = "0.8.2", -- in 0.9.0 path completion was broken for my config
+  -- version = "0.8.2", -- in 0.9.0 path completion was broken for my config
+  version = "0.10.0",
   ---@module 'blink.cmp'
   ---@type blink.cmp.Config
   opts = {
@@ -76,7 +77,8 @@ return {
       accept = {
         auto_brackets = { enabled = true, default_brackets = { "(", ")" } },
       },
-      list = { selection = "preselect" },
+      -- list = { selection = "preselect" },
+      list = { selection = { preselect = true, auto_insert = true } },
       menu = {
         draw = {
           columns = {
