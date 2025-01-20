@@ -3,6 +3,7 @@
 return {
   "folke/todo-comments.nvim",
   dependencies = { "nvim-lua/plenary.nvim" },
+  event = { "BufReadPost", "BufNewFile", "BufWritePre" },
   opts = {},
 	  -- stylua: ignore
 	  keys = {
