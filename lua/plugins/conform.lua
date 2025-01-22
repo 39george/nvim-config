@@ -22,6 +22,7 @@ return {
       json = { "prettier" },
       sh = { "shfmt" },
       go = { "goimports", "gofmt" },
+      http = { "kulala" },
     },
     formatters = {
       shfmt = {
@@ -38,6 +39,11 @@ return {
       prettier = {
         command = "prettier",
         args = { "--stdin-filepath", "$FILENAME" },
+      },
+      kulala = {
+        command = "kulala-fmt",
+        args = { "$FILENAME" },
+        stdin = false,
       },
     },
     -- Set default options

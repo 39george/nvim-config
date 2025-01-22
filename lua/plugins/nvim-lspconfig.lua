@@ -370,6 +370,7 @@ return {
             },
           },
         },
+        kulala_ls = {},
       },
     }
     return opts
