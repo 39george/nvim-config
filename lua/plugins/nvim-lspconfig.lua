@@ -371,6 +371,14 @@ return {
           },
         },
         kulala_ls = {},
+        gdscript = {
+          cmd = { "ncat", "127.0.0.1", "6005" },
+          filetypes = { "gd", "gdscript", "gdscript3" },
+          root_dir = require("lspconfig.util").root_pattern(
+            "project.godot",
+            ".git"
+          ),
+        },
       },
     }
     return opts
