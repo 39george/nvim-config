@@ -39,6 +39,7 @@ return {
       },
       filters = {
         dotfiles = true,
+        custom = { ".uid" },
       },
     }
     return opts
