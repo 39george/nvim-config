@@ -1,6 +1,6 @@
 local s = package.config:sub(1, 1)
 
-print(vim.fn.stdpath('config') .. s .. "lua" .. s .. "colorschemes" .. s .. "darcula")
+-- stylua: ignore
 return {
     {
         dir = vim.fn.stdpath('config') .. s .. "lua" .. s .. "colorschemes" .. s .. "darcula",
