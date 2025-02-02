@@ -211,7 +211,7 @@ return lush(function(injected_functions)
     Macro { PreProc },       -- same as Define
     PreCondit { PreProc },   -- preprocessor #if, #else, #endif, etc.
 
-    Type { fg = fg },
+    Type { fg = fg.darken(23) },
     StorageClass { fg = magenta }, -- static, register, volatile, etc.
     Structure { fg = magenta },    -- struct, union, enum, etc.
     Typedef { Type },
@@ -278,7 +278,7 @@ return lush(function(injected_functions)
 
     sym "@type" { Type },
     sym "@type.sql" { Type },
-    sym "@type.builtin" { Type, gui = it },
+    sym "@type.builtin" { Type },
 
     sym "@punctuation.delimiter" { Delimiter }, -- delimiters ie: `.`
     sym "@punctuation.bracket" { fg = fg },     -- brackets and parents.
