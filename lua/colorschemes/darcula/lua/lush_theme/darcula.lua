@@ -48,6 +48,7 @@ local fadefg              = hsl("#606366") -- non-important text elements
 local line_number_current = hsl("#A4A3A3")
 local pop                 = c7
 local selection           = hsl("#214283")
+local white               = hsl(0, 0, 100)
 
 -- Color palette
 local red                 = hsl(1, 77, 59)
@@ -211,7 +212,7 @@ return lush(function(injected_functions)
     Macro { PreProc },       -- same as Define
     PreCondit { PreProc },   -- preprocessor #if, #else, #endif, etc.
 
-    Type { fg = fg.darken(23) },
+    Type { fg = white },
     StorageClass { fg = magenta }, -- static, register, volatile, etc.
     Structure { fg = magenta },    -- struct, union, enum, etc.
     Typedef { Type },
