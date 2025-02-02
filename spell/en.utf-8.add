@@ -339,3 +339,5 @@ sessionAdapter
 sessionManager
 autotag
 authpher
+hostInfo
+addHost
