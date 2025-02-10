@@ -8,7 +8,8 @@ end
 return {
   "karb94/neoscroll.nvim",
   event = { "BufReadPost", "BufNewFile", "BufWritePre" },
-  cond = not vim.env.NOANIM,
+  -- cond = not vim.env.NOANIM,
+  cond = false,
   opts = {
     -- stylua: ignore
     mappings = { "<C-u>", "<C-d>", "<C-b>", "<C-f>", "<C-y>", "<C-e>", "zt", "zz", "zb" },
