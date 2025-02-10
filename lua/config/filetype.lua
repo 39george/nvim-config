@@ -1,11 +1,13 @@
--- vim.filetype.add({
---   extension = {
---     env = "dotenv",
---   },
---   filename = {
---     [".env"] = "dotenv",
---   },
---   pattern = {
---     ["%.env%.[%w_.-]+"] = "dotenv",
---   },
--- })
+vim.filetype.add({
+  extension = {
+    -- env = "dotenv",
+    http = "http",
+  },
+  filename = {
+    -- [".env"] = "dotenv",
+    ["http"] = "http",
+  },
+  pattern = {
+    -- ["%.env%.[%w_.-]+"] = "dotenv",
+  },
+})
