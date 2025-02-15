@@ -143,7 +143,7 @@ return {
         },
         clangd = {
           cmd = { "clangd" },
-          filetypes = { "c", "cpp", "objc", "objcpp", "cuda", "proto" },
+          filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
           root_dir = function(fname)
             local util = require("lspconfig.util")
             return util.root_pattern(
@@ -378,6 +378,16 @@ return {
             "project.godot",
             ".git"
           ),
+        },
+        protols = {
+          cmd = { "protols" },
+          filetypes = { "proto" },
+          single_file_support = true,
+          root_dir = function(fname)
+            return vim.fs.dirname(
+              vim.fs.find(".git", { path = fname, upward = true })[1]
+            )
+          end,
         },
       },
     }

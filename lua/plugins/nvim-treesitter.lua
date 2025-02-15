@@ -59,6 +59,7 @@ return {
       -- bash
       -- awk
       -- python
+      -- proto
       auto_install = false,
       incremental_selection = {
         enable = true,
