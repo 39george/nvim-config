@@ -23,6 +23,7 @@ return {
       sh = { "shfmt" },
       go = { "goimports", "gofmt" },
       http = { "kulala" },
+      markdown = { "prettier" },
     },
     formatters = {
       shfmt = {
