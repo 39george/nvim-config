@@ -60,6 +60,7 @@ return {
       -- awk
       -- python
       -- proto
+      -- solidity
       auto_install = false,
       incremental_selection = {
         enable = true,
