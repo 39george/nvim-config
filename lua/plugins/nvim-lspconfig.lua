@@ -389,6 +389,21 @@ return {
             )
           end,
         },
+        solidity_ls = {
+          cmd = { "vscode-solidity-server", "--stdio" },
+          filetypes = { "solidity" },
+          root_dir = require("lspconfig.util").root_pattern(unpack({
+            "hardhat.config.js",
+            "hardhat.config.ts",
+            "foundry.toml",
+            "remappings.txt",
+            "truffle.js",
+            "truffle-config.js",
+            "ape-config.yaml",
+          }))
+            or require("lspconfig.util").root_pattern(".git", "package.json"),
+          single_file_support = true,
+        },
       },
     }
     return opts
