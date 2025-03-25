@@ -16,7 +16,7 @@ return {
       -- Conform will run multiple formatters sequentially
       python = { "ruff" },
       -- You can customize some of the format options for the filetype (:help conform.format)
-      rust = { "rustfmt", lsp_format = "fallback" },
+      rust = { "rustfmt", lsp_format = "fallback", "dx" },
       -- Conform will run the first available formatter
       javascript = { "prettier", stop_after_first = true },
       json = { "prettier" },
@@ -44,6 +44,11 @@ return {
       kulala = {
         command = "kulala-fmt",
         args = { "$FILENAME" },
+        stdin = false,
+      },
+      dx = {
+        command = "dx",
+        args = { "fmt", "-f", "$FILENAME" },
         stdin = false,
       },
     },

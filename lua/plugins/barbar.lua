@@ -27,11 +27,11 @@ return {
         [vim.diagnostic.severity.INFO] = { enabled = false },
         [vim.diagnostic.severity.HINT] = { enabled = true, icon = Icons.diagnostics.Hint },
       },
-      gitsigns = {
-        added = { enabled = true, icon = Icons.git.added },
-        changed = { enabled = true, icon = Icons.git.modified },
-        deleted = { enabled = true, icon = Icons.git.removed },
-      },
+      -- gitsigns = {
+      --   added = { enabled = true, icon = Icons.git.added },
+      --   changed = { enabled = true, icon = Icons.git.modified },
+      --   deleted = { enabled = true, icon = Icons.git.removed },
+      -- },
 
       -- Configure the icons on the bufferline based on the visibility of a buffer.
       -- Supports all the base icon options, plus `modified` and `pinned`.
