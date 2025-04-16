@@ -20,7 +20,7 @@ if not vim.uv.fs_stat(lazypath) then
   if vim.v.shell_error ~= 0 then
     vim.api.nvim_echo({
       { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-      { out, "WarningMsg" },
+      { out,                            "WarningMsg" },
       { "\nPress any key to exit..." },
     }, true, {})
     vim.fn.getchar()
@@ -95,6 +95,7 @@ require("lazy").setup({
 require("config.keymap")
 require("config.tabwidth")
 require("config.filetype")
+require("config.autocmd")
 
 -- Enable clipboard support in wsl
 if vim.fn.has("wsl") == 1 then
