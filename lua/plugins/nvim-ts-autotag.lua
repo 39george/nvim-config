@@ -1,5 +1,5 @@
 return {
   "windwp/nvim-ts-autotag",
-  ft = "html",
+  ft = { "html", "rust" },
   opts = {},
 }

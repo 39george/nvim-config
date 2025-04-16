@@ -1,8 +1,14 @@
 -- Default Nvim LSP client configurations for various LSP servers.
-
 return {
   "neovim/nvim-lspconfig", -- Add LSP config
-  dependencies = { "saghen/blink.cmp" },
+  dependencies = {
+    "saghen/blink.cmp",
+    {
+      "SmiteshP/nvim-navbuddy",
+      dependencies = { "SmiteshP/nvim-navic", "MunifTanjim/nui.nvim" },
+      opts = { lsp = { auto_attach = true } },
+    },
+  },
   event = { "BufReadPost", "BufNewFile", "BufWritePre" },
   lazy = true,
   opts = function()
@@ -43,33 +49,37 @@ return {
             if client.workspace_folders then
               local path = client.workspace_folders[1].name
               if
-                vim.loop.fs_stat(path .. "/.luarc.json")
-                or vim.loop.fs_stat(path .. "/.luarc.jsonc")
+                  vim.loop.fs_stat(path .. "/.luarc.json")
+                  or vim.loop.fs_stat(path .. "/.luarc.jsonc")
               then
                 return
               end
             end
 
             client.config.settings.Lua =
-              vim.tbl_deep_extend("force", client.config.settings.Lua, {
-                runtime = {
-                  -- Tell the language server which version of Lua you're using
-                  -- (most likely LuaJIT in the case of Neovim)
-                  version = "LuaJIT",
-                },
-                -- Make the server aware of Neovim runtime files
-                workspace = {
-                  checkThirdParty = false,
-                  library = {
-                    vim.env.VIMRUNTIME,
-                    -- Depending on the usage, you might want to add additional paths here.
-                    -- "${3rd}/luv/library"
-                    -- "${3rd}/busted/library",
+                vim.tbl_deep_extend("force", client.config.settings.Lua, {
+                  runtime = {
+                    -- Tell the language server which version of Lua you're using
+                    -- (most likely LuaJIT in the case of Neovim)
+                    version = "LuaJIT",
                   },
-                  -- or pull in all of 'runtimepath'. NOTE: this is a lot slower and will cause issues when working on your own configuration (see https://github.com/neovim/nvim-lspconfig/issues/3189)
-                  -- library = vim.api.nvim_get_runtime_file("", true)
-                },
-              })
+                  -- Make the server aware of Neovim runtime files
+                  workspace = {
+                    checkThirdParty = false,
+                    library = vim.api.nvim_get_runtime_file("", true),
+                    -- library = {
+                    --   vim.env.VIMRUNTIME,
+                    --   -- Depending on the usage, you might want to add additional paths here.
+                    --   -- "${3rd}/luv/library"
+                    --   -- "${3rd}/busted/library",
+                    -- },
+                    -- or pull in all of 'runtimepath'. NOTE: this is a lot slower and will cause issues when working on your own configuration (see https://github.com/neovim/nvim-lspconfig/issues/3189)
+                    -- library = vim.api.nvim_get_runtime_file("", true)
+                  },
+                  telemetry = {
+                    enable = false,
+                  },
+                })
           end,
           -- cmd = { "lua-language-server" },
           -- filetypes = { "lua" },
@@ -111,7 +121,7 @@ return {
               --
               -- Default upstream pattern is "**/*@(.sh|.inc|.bash|.command)".
               globPattern = vim.env.GLOB_PATTERN
-                or "*@(.sh|.inc|.bash|.command)",
+                  or "*@(.sh|.inc|.bash|.command)",
             },
           },
           filetypes = { "bash", "sh" },
@@ -200,12 +210,12 @@ return {
                 local util = require("lspconfig.util")
                 local bufnr = vim.api.nvim_get_current_buf()
                 local clangd_client =
-                  util.get_active_client_by_name(bufnr, "clangd")
+                    util.get_active_client_by_name(bufnr, "clangd")
                 if
-                  not clangd_client
-                  or not clangd_client.supports_method(
-                    "textDocument/symbolInfo"
-                  )
+                    not clangd_client
+                    or not clangd_client.supports_method(
+                      "textDocument/symbolInfo"
+                    )
                 then
                   return vim.notify(
                     "Clangd client not found",
@@ -226,7 +236,7 @@ return {
                       return
                     end
                     local container =
-                      string.format("container: %s", res[1].containerName) ---@type string
+                        string.format("container: %s", res[1].containerName) ---@type string
                     local name = string.format("name: %s", res[1].name) ---@type string
                     vim.lsp.util.open_floating_preview(
                       { name, container },
@@ -270,6 +280,12 @@ return {
             scan_cmake_in_package = true, -- default is true
           },
         },
+        dockerls = {
+          cmd = { 'docker-langserver', '--stdio' },
+          filetypes = { 'dockerfile' },
+          root_dir = lspconfig.util.root_pattern 'Dockerfile',
+          single_file_support = true,
+        },
         yamlls = {
           cmd = { "yaml-language-server", "--stdio" },
           filetypes = { "yaml", "yaml.docker-compose", "yaml.gitlab" },
@@ -284,17 +300,15 @@ return {
           },
         },
         docker_compose_language_service = {
-          default_config = {
-            cmd = { "docker-compose-langserver", "--stdio" },
-            filetypes = { "yaml.docker-compose" },
-            root_dir = lspconfig.util.root_pattern(
-              "docker-compose.yaml",
-              "docker-compose.yml",
-              "compose.yaml",
-              "compose.yml"
-            ),
-            single_file_support = true,
-          },
+          cmd = { "docker-compose-langserver", "--stdio" },
+          filetypes = { "yaml.docker-compose" },
+          root_dir = lspconfig.util.root_pattern(
+            "docker-compose.yaml",
+            "docker-compose.yml",
+            "compose.yaml",
+            "compose.yml"
+          ),
+          single_file_support = true,
         },
         pyright = {
           cmd = { "pyright-langserver", "--stdio" },
@@ -389,20 +403,35 @@ return {
             )
           end,
         },
-        solidity_ls = {
-          cmd = { "vscode-solidity-server", "--stdio" },
-          filetypes = { "solidity" },
-          root_dir = require("lspconfig.util").root_pattern(unpack({
-            "hardhat.config.js",
-            "hardhat.config.ts",
-            "foundry.toml",
-            "remappings.txt",
-            "truffle.js",
-            "truffle-config.js",
-            "ape-config.yaml",
-          }))
-            or require("lspconfig.util").root_pattern(".git", "package.json"),
+        -- solidity_ls = {
+        --   cmd = { "vscode-solidity-server", "--stdio" },
+        --   filetypes = { "solidity" },
+        --   root_dir = require("lspconfig.util").root_pattern(unpack({
+        --     "hardhat.config.js",
+        --     "hardhat.config.ts",
+        --     "foundry.toml",
+        --     "remappings.txt",
+        --     "truffle.js",
+        --     "truffle-config.js",
+        --     "ape-config.yaml",
+        --   }))
+        --     or require("lspconfig.util").root_pattern(".git", "package.json"),
+        --   single_file_support = true,
+        -- },
+        cssls = {
+          cmd = { "vscode-css-language-server", "--stdio" },
+          filetypes = { "css", "scss", "less" },
+          init_options = { provideFormatter = true }, -- needed to enable formatting capabilities
+          root_dir = require("lspconfig.util").root_pattern(
+            "package.json",
+            ".git"
+          ),
           single_file_support = true,
+          settings = {
+            css = { validate = true },
+            scss = { validate = true },
+            less = { validate = true },
+          },
         },
       },
     }

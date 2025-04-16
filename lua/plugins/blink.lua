@@ -9,7 +9,7 @@ return {
   lazy = true,
   -- use a release tag to download pre-built binaries
   -- version = "0.8.2", -- in 0.9.0 path completion was broken for my config
-  version = "0.10.0",
+  version = "1.*",
   ---@module 'blink.cmp'
   ---@type blink.cmp.Config
   opts = {
@@ -82,9 +82,9 @@ return {
       menu = {
         draw = {
           columns = {
-            { "label", "label_description", gap = 1 },
-            { "kind_icon", gap = 1 },
-            { "kind", gap = 1 },
+            { "label",      "label_description", gap = 1 },
+            { "kind_icon",  gap = 1 },
+            { "kind",       gap = 1 },
             { "source_name" },
           },
         },

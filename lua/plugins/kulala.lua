@@ -22,5 +22,15 @@ return {
       "script_output",
       "stats",
     },
+    certificates = {
+      ["localhost"] = {
+        cert = "/home/george/.local/share/mkcert/client-local/localhost-client.pem",
+        key = "/home/george/.local/share/mkcert/client-local/localhost-client-key.pem",
+      },
+      ["www.somewhere.com:8443"] = {
+        cert = "/home/userx/certs/somewhere.crt",
+        key = "/home/userx/certs/somewhere.key",
+      },
+    },
   },
 }

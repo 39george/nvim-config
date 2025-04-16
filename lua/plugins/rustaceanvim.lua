@@ -9,12 +9,21 @@ vim.g.rustaceanvim = {
     default_settings = {
       -- rust-analyzer language server configuration
       ["rust-analyzer"] = {
+        checkOnSave = false,
         cargo = {
           allFeatures = true,
           loadOutDirsFromCheck = true,
           buildScripts = {
             enable = true,
           },
+        },
+        procMacro = {
+          enable = true,
+        },
+        diagnostics = {
+          enable = true,
+          -- disabled = { "unresolved-proc-macro", "macro-error" },
+          enableExperimental = true,
         },
       },
     },

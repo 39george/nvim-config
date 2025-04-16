@@ -6,7 +6,10 @@ return {
   cmd = { "ConformInfo", "Format" },
   -- stylua: ignore
   keys = {
-    { "<leader>cf", function() require("conform") vim.cmd("Format") end, mode = "", desc = "Format buffer(selection)" },
+    { "<leader>cf", function()
+      require("conform")
+      vim.cmd("Format")
+    end, mode = "", desc = "Format buffer(selection)" },
   },
   opts = {
     log_level = vim.log.levels.DEBUG,
@@ -16,7 +19,7 @@ return {
       -- Conform will run multiple formatters sequentially
       python = { "ruff" },
       -- You can customize some of the format options for the filetype (:help conform.format)
-      rust = { "rustfmt", lsp_format = "fallback", "dx" },
+      rust = { "rustfmt", lsp_format = "fallback", "leptosfmt" },
       -- Conform will run the first available formatter
       javascript = { "prettier", stop_after_first = true },
       json = { "prettier" },
@@ -43,12 +46,17 @@ return {
       },
       kulala = {
         command = "kulala-fmt",
-        args = { "$FILENAME" },
+        args = { "format", "$FILENAME" },
         stdin = false,
       },
       dx = {
         command = "dx",
         args = { "fmt", "-f", "$FILENAME" },
+        stdin = false,
+      },
+      leptosfmt = {
+        command = "leptosfmt",
+        args = { "-c", "/home/george/leptosfmt.toml", "$FILENAME" },
         stdin = false,
       },
     },
@@ -73,7 +81,7 @@ return {
       local range = nil
       if args.count ~= -1 then
         local end_line =
-          vim.api.nvim_buf_get_lines(0, args.line2 - 1, args.line2, true)[1]
+            vim.api.nvim_buf_get_lines(0, args.line2 - 1, args.line2, true)[1]
         range = {
           start = { args.line1, 0 },
           ["end"] = { args.line2, end_line:len() },

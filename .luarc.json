@@ -1,0 +1,13 @@
+{
+  "$schema": "https://raw.githubusercontent.com/LuaLS/vscode-lua/master/setting/schema.json",
+  "workspace.library": [
+    "/home/george/.local/share/nvim/lazy",
+    "/home/george/bin/nvim/share/nvim/runtime"
+  ],
+  "workspace.checkThirdParty": "Disable",
+  "workspace.userThirdParty": [],
+  "runtime.version": "Lua 5.4",
+  "runtime.pathStrict": false,
+  "runtime.path": [],
+  "hint.enable": true
+}
