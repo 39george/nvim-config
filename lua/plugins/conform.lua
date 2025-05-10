@@ -19,7 +19,8 @@ return {
       -- Conform will run multiple formatters sequentially
       python = { "ruff" },
       -- You can customize some of the format options for the filetype (:help conform.format)
-      rust = { "rustfmt", lsp_format = "fallback", "leptosfmt" },
+      -- rust = { "rustfmt", lsp_format = "fallback", "leptosfmt" },
+      rust = { "rustfmt" },
       -- Conform will run the first available formatter
       javascript = { "prettier", stop_after_first = true },
       json = { "prettier" },
@@ -27,6 +28,12 @@ return {
       go = { "goimports", "gofmt" },
       http = { "kulala" },
       markdown = { "prettier" },
+      c = { "clang_format" },
+      cpp = { "clang_format" },
+      objc = { "clang_format" },
+      objcpp = { "clang_format" },
+      cuda = { "clang_format" },
+      proto = { "clang_format" },
     },
     formatters = {
       shfmt = {
@@ -81,7 +88,7 @@ return {
       local range = nil
       if args.count ~= -1 then
         local end_line =
-            vim.api.nvim_buf_get_lines(0, args.line2 - 1, args.line2, true)[1]
+          vim.api.nvim_buf_get_lines(0, args.line2 - 1, args.line2, true)[1]
         range = {
           start = { args.line1, 0 },
           ["end"] = { args.line2, end_line:len() },

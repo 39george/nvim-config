@@ -63,6 +63,7 @@ return {
       "proto",
       "solidity",
       "mermaid",
+      "prisma",
       -- "rust_with_rstml",
     },
     auto_install = false,

@@ -9,7 +9,7 @@ vim.g.rustaceanvim = {
     default_settings = {
       -- rust-analyzer language server configuration
       ["rust-analyzer"] = {
-        checkOnSave = false,
+        checkOnSave = true,
         cargo = {
           allFeatures = true,
           loadOutDirsFromCheck = true,

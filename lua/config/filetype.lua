@@ -2,6 +2,7 @@ vim.filetype.add({
   extension = {
     -- env = "dotenv",
     http = "http",
+    jsfx = "eel2",
   },
   filename = {
     -- [".env"] = "dotenv",
