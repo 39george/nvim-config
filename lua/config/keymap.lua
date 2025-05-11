@@ -38,6 +38,8 @@ vim.keymap.set( "n", "<leader>bb", "<cmd>e #<cr>", { desc = "Switch to Other Buf
 vim.keymap.set( "n", "<leader>`", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
 vim.keymap.set( "n", "<leader>bD", "<cmd>:bd<cr>", { desc = "Delete Buffer and Window" })
 vim.keymap.set( "n", "<leader>bd", "<cmd>:b#|bd#<cr>", { desc = "Delete Buffer" })
+-- vim.keymap.set( "n", "<A-d>", "<cmd>:b#|bd#<cr>", { desc = "Delete Buffer" })
+vim.keymap.set( "n", "<A-d>", "<Cmd>BufferClose<CR>", { desc = "Close Buffer" })
 vim.keymap.set( "n", "<leader>ba", ":%bd|e#|bd#<cr>|\'\"", { desc = "Delete all inactive buffers"} )
 
 vim.keymap.set("n", "<A-h>", "<Cmd>BufferPrevious<CR>", { desc = "Previous buffer"} )
