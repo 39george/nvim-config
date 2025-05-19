@@ -10,6 +10,9 @@ return {
       require("conform")
       vim.cmd("Format")
     end, mode = "", desc = "Format buffer(selection)" },
+    { "<leader>cF", function()
+      vim.g.disable_autoformat = not vim.g.disable_autoformat
+    end, mode = "", desc = "Toggle autoformat on save" },
   },
   opts = {
     log_level = vim.log.levels.DEBUG,
