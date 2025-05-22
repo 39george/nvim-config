@@ -1,3 +1,26 @@
+local function get_lux_library_paths()
+  local lux_base_path = vim.fn.expand("~/.local/share/lux/tree/5.4")
+
+  -- Function to safely glob paths and split them into a table
+  local function get_lux_paths(pattern)
+    local paths_str = vim.fn.globpath(lux_base_path, pattern)
+    if paths_str == "" then
+      return {} -- Return empty table if no matches
+    else
+      return vim.split(paths_str, "\n")
+    end
+  end
+
+  -- Get all 'src' directories
+  local lux_src_dirs = get_lux_paths("*/src/")
+  -- Get all 'lib' directories
+  local lux_lib_dirs = get_lux_paths("*/lib/")
+
+  -- Combine them into a single list for the library
+  local lux_package_libraries = vim.list_extend({}, lux_src_dirs)
+  return vim.list_extend(lux_package_libraries, lux_lib_dirs)
+end
+
 -- Default Nvim LSP client configurations for various LSP servers.
 return {
   "neovim/nvim-lspconfig", -- Add LSP config
@@ -45,17 +68,6 @@ return {
           },
         },
         lua_ls = {
-          -- on_init = function(client)
-          --   if client.workspace_folders then
-          --     local path = client.workspace_folders[1].name
-          --     if
-          --       vim.uv.fs_stat(path .. "/.luarc.json")
-          --       or vim.uv.fs_stat(path .. "/.luarc.jsonc")
-          --     then
-          --       return
-          --     end
-          --   end
-          -- end,
           settings = {
             Lua = {
               completion = {
@@ -68,17 +80,18 @@ return {
                 path = {
                   "?.lua",
                   "?/init.lua",
-                  vim.fn.expand("~/.local/share/lux/tree/5.4/?/?.lua"),
-                  vim.fn.expand("~/.local/share/lux/tree/5.4/?/init.lua"),
-                  vim.fn.expand("~/.local/share/lux/tree/5.4/?/init.lua"),
+                  -- Lux runtime paths
+                  vim.fn.expand("~/.local/share/lux/tree/5.4/*/src/?.lua"),
+                  vim.fn.expand("~/.local/share/lux/tree/5.4/*/src/?/init.lua"),
+                  vim.fn.expand("~/.local/share/lux/tree/5.4/*/lib/?.lua"),
+                  vim.fn.expand("~/.local/share/lux/tree/5.4/*/lib/?/init.lua"),
                 },
               },
               -- Make the server aware of Neovim runtime files
               workspace = {
                 checkThirdParty = true,
                 library = {
-                  vim.fn.expand("~/.local/share/lux/tree/5.4"),
-                  unpack(vim.api.nvim_get_runtime_file("", true)),
+                  unpack(get_lux_library_paths()),
                 },
               },
               telemetry = {
@@ -98,8 +111,28 @@ return {
             "stylua.toml",
             "selene.toml",
             "selene.yml",
-            ".git"
+            ".git",
+            "*.lua"
           ),
+          -- Define a custom on_attach function to dynamically adjust library based on root_dir
+          on_attach = function(client, bufnr)
+            local nvim_config_path = vim.fn.expand("~/.config/nvim")
+            local current_root_dir = client.root_dir or "" -- Get the root_dir of the current client session
+
+            if current_root_dir == nvim_config_path then
+              -- If the current project root is your Neovim config, add Neovim runtime files
+              local runtime_library_paths =
+                vim.api.nvim_get_runtime_file("", true)
+              vim.list_extend(
+                client.config.settings.Lua.workspace.library,
+                runtime_library_paths
+              )
+              vim.list_extend(
+                client.config.settings.Lua.diagnostics.globals,
+                { "vim", "package", "require", "love" }
+              ) -- Add any other globals you often use in your config
+            end
+          end,
         },
         bashls = {
           cmd = { "bash-language-server", "start" },
