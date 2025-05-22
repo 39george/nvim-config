@@ -45,64 +45,17 @@ return {
           },
         },
         lua_ls = {
-          on_init = function(client)
-            if client.workspace_folders then
-              local path = client.workspace_folders[1].name
-              if
-                vim.uv.fs_stat(path .. "/.luarc.json")
-                or vim.uv.fs_stat(path .. "/.luarc.jsonc")
-              then
-                return
-              end
-            end
-
-            client.config.settings.Lua =
-              vim.tbl_deep_extend("force", client.config.settings.Lua, {
-                runtime = {
-                  -- Tell the language server which version of Lua you're using
-                  -- (most likely LuaJIT in the case of Neovim)
-                  version = "LuaJIT",
-                },
-                -- Make the server aware of Neovim runtime files
-                workspace = {
-                  checkThirdParty = false,
-                  library = vim.api.nvim_get_runtime_file("", true),
-                  -- library = {
-                  --   vim.env.VIMRUNTIME,
-                  --   -- Depending on the usage, you might want to add additional paths here.
-                  --   -- "${3rd}/luv/library"
-                  --   -- "${3rd}/busted/library",
-                  -- },
-                  -- or pull in all of 'runtimepath'. NOTE: this is a lot slower and will cause issues when working on your own configuration (see https://github.com/neovim/nvim-lspconfig/issues/3189)
-                  -- library = vim.api.nvim_get_runtime_file("", true)
-                },
-                telemetry = {
-                  enable = false,
-                },
-                diagnostics = {
-                  -- Get the language server to recognize the `vim` global
-                  globals = { "vim" },
-                },
-              })
-          end,
-          -- cmd = { "lua-language-server" },
-          -- filetypes = { "lua" },
-          -- root_dir = function(fname)
-          --   local root = util.root_pattern(unpack(root_files))(fname)
-          --   if root and root ~= vim.env.HOME then
-          --     return root
+          -- on_init = function(client)
+          --   if client.workspace_folders then
+          --     local path = client.workspace_folders[1].name
+          --     if
+          --       vim.uv.fs_stat(path .. "/.luarc.json")
+          --       or vim.uv.fs_stat(path .. "/.luarc.jsonc")
+          --     then
+          --       return
+          --     end
           --   end
-          --   local root_lua = util.root_pattern("lua/")(fname) or ""
-          --   local root_git = vim.fs.dirname(
-          --     vim.fs.find(".git", { path = fname, upward = true })[1]
-          --   ) or ""
-          --   if root_lua == "" and root_git == "" then
-          --     return
-          --   end
-          --   return #root_lua >= #root_git and root_lua or root_git
           -- end,
-          -- single_file_support = true,
-          -- log_level = vim.lsp.protocol.MessageType.Warning,
           settings = {
             Lua = {
               completion = {
@@ -110,8 +63,43 @@ return {
                 keywordSnippet = "Replace",
                 displayContext = 5, -- Display 5 lines of completion context
               },
+              runtime = {
+                version = "LuaJIT",
+                path = {
+                  "?.lua",
+                  "?/init.lua",
+                  vim.fn.expand("~/.local/share/lux/tree/5.4/?/?.lua"),
+                  vim.fn.expand("~/.local/share/lux/tree/5.4/?/init.lua"),
+                  vim.fn.expand("~/.local/share/lux/tree/5.4/?/init.lua"),
+                },
+              },
+              -- Make the server aware of Neovim runtime files
+              workspace = {
+                checkThirdParty = true,
+                library = {
+                  vim.fn.expand("~/.local/share/lux/tree/5.4"),
+                  unpack(vim.api.nvim_get_runtime_file("", true)),
+                },
+              },
+              telemetry = {
+                enable = false,
+              },
+              diagnostics = {
+                -- Get the language server to recognize the `vim` global
+                globals = { "vim" },
+              },
             },
           },
+          single_file_support = true,
+          root_dir = lspconfig.util.root_pattern(
+            ".luarc.json",
+            ".luarc.jsonc",
+            ".luacheckrc",
+            "stylua.toml",
+            "selene.toml",
+            "selene.yml",
+            ".git"
+          ),
         },
         bashls = {
           cmd = { "bash-language-server", "start" },
