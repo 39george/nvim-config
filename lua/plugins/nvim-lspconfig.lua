@@ -90,9 +90,10 @@ return {
               -- Make the server aware of Neovim runtime files
               workspace = {
                 checkThirdParty = true,
-                library = {
-                  unpack(get_lux_library_paths()),
-                },
+                library = vim.list_extend(get_lux_library_paths(), {
+                  -- luv path
+                  vim.fn.expand("~/.local/share/lua-addons/luvit-meta/library"),
+                }),
               },
               telemetry = {
                 enable = false,
