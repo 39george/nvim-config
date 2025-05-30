@@ -13,8 +13,9 @@
 return {
   "Chaitanyabsprip/fastaction.nvim",
   lazy = true,
+  cond = false,
   keys = {
-    { mode = { "n", "x" }, "<leader>ca", function() require("fastaction").code_action() end, desc = "Code action" },
+    -- { mode = { "n", "x" }, "<leader>ca", function() require("fastaction").code_action() end, desc = "Code action" },
   },
   ---@type FastActionConfig
   opts = {},

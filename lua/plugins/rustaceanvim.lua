@@ -34,4 +34,5 @@ vim.g.rustaceanvim = {
 
 return {
   "mrcjkb/rustaceanvim",
+  ft = { "rust" },
 }
