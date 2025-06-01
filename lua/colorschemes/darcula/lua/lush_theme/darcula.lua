@@ -364,6 +364,10 @@ return lush(function(injected_functions)
     TreesitterContextLineNumber { fg = fadefg, bg = raisin_black },
     TreesitterContext { bg = raisin_black },
     TreesitterContextBottom { sp = raisin_black.li(7), bg = raisin_black, gui = un },
+
+    -- Navbuddy
+    NavbuddyFloatBorder { fg = fadefg, bg = raisin_black },
+    NavbuddyNormalFloat { fg = fadefg, bg = raisin_black, blend = 5 },
   }
 end)
 -- stylua: ignore end

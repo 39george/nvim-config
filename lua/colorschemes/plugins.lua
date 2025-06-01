@@ -13,4 +13,8 @@ return {
         dir = vim.fn.stdpath('config') .. s .. "lua" .. s .. "colorschemes" .. s .. "pinky",
         enabled = false,
     },
+    {
+        dir = vim.fn.stdpath('config') .. s .. "lua" .. s .. "colorschemes" .. s .. "godot",
+        enabled = true,
+    },
 }

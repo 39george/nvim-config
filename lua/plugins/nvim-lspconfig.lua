@@ -29,7 +29,18 @@ return {
     {
       "SmiteshP/nvim-navbuddy",
       dependencies = { "SmiteshP/nvim-navic", "MunifTanjim/nui.nvim" },
-      opts = { lsp = { auto_attach = true } },
+      opts = {
+        lsp = { auto_attach = true },
+        window = { border = "single" },
+        node_markers = {
+          enabled = true,
+          icons = {
+            leaf = "  ",
+            leaf_selected = " → ",
+            branch = " ",
+          },
+        },
+      },
     },
   },
   event = { "BufReadPost", "BufNewFile", "BufWritePre" },
