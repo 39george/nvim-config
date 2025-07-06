@@ -298,6 +298,7 @@ return lush(function(injected_functions)
     sym "@text.uri" { fg = green, gui = it }, -- Any URI like a link or email
 
     sym "@error" { fg = red },                -- syntax/parser errors.
+    sym "@markup.link.label.markdown_inline" { Comment },
 
     ---- LSP -----------------------------------------------------------------------
 

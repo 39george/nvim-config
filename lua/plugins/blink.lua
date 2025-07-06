@@ -82,9 +82,9 @@ return {
       menu = {
         draw = {
           columns = {
-            { "label",      "label_description", gap = 1 },
-            { "kind_icon",  gap = 1 },
-            { "kind",       gap = 1 },
+            { "label", "label_description", gap = 1 },
+            { "kind_icon", gap = 1 },
+            { "kind", gap = 1 },
             { "source_name" },
           },
         },
