@@ -15,6 +15,7 @@ return {
     { "<leader>sD", function() require("fzf-lua").diagnostics_workspace() end, desc = "Fzf workspace diagnostics" },
     { "<leader>sr", function() require("fzf-lua").lsp_references() end, desc = "Fzf lsp references" },
     { "<leader>sg", function() require("fzf-lua").grep_project() end, desc = "Fzf grep project" },
+    { "<leader>ca", mode = {"n", "v"}, function() require("fzf-lua").lsp_code_actions() end, desc = "Code actions" },
   },
   -- stylua: ignore
   opts = {

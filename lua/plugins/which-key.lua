@@ -42,8 +42,6 @@ return {
       { "<leader>u", group = "UI" },
       { "<leader>x", group = "Location/Quickfix" },
 
-      -- Code action
-      { "<leader>ca", function() vim.cmd.RustLsp('codeAction') end, mode = { "n", "x" }, desc = "Code action", icon = "", },
       -- Rename symbol
       { "<leader>cr", vim.lsp.buf.rename, desc = "Rename", icon = "󰤌" },
 
