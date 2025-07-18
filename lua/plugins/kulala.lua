@@ -32,5 +32,14 @@ return {
         key = "/home/userx/certs/somewhere.key",
       },
     },
+    icons = {
+      inlay = {
+        loading = "⏳",
+        done = "󰄳 ",
+        error = "❌",
+      },
+      lualine = "󱜿 ",
+      textHighlight = "WarningMsg", -- highlight group for request elapsed time
+    },
   },
 }
