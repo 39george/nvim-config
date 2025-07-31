@@ -86,6 +86,7 @@ return {
         map("n", "<leader>hc", kulala.copy, { desc = "Copy as curl", buffer = true })
         map("n", "<leader>hG", kulala.scripts_clear_global, { desc = "Clear global variables", buffer = true })
         map("n", "<leader>hC", kulala.clear_cached_files, { desc = "Clear cache files", buffer = true })
+        map("n", "<leader>he", kulala.set_selected_env, { desc = "Select environment", buffer = true })
 
         wk.add({
           { "<leader>h", group = "Kulala", icon = "" }
