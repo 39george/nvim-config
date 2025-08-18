@@ -1,6 +1,8 @@
 vim.g.rustaceanvim = {
   -- Plugin configuration
-  tools = {},
+  tools = {
+    enable_clippy = false,
+  },
   -- LSP configuration
   server = {
     on_attach = function(client, bufnr)

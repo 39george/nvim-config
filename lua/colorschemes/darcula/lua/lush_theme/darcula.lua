@@ -231,8 +231,6 @@ return lush(function(injected_functions)
     Error { fg = red },     --  any erroneous construct
     Todo { gui = bf },      --  anything that needs extra attention
 
-
-
     ---- TREESITTER ----------------------------------------------------------------
 
     sym "@constant" { Constant },
@@ -369,6 +367,22 @@ return lush(function(injected_functions)
     -- Navbuddy
     NavbuddyFloatBorder { fg = fadefg, bg = raisin_black },
     NavbuddyNormalFloat { fg = fadefg, bg = raisin_black, blend = 5 },
+
+    -- Snacks (picker)
+    SnacksPicker       { fg = fg, bg = bg },
+
+    ---- RUST ----------------------------------------------------------------------
+    rustMacro { fg = coral },
+    rustStorage { Keyword },
+    rustModPath { fg = magenta },
+    rustAttribute { fg = fg },
+    rustDerive { Type },
+    rustCommentLineDoc { Comment },
+    sym "@lsp.type.builtinAttribute.rust" { fg = coral },
+    sym "@lsp.type.decorator.rust" { fg = coral },
+    sym "@lsp.type.deriveHelper.rust" { fg = coral },
+    sym "@lsp.type.typeAlias.rust" { Type },
+    sym "@lsp.type.builtinType.rust" { Keyword },
   }
 end)
 -- stylua: ignore end

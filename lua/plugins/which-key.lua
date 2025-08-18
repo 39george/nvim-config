@@ -33,8 +33,8 @@ return {
         end
       },
       { "<leader>c", group = "Code" },
-      { "<leader>f", group = "Files & Fzf" },
-      { "<leader>g", group = "VCS?", icon = "" },
+      { "<leader>f", group = "Files" },
+      { "<leader>g", group = "Git", icon = "" },
       { "<leader>gh", group = "Git" },
       { "<leader>q", group = "Session" },
       { "<leader>s", group = "Search" },

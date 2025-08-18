@@ -8,7 +8,8 @@ return {
   opts_extend = { "ensure_installed" },
   opts = {
     parser_install_dir = vim.fn.stdpath("data") .. "/nvim-treesitter/parsers",
-    highlight = { enable = true },
+    highlight = { enable = true, disable = { "lua", "rust" } },
+    -- highlight = { enable = true },
     indent = { enable = true },
     ensure_installed = {
       "rust",
