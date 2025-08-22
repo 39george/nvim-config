@@ -24,53 +24,7 @@ end
 -- Default Nvim LSP client configurations for various LSP servers.
 return {
   "neovim/nvim-lspconfig", -- Add LSP config
-  dependencies = {
-    "saghen/blink.cmp",
-    {
-      "SmiteshP/nvim-navbuddy",
-      dependencies = { "SmiteshP/nvim-navic", "MunifTanjim/nui.nvim" },
-      opts = {
-        lsp = { auto_attach = true },
-        window = { border = "single" },
-        node_markers = {
-          enabled = true,
-          icons = {
-            leaf = "  ",
-            leaf_selected = " → ",
-            branch = " ",
-          },
-        },
-        icons = {
-          File = "󰈙 ",
-          Module = " ",
-          Namespace = "󰌗 ",
-          Package = " ",
-          Class = "󰌗 ",
-          Method = "󰆧 ",
-          Property = " ",
-          Field = " ",
-          Constructor = " ",
-          Enum = "󰕘 ",
-          Interface = "󰕘 ",
-          Function = "󰊕 ",
-          Variable = "󰆧 ",
-          Constant = "󰏿 ",
-          String = "  ",
-          Number = "󰎠 ",
-          Boolean = "◩ ",
-          Array = "󰅪 ",
-          Object = "󰅩 ",
-          Key = "󰌋 ",
-          Null = "󰟢 ",
-          EnumMember = " ",
-          Struct = "󰌗 ",
-          Event = " ",
-          Operator = "󰆕 ",
-          TypeParameter = "󰊄 ",
-        },
-      },
-    },
-  },
+  dependencies = { "saghen/blink.cmp" },
   event = { "BufReadPost", "BufNewFile", "BufWritePre" },
   lazy = true,
   opts = function()

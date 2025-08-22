@@ -12,7 +12,7 @@ return {
     { "<C-P>",        function() require("telescope.builtin").find_files() end,                     desc = "Telescope files" },
 
     -- you used Navbuddy on this key – keep it as-is
-    { "<leader>ss",   function() require("nvim-navbuddy").open() end,                               desc = "Navbuddy document symbols" },
+    { "<leader>ss",   function() require("telescope.builtin").lsp_document_symbols() end,                               desc = "Navbuddy document symbols" },
 
     -- live workspace symbols (closest to fzf-lua lsp_live_workspace_symbols)
     { "<leader>sS",   function()
