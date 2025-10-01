@@ -63,7 +63,7 @@ return {
         --   prompt_position = "top",
         -- },
         sorting_strategy = "ascending",
-        path_display = { "smart" },
+        path_display = { "absolute" },
         dynamic_preview_title = true,
       },
       pickers = {

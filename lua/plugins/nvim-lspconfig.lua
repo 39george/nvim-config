@@ -34,7 +34,9 @@ return {
         gopls = {
           cmd = { "gopls" },
           filetypes = { "go", "gomod" },
-          root_dir = lspconfig.util.root_pattern("go.mod", ".git"),
+          root_dir = function(bufnr, on_dir)
+            on_dir(vim.fs.root(bufnr, { "go.mod", ".git" }))
+          end,
           settings = {
             gopls = {
               gofumpt = true,
@@ -98,16 +100,18 @@ return {
             },
           },
           single_file_support = true,
-          root_dir = lspconfig.util.root_pattern(
-            ".luarc.json",
-            ".luarc.jsonc",
-            ".luacheckrc",
-            "stylua.toml",
-            "selene.toml",
-            "selene.yml",
-            ".git",
-            "*.lua"
-          ),
+          root_dir = function(bufnr, on_dir)
+            on_dir(vim.fs.root(bufnr, {
+              ".luarc.json",
+              ".luarc.jsonc",
+              ".luacheckrc",
+              "stylua.toml",
+              "selene.toml",
+              "selene.yml",
+              ".git",
+              "*.lua",
+            }) or vim.fn.getcwd())
+          end,
           -- Define a custom on_attach function to dynamically adjust library based on root_dir
           on_attach = function(client, bufnr)
             local nvim_config_path = vim.fn.expand("~/.config/nvim")
@@ -144,10 +148,8 @@ return {
             },
           },
           filetypes = { "bash", "sh" },
-          root_dir = function(fname)
-            return vim.fs.dirname(
-              vim.fs.find(".git", { path = fname, upward = true })[1]
-            )
+          root_dir = function(bufnr, on_dir)
+            on_dir(vim.fs.root(bufnr, { ".git" }) or vim.fn.getcwd())
           end,
           single_file_support = true,
         },
@@ -162,29 +164,29 @@ return {
             "typescriptreact",
             "typescript.tsx",
           },
-          root_dir = require("lspconfig.util").root_pattern(
-            "tsconfig.json",
-            "jsconfig.json",
-            "package.json",
-            ".git"
-          ),
+          root_dir = function(bufnr, on_dir)
+            on_dir(
+              vim.fs.root(
+                bufnr,
+                { "tsconfig.json", "jsconfig.json", "package.json", ".git" }
+              ) or vim.fn.getcwd()
+            )
+          end,
           single_file_support = true,
         },
         clangd = {
           cmd = { "clangd" },
           filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
-          root_dir = function(fname)
-            local util = require("lspconfig.util")
-            return util.root_pattern(
+          root_dir = function(bufnr, on_dir)
+            on_dir(vim.fs.root(bufnr, {
               ".clangd",
               ".clang-tidy",
               ".clang-format",
               "compile_commands.json",
               "compile_flags.txt",
-              "configure.ac"
-            )(fname) or vim.fs.dirname(
-              vim.fs.find(".git", { path = fname, upward = true })[1]
-            )
+              "configure.ac",
+              ".git",
+            }) or vim.fn.getcwd())
           end,
           single_file_support = true,
           capabilities = {
@@ -283,10 +285,11 @@ return {
         neocmake = {
           cmd = { "neocmakelsp", "--stdio" },
           filetypes = { "cmake" },
-          root_dir = function(fname)
-            return lspconfig.util.root_pattern(
-              unpack({ ".git", "build", "cmake" })
-            )(fname)
+          root_dir = function(bufnr, on_dir)
+            on_dir(
+              vim.fs.root(bufnr, { "build", ".git", "cmake" })
+                or vim.fn.getcwd()
+            )
           end,
           single_file_support = true,
           init_options = {
@@ -302,16 +305,16 @@ return {
         dockerls = {
           cmd = { "docker-langserver", "--stdio" },
           filetypes = { "dockerfile" },
-          root_dir = lspconfig.util.root_pattern("Dockerfile"),
+          root_dir = function(bufnr, on_dir)
+            on_dir(vim.fs.root(bufnr, { "Dockerfile" }) or vim.fn.getcwd())
+          end,
           single_file_support = true,
         },
         yamlls = {
           cmd = { "yaml-language-server", "--stdio" },
           filetypes = { "yaml", "yaml.docker-compose", "yaml.gitlab" },
-          root_dir = function(fname)
-            return vim.fs.dirname(
-              vim.fs.find(".git", { path = fname, upward = true })[1]
-            )
+          root_dir = function(bufnr, on_dir)
+            on_dir(vim.fs.root(bufnr, { ".git" }) or vim.fn.getcwd())
           end,
           single_file_support = true,
           settings = {
@@ -321,19 +324,21 @@ return {
         docker_compose_language_service = {
           cmd = { "docker-compose-langserver", "--stdio" },
           filetypes = { "yaml.docker-compose" },
-          root_dir = lspconfig.util.root_pattern(
-            "docker-compose.yaml",
-            "docker-compose.yml",
-            "compose.yaml",
-            "compose.yml"
-          ),
+          root_dir = function(bufnr, on_dir)
+            on_dir(vim.fs.root(bufnr, {
+              "docker-compose.yaml",
+              "docker-compose.yml",
+              "compose.yaml",
+              "compose.yml",
+            }) or vim.fn.getcwd())
+          end,
           single_file_support = true,
         },
         pyright = {
           cmd = { "pyright-langserver", "--stdio" },
           filetypes = { "python" },
-          root_dir = function(fname)
-            return lspconfig.util.root_pattern(unpack({
+          root_dir = function(bufnr, on_dir)
+            on_dir(vim.fs.root(bufnr, {
               "pyproject.toml",
               "setup.py",
               "setup.cfg",
@@ -341,7 +346,7 @@ return {
               "Pipfile",
               "pyrightconfig.json",
               ".git",
-            }))(fname)
+            }) or vim.fn.getcwd())
           end,
           single_file_support = true,
           settings = {
@@ -407,19 +412,19 @@ return {
         gdscript = {
           cmd = { "ncat", "127.0.0.1", "6005" },
           filetypes = { "gd", "gdscript", "gdscript3" },
-          root_dir = require("lspconfig.util").root_pattern(
-            "project.godot",
-            ".git"
-          ),
+          root_dir = function(bufnr, on_dir)
+            on_dir(vim.fs.root(bufnr, {
+              "project.godot",
+              ".git",
+            }) or vim.fn.getcwd())
+          end,
         },
         protols = {
           cmd = { "protols" },
           filetypes = { "proto" },
           single_file_support = true,
-          root_dir = function(fname)
-            return vim.fs.dirname(
-              vim.fs.find(".git", { path = fname, upward = true })[1]
-            )
+          root_dir = function(bufnr, on_dir)
+            on_dir(vim.fs.root(bufnr, { ".git" }) or vim.fn.getcwd())
           end,
         },
         -- solidity_ls = {
@@ -441,10 +446,11 @@ return {
           cmd = { "vscode-css-language-server", "--stdio" },
           filetypes = { "css", "scss", "less" },
           init_options = { provideFormatter = true }, -- needed to enable formatting capabilities
-          root_dir = require("lspconfig.util").root_pattern(
-            "package.json",
-            ".git"
-          ),
+          root_dir = function(bufnr, on_dir)
+            on_dir(
+              vim.fs.root(bufnr, { "package.json", ".git" }) or vim.fn.getcwd()
+            )
+          end,
           single_file_support = true,
           settings = {
             css = { validate = true },
@@ -460,14 +466,14 @@ return {
   -- function for each lspserver entry, like not lspconfig.setup({}), but lspconfig.golsp.setup({})
   config = function(_, opts)
     local blink = require("blink.cmp")
-    local lspconfig = require("lspconfig")
 
     -- Configure lsp capabilities to use blink caps
     for server, config in pairs(opts.servers) do
       -- passing config.capabilities to blink.cmp merges with the capabilities in your
       -- `opts[server].capabilities, if you've defined it
       config.capabilities = blink.get_lsp_capabilities(config.capabilities)
-      lspconfig[server].setup(config)
+      vim.lsp.config(server, config)
+      vim.lsp.enable(server)
     end
   end,
 }

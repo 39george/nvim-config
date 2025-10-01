@@ -70,6 +70,9 @@ vim.cmd("set nospell")
 
 vim.o.guifont = "JetBrains Mono:h11.25"
 
+-- Setup filetypes
+require("config.filetype")
+
 -- Setup lazy.nvim
 require("lazy").setup({
   spec = {
@@ -95,7 +98,6 @@ require("lazy").setup({
 
 require("config.keymap")
 require("config.tabwidth")
-require("config.filetype")
 require("config.autocmd")
 
 -- Enable clipboard support in wsl
