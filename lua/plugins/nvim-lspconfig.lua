@@ -31,6 +31,35 @@ return {
     local lspconfig = require("lspconfig")
     local opts = {
       servers = {
+        rust_analyzer = {
+          cmd = { "rust-analyzer" },
+          filetypes = { "rust" },
+          root_dir = function(bufnr, on_dir)
+            on_dir(
+              vim.fs.root(bufnr, { "Cargo.toml", "rust-project.json", ".git" })
+                or vim.fn.getcwd()
+            )
+          end,
+          settings = {
+            ["rust-analyzer"] = {
+              checkOnSave = true,
+              cargo = {
+                allFeatures = true,
+                loadOutDirsFromCheck = true,
+                buildScripts = {
+                  enable = true,
+                },
+              },
+              procMacro = {
+                enable = true,
+              },
+              diagnostics = {
+                enable = true,
+                enableExperimental = true,
+              },
+            },
+          },
+        },
         gopls = {
           cmd = { "gopls" },
           filetypes = { "go", "gomod" },

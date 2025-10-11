@@ -7,7 +7,7 @@ return {
       cmd = { "DiffviewOpen", "DiffviewFileHistory" },
     },
 
-    "ibhagwan/fzf-lua", -- optional
+    "nvim-telescope/telescope.nvim",
   },
   cmd = "Neogit",
   opts = {
@@ -167,7 +167,7 @@ return {
     -- Each Integration is auto-detected through plugin presence, however, it can be disabled by setting to `false`
     integrations = {
       diffview = true,
-      fzf_lua = true,
+      telescope = true,
     },
     sections = {
       -- Reverting/Cherry Picking
