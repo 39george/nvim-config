@@ -82,3 +82,10 @@ vim.keymap.set("n", "<leader>cs", CreateCenteredCommentSeparator, {
   silent = true,
   desc = "Create centered comment separator (80 chars)",
 })
+
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    client.server_capabilities.semanticTokensProvider = nil
+  end,
+})

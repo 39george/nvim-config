@@ -6,6 +6,9 @@ local lush = require("lush")
 local hsl = lush.hsl
 local hsluv = lush.hsluv
 
+-- GUI options
+local bf, it, un = "bold", "italic", "underline"
+
 local colors = {
   grays = {
     ["000"] = hsl("#000000"),
@@ -28,41 +31,52 @@ local colors = {
     ["850"] = hsl(40, 18, 100),
     ["900"] = hsl(40, 100, 99),
   },
-  green_pastel = hsl("#B3D8AB"),
-  green_light = hsl("#7BB662"),
-  green_dark = hsl("#589C48"),
-  orange_pastel = hsl("#F9BA8A"),
+  green_pastel = hsl("#7FC784"),
+  green_dark = hsl("#067D17"),
+  white = hsl("#ffffff"),
+  blue = hsl("#1750EB"),
+  blue_pastel = hsl("#A6D2FF"),
+  blue_light = hsl("#ADBEED"),
+  orange_pastel = hsl("#F7E2CB"),
   orange_light = hsl("#fbb149"),
   orange_dark = hsl("#F58024"),
+  yellow = hsl("#FFFC31"),
   purple_pastel = hsl("#D2A7DC"),
   purple_light = hsl("#994fb2"),
   purple_dark = hsl("#733381"),
+  pink_pastel = hsl("#FCE8F4"),
+  red = hsl("#F50000"),
+  warn = hsl("#FCF4D4"),
+  comment = hsl("#8C8C8C"),
 }
 
 local palette = {
-  bg = colors.grays["850"],
+  bg = colors.white,
   bg_subtle = colors.grays["800"],
   bg_very_subtle = colors.grays["700"],
-  norm = colors.grays["050"],
+  norm = colors.grays["000"],
   norm_subtle = colors.grays["100"],
   norm_very_subtle = colors.grays["200"],
 
-  cursor_line = colors.grays["800"],
-  comment = colors.grays["450"],
+  cursor_line = colors.grays["800"].lighten(60),
+  comment = colors.comment,
   oob = colors.grays["900"],
 
-  visual = colors.orange_light,
+  visual = colors.blue_pastel,
   literal = colors.green_dark,
+  number = colors.blue,
 
   add = colors.green_pastel,
-  change = colors.orange_pastel,
-  delete = colors.purple_pastel,
+  change = colors.blue_pastel,
+  delete = colors.red,
 
-  error = colors.purple_dark,
-  warn = colors.orange_dark,
+  error = colors.red,
+  warn = colors.warn,
   hint = colors.green_dark,
   info = colors.grays["050"],
   ok = colors.norm_subtle,
+  cursor_bg = colors.pink_pastel,
+  match_paren = colors.blue_light,
 }
 
 return lush(function(injected_functions)
@@ -76,36 +90,33 @@ return lush(function(injected_functions)
 	Comment { fg = palette.comment, italic = true },
 	SpecialComment { link = "Comment" },
 	Critical { fg = palette.bg, bg = palette.accent, bold = true },
+
 	-- constant literals
-	Constant { fg = palette.literal },
+	Constant { fg = palette.norm },
 	Character { link = "Constant" },
-	Number { link = "Constant" },
+	Number { fg = palette.number, link = "Constant" },
 	Boolean { link = "Constant" },
 	Float { link = "Constant" },
-	String { link = "Constant" },
+	String {fg = palette.literal, link = "Constant" },
 	Directory { link = "Constant" },
 	Title { link = "Constant" },
+
 	-- syntax
-	Function { fg = palette.norm, bold = true },
+	Function { fg = palette.norm },
 	Identifier { link = "Function" },
 
 	Statement { bold = true },
-	Conditonal { link = "Statement" },
-	Repeat { link = "Statement" },
-	Label { link = "Statement" },
-	Keyword { link = "Statement" },
-	Exception { link = "Statement" },
+	Conditonal { Statement },
+	Repeat { Statement },
+	Label { Statement },
+	Keyword { Statement },
+	Exception { fg = palette.error },
 
 	PreProc { bold = true },
 	Include { link = "PreProc" },
 	Define { link = "PreProc" },
 	Macro { link = "PreProc" },
 	PreCondit { link = "PreProc" },
-
-	Type { underline = true },
-	StorageClass { link = "Type" },
-	Structure { link = "Type" },
-	Typedef { link = "Type" },
 
 	Operator { fg = palette.accent },
 	Debug { link = "Operator" },
@@ -117,21 +128,23 @@ return lush(function(injected_functions)
 
 	Underlined { underline = true },
 	Ignore { fg = palette.norm_very_subtle },
-	Error { reverse = true, bold = true },
+	Error { reverse = true },
 	Todo { fg = palette.accent, italic = true },
+
 	-- spell
-	SpellBad { undercurl = true, sp = palette.norm },
+	SpellBad { undercurl = true },
 	SpellCap { link = "SpellBad" },
 	SpellLocal { link = "SpellBad" },
 	SpellRare { link = "SpellBad" },
+
 	-- ui
+  Cursor { },
+  CursorLine { bg = palette.cursor_line },
 	ColorColumn { link = "CursorLine" },
 	Conceal { link = "Comment" },
 	CurSearch { link = "Visual" },
-	Cursor { fg = palette.bg, bg = palette.accent },
-	CursorColumn { link = "CursorLine" },
-	CursorLine { bg = palette.cursor_line },
-	CursorLineNr { fg = palette.norm, bg = palette.cursor_line, bold = true },
+	CursorColumn { link = "CursorLine", },
+	CursorLineNr { fg = palette.norm, bg = palette.cursor_line },
 	EndOfBuffer { link = "Normal" },
 	ErrorMsg { fg = palette.accent, bold = true },
 	FloatBorder { fg = palette.norm_subtle, bg = palette.bg_subtle },
@@ -139,13 +152,11 @@ return lush(function(injected_functions)
 		fg = palette.norm_subtle,
 		bg = palette.bg_subtle,
 		bold = true,
-		underline = true,
 	},
-	FoldColumn { link = "SignColumn" },
+	FoldColumn { fg = palette.bg_very_subtle },
 	Folded { fg = palette.norm, bg = palette.bg_subtle, bold = true },
-	IncSearch { link = "CurSearch" },
 	LineNr { fg = palette.bg_very_subtle },
-	MatchParen { reverse = true },
+	MatchParen { bg = palette.match_paren },
 	ModeMsg { fg = palette.norm, bold = true },
 	MoreMsg { fg = palette.norm, bold = true },
 	MsgArea { fg = palette.norm, bg = palette.bg_very_subtle },
@@ -159,62 +170,62 @@ return lush(function(injected_functions)
 	PmenuKindSel { fg = palette.literal, bg = palette.bg_subtle, reverse = true, bold = true },
 	Question { bold = true },
 	QuickFixLine { link = "Visual" },
-	Search { link = "Visual" },
 	SignColumn { bg = palette.bg, fg = palette.norm, bold = true },
 	SpecialKey { fg = palette.norm_subtle },
 	StatusLine { fg = palette.norm, bg = palette.cursor_line },
 	StatusLineNC { fg = palette.norm, bg = palette.oob, italic = true },
 	StatusLineTerm { link = "StatusLine" },
 	StatusLineTermNC { link = "StatusLineNC" },
-	Substitute { link = "IncSearch" },
 	TabLine { fg = palette.norm_very_subtle, bg = palette.bg_very_subtle },
 	TabLineFill { bg = palette.oob },
 	TabLineSel { fg = palette.norm, bg = palette.bg, bold = true },
-	Visual { bg = palette.visual, fg = palette.fg },
+	Visual { bg = palette.visual },
 	WarningMsg { fg = palette.critical, bold = true },
 	WildMenu { link = "IncSearch" },
 	WinBar { link = "StatusLine" },
 	WinBarNC { link = "StatusLineNc" },
 	WinSeparator { fg = palette.norm, bg = palette.bg },
+
 	-- diagnostics
 	DiagnosticDeprecated { strikethrough = true },
 
-	DiagnosticError { fg = palette.error, bold = true },
-	DiagnosticWarn { fg = palette.warn, bold = true },
-	DiagnosticHint { fg = palette.hint, bold = true },
-	DiagnosticInfo { fg = palette.info, bold = true },
-	DiagnosticOk { fg = palette.ok, bold = true },
+	DiagnosticError { fg = palette.error },
+	DiagnosticWarn { fg = palette.norm },
+	DiagnosticHint { fg = palette.comment },
+	DiagnosticInfo { fg = palette.info  },
+	DiagnosticOk { fg = palette.ok },
 
-	DiagnosticUnderlineError { sp = palette.error, undercurl = true, bold = true },
-	DiagnosticUnderlineWarn { sp = palette.warn, undercurl = true, bold = true },
-	DiagnosticUnderlineHint { sp = palette.hint, undercurl = true, bold = true },
-	DiagnosticUnderlineInfo { sp = palette.info, undercurl = true, bold = true },
-	DiagnosticUnderlineOk { sp = palette.norm, undercurl = true, bold = true },
+	DiagnosticUnderlineError { sp = palette.error, undercurl = true },
+	DiagnosticUnderlineWarn { bg = palette.warn, sp = palette.warn, undercurl = true },
+	DiagnosticUnderlineHint { sp = palette.hint, undercurl = true },
+	DiagnosticUnderlineInfo { sp = palette.info, undercurl = true },
+	DiagnosticUnderlineOk { sp = palette.norm, undercurl = true },
 
-	DiagnosticVirtualTextError { link = "DiagnosticError" },
-	DiagnosticVirtualTextHint { link = "DiagnosticHint" },
+	DiagnosticVirtualTextError { DiagnosticError },
+	DiagnosticVirtualTextHint { DiagnosticHint },
 	DiagnosticVirtualTextInfo { link = "DiagnosticInfo" },
 	DiagnosticVirtualTextWarn { link = "DiagnosticWarn" },
 
 	DiagnosticDefaultError { link = "DiagnosticError" },
-	DiagnosticDefaultHint { link = "DiagnosticHint" },
+	DiagnosticDefaultHint { DiagnosticHint },
 	DiagnosticDefaultInfo { link = "DiagnosticInfo" },
 	DiagnosticDefaultWarn { link = "DiagnosticWarn" },
 
 	DiagnosticFloatingError { link = "DiagnosticError" },
-	DiagnosticFloatingHint { link = "DiagnosticHint" },
+	DiagnosticFloatingHint { DiagnosticHint },
 	DiagnosticFloatingInfo { link = "DiagnosticInfo" },
 	DiagnosticFloatingWarn { link = "DiagnosticWarn" },
 
 	DiagnosticSignError { link = "DiagnosticError" },
-	DiagnosticSignHint { link = "DiagnosticHint" },
+	DiagnosticSignHint { DiagnosticHint },
 	DiagnosticSignInfo { link = "DiagnosticInfo" },
 	DiagnosticSignWarn { link = "DiagnosticWarn" },
+
 	-- git-related
-	Added { fg = palette.fg, bg = palette.add },
-	Changed { fg = palette.fg, bg = palette.change },
-	Removed { fg = palette.fg, bg = palette.delete },
-	Deleted { fg = palette.fg, bg = palette.delete },
+	Added { fg = palette.add },
+	Changed { fg = palette.change },
+	Removed { fg = palette.delete },
+	Deleted { fg = palette.delete },
 
 	DiffAdd { link = "Added" },
 	DiffChange { link = "Changed" },
@@ -228,13 +239,23 @@ return lush(function(injected_functions)
 	GitAdd { link = "Added" },
 	GitChange { link = "Changed" },
 	GitDelete { link = "Removed" },
+
 	-- treesitter
 	sym "@string.documentation" { link = "Comment" },
 	sym "@keyword.function.julia" { bold = true },
+  sym "@constant" { Constant },
+  sym "@string" { String },
+
+  Yank { bg = colors.yellow },
+  Search {fg = palette.norm, bg = '#fcd47e' },     -- Last search pattern highlighting (see 'hlsearch')
+  IncSearch { Search },                -- 'incsearch' highlighting; also used for the text replaced with ":s///c"
+  Substitute { Search },               -- |:substitute| replacement text highlighting
+
 	-- quickscope.vim 
 	QuickScopeCursor { link = "Cursor" },
 	QuickScopePrimary { link = "Search" },
 	QuickScopeSecondary { link = "IncSearch" },
+
 	-- mini.nvim 
 	MiniStarterFooter { link = "Normal" },
 	MiniStarterHeader { link = "Normal" },
@@ -277,5 +298,9 @@ return lush(function(injected_functions)
 	NormalSB { fg = palette.norm, bg = palette.oob },
 	SignColumnSB { fg = palette.norm, bg = palette.oob },
 	WinSeparatorSB { fg = palette.norm, bg = palette.oob },
+
+  -- MiniCursorWord
+  MiniCursorWord { bg = palette.cursor_bg },
+  MiniCursorWordCurrent { bg = palette.cursor_bg },
   }
 end)

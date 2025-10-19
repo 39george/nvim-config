@@ -32,6 +32,7 @@ return {
           return require("which-key.extras").expand.buf()
         end
       },
+      { "<leader>r", group = "RustLsp" },
       { "<leader>c", group = "Code" },
       { "<leader>f", group = "Files" },
       { "<leader>g", group = "Git", icon = "" },

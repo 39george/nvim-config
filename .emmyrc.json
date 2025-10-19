@@ -1,0 +1,18 @@
+{
+  "$schema": "https://raw.githubusercontent.com/EmmyLuaLs/emmylua-analyzer-rust/refs/heads/main/crates/emmylua_code_analysis/resources/schema.json",
+  "runtime": {
+    "version": "LuaJIT",
+    "requirePattern": ["?.lua", "?/init.lua"]
+  },
+  "workspace": {
+    "library": [
+      "/usr/share/nvim/runtime/lua",
+      "/usr/share/nvim/runtime/lua/vim/lsp"
+    ],
+    "reindexDuration": 3000
+  },
+  "diagnostics": {
+    "globals": ["vim", "package", "require", "jit"]
+  },
+  "completion": { "enable": true, "callSnippet": false }
+}
