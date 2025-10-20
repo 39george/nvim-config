@@ -96,7 +96,7 @@ return lush(function(injected_functions)
 	Character { link = "Constant" },
 	Number { fg = palette.number, link = "Constant" },
 	Boolean { link = "Constant" },
-	Float { link = "Constant" },
+	Float { Number },
 	String {fg = palette.literal, link = "Constant" },
 	Directory { link = "Constant" },
 	Title { link = "Constant" },
@@ -139,6 +139,8 @@ return lush(function(injected_functions)
 
 	-- ui
   Cursor { },
+	Visual { bg = palette.visual },
+  VisualNOS { bg = palette.visual },
   CursorLine { bg = palette.cursor_line },
 	ColorColumn { link = "CursorLine" },
 	Conceal { link = "Comment" },
@@ -153,6 +155,8 @@ return lush(function(injected_functions)
 		bg = palette.bg_subtle,
 		bold = true,
 	},
+  IblScope { fg = palette.error },
+  IblIndent { fg = palette.bg_very_subtle.li(60) },
 	FoldColumn { fg = palette.bg_very_subtle },
 	Folded { fg = palette.norm, bg = palette.bg_subtle, bold = true },
 	LineNr { fg = palette.bg_very_subtle },
@@ -179,12 +183,15 @@ return lush(function(injected_functions)
 	TabLine { fg = palette.norm_very_subtle, bg = palette.bg_very_subtle },
 	TabLineFill { bg = palette.oob },
 	TabLineSel { fg = palette.norm, bg = palette.bg, bold = true },
-	Visual { bg = palette.visual },
 	WarningMsg { fg = palette.critical, bold = true },
 	WildMenu { link = "IncSearch" },
 	WinBar { link = "StatusLine" },
 	WinBarNC { link = "StatusLineNc" },
 	WinSeparator { fg = palette.norm, bg = palette.bg },
+
+  -- Telescope
+  TelescopeMatching { fg = palette.number },
+  TelescopeSelection { bg = palette.bg_subtle },
 
 	-- diagnostics
 	DiagnosticDeprecated { strikethrough = true },
@@ -270,8 +277,6 @@ return lush(function(injected_functions)
 	GitSignsAddLn { link = "Added" },
 	GitSignsChangeLn { link = "Changed" },
 	GitSignsDeleteLn { link = "Removed" },
-	-- telescope.nvim
-	TelescopeSelection { link = "CursorLine" },
 	-- whichkey.nvim
 	WhichKey { link = "NormalFloat" },
 	WhichKeyDesc { link = "WhichKey" },

@@ -358,6 +358,7 @@ return lush(function(injected_functions)
 
     -- Indent-blankline
     IblIndent { fg = jet.li(7) },
+    IblScope { fg = yellow },
 
     -- Nvim-treesitter-context
     TreesitterContextLineNumber { fg = fadefg, bg = raisin_black },
