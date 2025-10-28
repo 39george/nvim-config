@@ -48,5 +48,6 @@ return {
     { "<leader>rc", function() vim.cmd.RustLsp({ "openCargo" }) end, mode = "n", desc = "Open Cargo", },
     { "<leader>rD", function() vim.cmd.RustLsp({ "openDocs" }) end, mode = "n", desc = "Open docs", },
     { "<leader>rp", function() vim.cmd.RustLsp({ "parentModule" }) end, mode = "n", desc = "Open parent module", },
+    { "<leader>rf", function() vim.cmd.RustLsp({ "flyCheck" }) end, mode = "n", desc = "Fly check", },
   },
 }

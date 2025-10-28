@@ -64,6 +64,7 @@ return {
         --     },
         --   },
         -- },
+        postgres_lsp = {},
         gopls = {
           cmd = { "gopls" },
           filetypes = { "go", "gomod" },
