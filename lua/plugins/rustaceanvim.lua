@@ -40,6 +40,7 @@ vim.g.rustaceanvim = {
 return {
   "mrcjkb/rustaceanvim",
   ft = { "rust" },
+  version = "^6",
   -- stylua: ignore
   keys = {
     { "<leader>re", function() vim.cmd.RustLsp({ "explainError" }) end, mode = "n", desc = "Explain error", },

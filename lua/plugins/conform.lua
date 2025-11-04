@@ -21,9 +21,7 @@ return {
       lua = { "stylua" },
       -- Conform will run multiple formatters sequentially
       python = { "ruff" },
-      -- You can customize some of the format options for the filetype (:help conform.format)
-      -- rust = { "rustfmt", lsp_format = "fallback", "leptosfmt" },
-      rust = { "rustfmt" },
+      rust = { "rustfmt", "dx" },
       -- Conform will run the first available formatter
       javascript = { "prettier", stop_after_first = true },
       json = { "prettier" },
@@ -61,8 +59,16 @@ return {
       },
       dx = {
         command = "dx",
-        args = { "fmt", "-f", "$FILENAME" },
-        stdin = false,
+        args = { "fmt", "-f", "-" },
+        stdin = true,
+        condition = function(ctx)
+          if vim.fn.executable("dx") ~= 1 then
+            return false
+          end
+          local found =
+            vim.fs.find("Dioxus.toml", { upward = true, path = ctx.dirname })
+          return #found > 0
+        end,
       },
       leptosfmt = {
         command = "leptosfmt",

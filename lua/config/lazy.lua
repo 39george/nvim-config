@@ -94,6 +94,10 @@ require("lazy").setup({
     enabled = false,
     notify = true, -- get a notification when changes are found
   },
+  rocks = {
+    enabled = false,
+    hererocks = false,
+  },
 })
 
 require("config.keymap")
