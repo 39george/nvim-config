@@ -250,6 +250,37 @@ return {
         --     end
         --   end,
         -- },
+        kotlin_language_server = {
+          cmd = {
+            "/home/george/.local/bin/kotlin-langauge-server/bin/kotlin-language-server",
+          },
+          -- settings = {
+          --   bashIde = {
+          --     globPattern = vim.env.GLOB_PATTERN
+          --       or "*@(.sh|.inc|.bash|.command)",
+          --   },
+          -- },
+          filetypes = { "kotlin" },
+          root_dir = function(bufnr, on_dir)
+            on_dir(vim.fs.root(bufnr, {
+              "settings.gradle",
+              "settings.gradle.kts",
+              "pom.xml",
+              "build.gradle",
+              "build.gradle.kts",
+              "workspace.json",
+            }) or vim.fn.getcwd())
+          end,
+          init_options = {
+            storagePath = vim.fn.stdpath("cache") .. "/kotlin_language_server",
+          },
+          on_attach = function(client, bufnr)
+            -- Полностью отключаем форматирование от LSP
+            client.server_capabilities.documentFormattingProvider = false
+            client.server_capabilities.documentRangeFormattingProvider = false
+          end,
+          single_file_support = true,
+        },
         bashls = {
           cmd = { "bash-language-server", "start" },
           settings = {
