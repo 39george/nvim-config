@@ -384,6 +384,11 @@ return lush(function(injected_functions)
     sym "@lsp.type.deriveHelper.rust" { fg = coral },
     sym "@lsp.type.typeAlias.rust" { Type },
     sym "@lsp.type.builtinType.rust" { Keyword },
+
+    ---- KOTLIN --------------------------------------------------------------------
+    ktStructure { Keyword },
+    ktModifier { Keyword },
+    ktException { Keyword },
   }
 end)
 -- stylua: ignore end
