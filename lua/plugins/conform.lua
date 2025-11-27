@@ -35,13 +35,8 @@ return {
       objcpp = { "clang_format" },
       cuda = { "clang_format" },
       proto = { "clang_format" },
-      -- kotlin = { "ktfmt" },
     },
     formatters = {
-      -- ktfmt = {
-      --   command = "ktfmt",
-      --   args = { "--kotlinlang-style", "-" },
-      -- },
       shfmt = {
         prepend_args = { "-i", "2" },
       },
