@@ -31,39 +31,6 @@ return {
     local lspconfig = require("lspconfig")
     local opts = {
       servers = {
-        -- rust_analyzer = {
-        --   cmd = { "rust-analyzer" },
-        --   filetypes = { "rust" },
-        --   root_dir = function(bufnr, on_dir)
-        --     on_dir(
-        --       vim.fs.root(bufnr, { "Cargo.toml", "rust-project.json", ".git" })
-        --         or vim.fn.getcwd()
-        --     )
-        --   end,
-        --   settings = {
-        --     ["rust-analyzer"] = {
-        --       checkOnSave = true,
-        --       cargo = {
-        --         -- allFeatures = true,
-        --         allFeatures = false,
-        --         loadOutDirsFromCheck = true,
-        --         buildScripts = {
-        --           enable = true,
-        --         },
-        --       },
-        --       procMacro = {
-        --         enable = true,
-        --         -- These proc-macros will be ignored when trying to expand them.
-        --         -- This config takes a map of crate names with the exported proc-macro names to ignore as values.
-        --         ignored = { tauri = { "generate_context" } },
-        --       },
-        --       diagnostics = {
-        --         enable = true,
-        --         enableExperimental = true,
-        --       },
-        --     },
-        --   },
-        -- },
         wgsl_analyzer = {},
         gopls = {
           cmd = { "gopls" },
@@ -111,33 +78,6 @@ return {
               ".git",
             }) or vim.fn.getcwd())
           end,
-
-          -- NB: EmmyLua предпочитает конфиг из .emmyrc.json. Чтобы не плодить дубли,
-          -- мы держим максимум настроек в файлах проекта (см. раздел 2 ниже).
-          -- Если ОЧЕНЬ нужно — можно передавать часть настроек через settings
-          -- (пример закомментирован ниже).
-          --
-          -- settings = {
-          --   completion = { callSnippet = false, postfix = "@", baseFunctionIncludesName = true, autoRequire = true },
-          --   runtime = {
-          --     version = "LuaJIT",                          -- для nvim-конфига; для обычных Lua 5.4 проектов переложим в .emmyrc.json
-          --     extensions = { ".lua", ".luau", ".lua.txt" },
-          --     requirePattern = { "?.lua", "?/init.lua" },
-          --   },
-          --   diagnostics = { enable = true, globals = { "vim" } },
-          --   workspace = {
-          --     -- библиотека из Lux
-          --     library = vim.list_extend(get_lux_library_paths(), {
-          --       vim.fn.expand("$VIMRUNTIME/lua"),
-          --       vim.fn.expand("$VIMRUNTIME/lua/vim/lsp"),
-          --     }),
-          --     reindexDuration = 3000,
-          --   },
-          --   hint = { enable = true, paramHint = true, indexHint = true, localHint = true },
-          --   semanticTokens = { enable = true },
-          --   codeLens = { enable = true },
-          -- },
-
           on_attach = function(client, bufnr)
             -- Если ты всё-таки используешь блок settings выше, убедимся, что сервер их применил:
             if client.config and client.config.settings then
@@ -180,86 +120,11 @@ return {
             end
           end,
         },
-        -- lua_ls = {
-        --   settings = {
-        --     Lua = {
-        --       completion = {
-        --         callSnippet = "Replace",
-        --         keywordSnippet = "Replace",
-        --         displayContext = 5, -- Display 5 lines of completion context
-        --       },
-        --       runtime = {
-        --         version = "LuaJIT",
-        --         path = {
-        --           "?.lua",
-        --           "?/init.lua",
-        --           -- Lux runtime paths
-        --           vim.fn.expand("~/.local/share/lux/tree/5.4/*/src/?.lua"),
-        --           vim.fn.expand("~/.local/share/lux/tree/5.4/*/src/?/init.lua"),
-        --           vim.fn.expand("~/.local/share/lux/tree/5.4/*/lib/?.lua"),
-        --           vim.fn.expand("~/.local/share/lux/tree/5.4/*/lib/?/init.lua"),
-        --         },
-        --       },
-        --       -- Make the server aware of Neovim runtime files
-        --       workspace = {
-        --         checkThirdParty = true,
-        --         library = vim.list_extend(get_lux_library_paths(), {
-        --           -- luv path
-        --           vim.fn.expand("~/.local/share/lua-addons/luvit-meta/library"),
-        --         }),
-        --       },
-        --       telemetry = {
-        --         enable = false,
-        --       },
-        --       diagnostics = {
-        --         -- Get the language server to recognize the `vim` global
-        --         globals = { "vim" },
-        --       },
-        --     },
-        --   },
-        --   single_file_support = true,
-        --   root_dir = function(bufnr, on_dir)
-        --     on_dir(vim.fs.root(bufnr, {
-        --       ".luarc.json",
-        --       ".luarc.jsonc",
-        --       ".luacheckrc",
-        --       "stylua.toml",
-        --       "selene.toml",
-        --       "selene.yml",
-        --       ".git",
-        --       "*.lua",
-        --     }) or vim.fn.getcwd())
-        --   end,
-        --   -- Define a custom on_attach function to dynamically adjust library based on root_dir
-        --   on_attach = function(client, bufnr)
-        --     local nvim_config_path = vim.fn.expand("~/.config/nvim")
-        --     local current_root_dir = client.root_dir or "" -- Get the root_dir of the current client session
-        --
-        --     if current_root_dir == nvim_config_path then
-        --       -- If the current project root is your Neovim config, add Neovim runtime files
-        --       local runtime_library_paths =
-        --         vim.api.nvim_get_runtime_file("", true)
-        --       vim.list_extend(
-        --         client.config.settings.Lua.workspace.library,
-        --         runtime_library_paths
-        --       )
-        --       vim.list_extend(
-        --         client.config.settings.Lua.diagnostics.globals,
-        --         { "vim", "package", "require", "love" }
-        --       ) -- Add any other globals you often use in your config
-        --     end
-        --   end,
-        -- },
-        kotlin_language_server = {
+        kotlin_lsp = {
           cmd = {
-            "/home/george/.local/bin/kotlin-langauge-server/bin/kotlin-language-server",
+            "/home/george/.local/bin/kotlin-lsp/kotlin-lsp.sh",
+            "--stdio",
           },
-          -- settings = {
-          --   bashIde = {
-          --     globPattern = vim.env.GLOB_PATTERN
-          --       or "*@(.sh|.inc|.bash|.command)",
-          --   },
-          -- },
           filetypes = { "kotlin" },
           root_dir = function(bufnr, on_dir)
             on_dir(vim.fs.root(bufnr, {
@@ -272,13 +137,8 @@ return {
             }) or vim.fn.getcwd())
           end,
           init_options = {
-            storagePath = vim.fn.stdpath("cache") .. "/kotlin_language_server",
+            storagePath = vim.fn.stdpath("cache") .. "/kotlin_lsp",
           },
-          on_attach = function(client, bufnr)
-            -- Полностью отключаем форматирование от LSP
-            client.server_capabilities.documentFormattingProvider = false
-            client.server_capabilities.documentRangeFormattingProvider = false
-          end,
           single_file_support = true,
         },
         bashls = {
