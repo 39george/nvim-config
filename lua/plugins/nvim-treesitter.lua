@@ -10,7 +10,7 @@ return {
     parser_install_dir = vim.fn.stdpath("data") .. "/nvim-treesitter/parsers",
     highlight = {
       enable = true,
-      disable = { "lua", "rust" },
+      -- disable = { "lua", "rust" },
       additional_vim_regex_highlighting = false,
     },
     -- highlight = { enable = true, additional_vim_regex_highlighting = false },

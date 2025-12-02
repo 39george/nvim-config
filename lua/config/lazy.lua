@@ -68,7 +68,8 @@ vim.cmd("set mousescroll=ver:1,hor:2")
 vim.cmd("set cursorline")
 vim.cmd("set nospell")
 
-vim.o.guifont = "JetBrains Mono:h11.25"
+vim.o.guifont =
+  "JetBrainsMono Nerd Font:h12.25:w-0.5:#e-subpixelantialias:#h-none"
 
 -- Setup filetypes
 require("config.filetype")
