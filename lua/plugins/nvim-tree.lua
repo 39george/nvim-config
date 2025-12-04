@@ -7,6 +7,7 @@ return {
     { "<leader>e", "<cmd>NvimTreeToggle<CR>", desc = "Toggle File Tree" },
     { "<leader>E", "<cmd>NvimTreeFindFile<CR>", desc = "Reveal current buffer in File Tree" },
   },
+  cond = false,
   opts = function()
     local function my_on_attach(bufnr)
       local nvimtree = require("nvim-tree.api")

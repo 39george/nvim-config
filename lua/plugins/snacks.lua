@@ -15,11 +15,28 @@ if vim.env.PROF then
 end
 
 return {
-  "folke/snacks.nvim",
-  opts = function()
-    Snacks.toggle.profiler():map("<leader>pp")
-    Snacks.toggle.profiler_highlights():map("<leader>ph")
-  end,
-  -- stylua: ignore
-  keys = { { "<leader>ps", function() Snacks.profiler.scratch() end, desc = "Profiler Scratch Bufer" } },
+  {
+    "folke/snacks.nvim",
+    opts = function()
+      Snacks.toggle.profiler():map("<leader>pp")
+      Snacks.toggle.profiler_highlights():map("<leader>ph")
+    end,
+  },
+  {
+    "folke/snacks.nvim",
+    ---@type snacks.Config
+    opts = {
+      -- scroll = {},
+    },
+  },
+  {
+    "folke/snacks.nvim",
+    ---@type snacks.Config
+    opts = {
+      indent = {
+        char = "▏",
+        animate = { enabled = false },
+      },
+    },
+  },
 }

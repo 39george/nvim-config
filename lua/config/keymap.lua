@@ -38,13 +38,15 @@ vim.keymap.set( "n", "<leader>bb", "<cmd>e #<cr>", { desc = "Switch to Other Buf
 vim.keymap.set( "n", "<leader>`", "<cmd>e #<cr>", { desc = "Switch to Other Buffer" })
 vim.keymap.set( "n", "<leader>bD", "<cmd>:bd<cr>", { desc = "Delete Buffer and Window" })
 vim.keymap.set( "n", "<leader>bd", "<cmd>:b#|bd#<cr>", { desc = "Delete Buffer" })
-vim.keymap.set( "n", "<A-d>", "<Cmd>BufferClose<CR>", { desc = "Close Buffer" })
-vim.keymap.set( "n", "<leader>ba", ":%bd|e#|bd#<cr>|\'\"", { desc = "Delete all inactive buffers"} )
+vim.keymap.set( "n", "<leader>ba", ":%bd|e#|bd#<cr>|\'\"", { desc = "Delete all inactive buffers" })
 
-vim.keymap.set("n", "<A-h>", "<Cmd>BufferPrevious<CR>", { desc = "Previous buffer"} )
-vim.keymap.set("n", "<A-l>", "<Cmd>BufferNext<CR>", { desc = "Next buffer"} )
-vim.keymap.set( "n", "<S-A-h>", ":BufferMovePrevious<CR>", { silent = true, desc = "Move buffer left" })
-vim.keymap.set( "n", "<S-A-l>", ":BufferMoveNext<CR>", { silent = true, desc = "Move buffer right" })
+-- bufferline, Snacks.bufdelete
+vim.keymap.set("n", "<A-l>", function() require("bufferline").cycle(1) end, { desc = "Next buffer"})
+vim.keymap.set("n", "<A-h>", function() require("bufferline").cycle(-1) end, { desc = "Previous buffer"})
+vim.keymap.set("n", "<S-A-l>", function() require("bufferline").move(1) end, { desc = "Move buffer right"})
+vim.keymap.set("n", "<S-A-h>", function() require("bufferline").move(-1) end, { desc = "Move buffer left"})
+vim.keymap.set("n", "<A-b>", function() require("bufferline").pick() end, { desc = "Pick buffer"})
+vim.keymap.set("n", "<A-d>", function() Snacks.bufdelete.delete() end, { desc = "Close Buffer" })
 
 -- Clear search, diff update and redraw
 -- taken from runtime/lua/_editor.lua
@@ -172,5 +174,12 @@ if vim.fn.has('nvim-0.11') == 1 then
     end)
   end
 end
+
+-- Snacks
+vim.keymap.set( "n", "<leader>ps", function() Snacks.profiler.scratch() end, { desc = "Profiler scratchbuffer" })
+
+-- Neo-tree
+vim.keymap.set( "n", "<leader>e", "<cmd>Neotree toggle<CR>", { desc = "Profiler scratchbuffer" })
+vim.keymap.set( "n", "<leader>E", "<cmd>Neotree reveal<CR>", { desc = "Profiler scratchbuffer" })
 
 -- stylua: ignore end

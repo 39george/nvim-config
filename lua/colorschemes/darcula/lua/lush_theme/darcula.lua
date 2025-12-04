@@ -317,6 +317,16 @@ return lush(function(injected_functions)
     NvimTreeGitRenamedIcon { Changed },
     NvimTreeGitDirtyIcon { Changed },
 
+    -- NvimTree
+    NeoTreeNormal { fg = fg },
+    -- NeoTreeCursorLine { bg = subtle.sa(3).rotate(-20), fg = fg },
+    -- NeoTreeIndentMarker { fg = hsl(204, 3, 32) },
+    -- NeoTreeRootFolder { fg = folder },
+    -- NeoTreeFolderIcon { fg = folder },
+    -- NeoTreeGitNewIcon { Added },
+    -- NeoTreeGitRenamedIcon { Changed },
+    -- NeoTreeGitDirtyIcon { Changed },
+
     -- MiniCursorWord
     MiniCursorWord { bg = onyx },
     MiniCursorWordCurrent { bg = onyx },
@@ -371,6 +381,9 @@ return lush(function(injected_functions)
 
     -- Snacks (picker)
     SnacksPicker       { fg = fg, bg = bg },
+
+    -- Bufferline
+    BufferlineOffsetSeparator       { bg = raisin_black.da(10) },
 
     ---- RUST ----------------------------------------------------------------------
     rustMacro { fg = coral },

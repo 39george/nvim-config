@@ -11,6 +11,7 @@ return {
   init = function()
     vim.g.barbar_auto_setup = false
   end,
+  cond = false,
   -- stylua: ignore
   opts = {
     animation = false,
