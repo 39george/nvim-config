@@ -155,8 +155,6 @@ return lush(function(injected_functions)
 		bg = palette.bg_subtle,
 		bold = true,
 	},
-  IblScope { fg = palette.error },
-  IblIndent { fg = palette.bg_very_subtle.li(60) },
 	FoldColumn { fg = palette.bg_very_subtle },
 	Folded { fg = palette.norm, bg = palette.bg_subtle, bold = true },
 	LineNr { fg = palette.bg_very_subtle },
@@ -303,6 +301,10 @@ return lush(function(injected_functions)
 	NormalSB { fg = palette.norm, bg = palette.oob },
 	SignColumnSB { fg = palette.norm, bg = palette.oob },
 	WinSeparatorSB { fg = palette.norm, bg = palette.oob },
+
+  -- Ibl
+  IblScope { fg = palette.error },
+  IblIndent { fg = palette.bg_very_subtle.li(60) },
 
   -- MiniCursorWord
   MiniCursorWord { bg = palette.cursor_bg },
