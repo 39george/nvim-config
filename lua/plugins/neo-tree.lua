@@ -18,6 +18,8 @@ return {
         ["?"] = "show_help",
       },
     },
+    enable_git_status = true,
+    enable_diagnostics = true,
     filesystem = {
       bind_to_cwd = true,
       follow_current_file = { enabled = true },

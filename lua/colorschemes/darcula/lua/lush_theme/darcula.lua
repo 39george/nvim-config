@@ -319,13 +319,12 @@ return lush(function(injected_functions)
 
     -- NvimTree
     NeoTreeNormal { fg = fg },
-    -- NeoTreeCursorLine { bg = subtle.sa(3).rotate(-20), fg = fg },
-    -- NeoTreeIndentMarker { fg = hsl(204, 3, 32) },
-    -- NeoTreeRootFolder { fg = folder },
-    -- NeoTreeFolderIcon { fg = folder },
-    -- NeoTreeGitNewIcon { Added },
-    -- NeoTreeGitRenamedIcon { Changed },
-    -- NeoTreeGitDirtyIcon { Changed },
+    NeoTreeTitleBar { fg = fg.da(5), bg = TabLineSel.bg },
+    NeoTreeGitUnstaged { fg = cool_gray },
+    NeoTreeGitUntracked { fg = orange },
+    NeoTreeGitUntracked_68 { fg = NeoTreeGitUntracked.fg.mix(Normal.bg, 32) },
+    NeoTreeGitUntracked_60 { fg = NeoTreeGitUntracked.fg.mix(Normal.bg, 40) },
+    NeoTreeGitUntracked_35 { fg = NeoTreeGitUntracked.fg.mix(Normal.bg, 65) },
 
     -- MiniCursorWord
     MiniCursorWord { bg = onyx },
