@@ -31,6 +31,9 @@ return {
 
     -- code actions (telescope doesn’t provide a built-in picker here)
     { "<leader>ca",   vim.lsp.buf.code_action,                                                      mode = { "n", "v" }, desc = "Code actions" },
+
+    -- other
+    { "<leader>sn",   function() require("telescope").extensions.notify.notify() end,               desc = "Telescope notifications" },
   },
   opts = function()
     local actions = require("telescope.actions")

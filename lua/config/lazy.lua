@@ -104,6 +104,7 @@ require("lazy").setup({
 require("config.keymap")
 require("config.tabwidth")
 require("config.autocmd")
+require("config.development")
 
 -- Enable clipboard support in wsl
 if vim.fn.has("wsl") == 1 then
