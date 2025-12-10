@@ -1,25 +1,5 @@
-local function get_lux_library_paths()
-  local lux_base_path = vim.fn.expand("~/.local/share/lux/tree/5.4")
-
-  -- Function to safely glob paths and split them into a table
-  local function get_lux_paths(pattern)
-    local paths_str = vim.fn.globpath(lux_base_path, pattern)
-    if paths_str == "" then
-      return {} -- Return empty table if no matches
-    else
-      return vim.split(paths_str, "\n")
-    end
-  end
-
-  -- Get all 'src' directories
-  local lux_src_dirs = get_lux_paths("*/src/")
-  -- Get all 'lib' directories
-  local lux_lib_dirs = get_lux_paths("*/lib/")
-
-  -- Combine them into a single list for the library
-  local lux_package_libraries = vim.list_extend({}, lux_src_dirs)
-  return vim.list_extend(lux_package_libraries, lux_lib_dirs)
-end
+---@diagnostic disable: undefined-field
+---@diagnostic disable: unnecessary-if
 
 -- Default Nvim LSP client configurations for various LSP servers.
 return {
@@ -63,8 +43,8 @@ return {
             },
           },
         },
-        emmylua_ls = {
-          cmd = { "emmylua_ls" }, -- бинарник из Cargo/релиза
+        lua_ls = {
+          cmd = { "lua-language-server" },
           filetypes = { "lua" },
           single_file_support = true,
           root_dir = function(bufnr, on_dir)
@@ -78,46 +58,147 @@ return {
               ".git",
             }) or vim.fn.getcwd())
           end,
-          on_attach = function(client, bufnr)
-            -- Если ты всё-таки используешь блок settings выше, убедимся, что сервер их применил:
-            if client.config and client.config.settings then
-              client.notify(
-                "workspace/didChangeConfiguration",
-                { settings = client.config.settings }
-              )
+
+          on_init = function(client, _)
+            local function get_luarocks_paths()
+              local paths = {}
+              local seen = {}
+
+              local ok, out = pcall(vim.fn.system, "luarocks path --lr-path")
+              if not ok or type(out) ~= "string" then
+                out = ""
+              end
+
+              for path in out:gmatch("([^;]+)") do
+                path = path
+                  :gsub("%?.lua$", "")
+                  :gsub("%?/init%.lua$", "")
+                  :gsub("^'", "")
+                  :gsub("'$", "")
+                  :gsub("/$", "")
+
+                if path ~= "" and not seen[path] then
+                  if vim.uv and vim.uv.fs_stat(path) then
+                    table.insert(paths, path)
+                    seen[path] = true
+                  else
+                    local parent = path:match("(.*)/")
+                    if parent and vim.uv.fs_stat(parent) then
+                      table.insert(paths, parent)
+                      seen[parent] = true
+                    end
+                  end
+                end
+              end
+
+              return paths
             end
 
-            -- Когда редактируем сам ~/.config/nvim — добавим рантайм Neovim в библиотеку
-            local nvim_cfg = vim.fn.expand("~/.config/nvim")
-            if (client.root_dir or "") == nvim_cfg then
-              local ws = client.config.settings
-                  and client.config.settings.workspace
-                or {}
-              ws.library = ws.library or {}
-              vim.list_extend(
-                ws.library,
-                vim.api.nvim_get_runtime_file("", true)
-              )
+            local within_nvim = (client.root_dir or "")
+              == vim.fn.expand("~/.config/nvim")
 
-              local di = client.config.settings
-                  and client.config.settings.diagnostics
-                or {}
-              di.globals = di.globals or {}
-              vim.list_extend(
-                di.globals,
-                { "vim", "package", "require", "jit" }
-              )
+            local function get_globals()
+              local globals = {}
+              local ok, out =
+                pcall(vim.fn.system, "luarocks list --porcelain 2>/dev/null")
+              if ok and type(out) == "string" then
+                for line in out:gmatch("[^\r\n]+") do
+                  local name = line:match("^([^%s]+)")
+                  if name and name ~= "" then
+                    table.insert(globals, name)
+                  end
+                end
+              end
 
-              client.config.settings =
-                vim.tbl_deep_extend("force", client.config.settings or {}, {
-                  workspace = ws,
-                  diagnostics = di,
-                })
-              client.notify(
-                "workspace/didChangeConfiguration",
-                { settings = client.config.settings }
-              )
+              if within_nvim then
+                for builtin_global in pairs({ "vim", "jit" }) do
+                  table.insert(globals, builtin_global)
+                end
+              end
+              return globals
             end
+
+            local luarocks_libs = get_luarocks_paths()
+            local globals_list = get_globals()
+
+            local libs = {}
+            local seen = {}
+
+            for _, lib in ipairs(luarocks_libs) do
+              if not seen[lib] then
+                table.insert(libs, lib)
+                seen[lib] = true
+              end
+            end
+
+            if within_nvim then
+              local runtime_libs = vim.api.nvim_get_runtime_file("", true)
+              for _, lib in ipairs(runtime_libs) do
+                if not seen[lib] then
+                  table.insert(libs, lib)
+                  seen[lib] = true
+                end
+              end
+            end
+
+            client.settings = client.settings or {}
+            client.settings.Lua =
+              vim.tbl_deep_extend("force", client.settings.Lua or {}, {
+                runtime = {
+                  version = "LuaLatest",
+                  path = {
+                    "?.lua",
+                    "?/init.lua",
+                    "?/?.lua",
+                    vim.fn.expand "~/.luarocks/share/lua/5.4/?.lua",
+                    vim.fn.expand "~/.luarocks/share/lua/5.4/?/init.lua",
+                    "/usr/share/5.4/?.lua",
+                    "/usr/share/lua/5.4/?/init.lua",
+                  },
+                },
+                workspace = {
+                  library = libs,
+                  checkThirdParty = true,
+                  maxPreload = 5000,
+                  preloadFileSize = 500,
+                },
+                diagnostics = {
+                  globals = globals_list,
+                  disable = {
+                    "undefined-global",
+                    "lowercase-global",
+                  },
+                },
+                completion = {
+                  enable = true,
+                  callSnippet = "Both",
+                  keywordSnippet = "Replace",
+                  postfix = "@",
+                  autoRequire = true,
+                  showWord = "Enable",
+                  requireString = "Substitute",
+                },
+                hint = {
+                  enable = true,
+                  arrayIndex = "Enable",
+                  paramType = true,
+                  paramName = "All",
+                  setType = true,
+                },
+                signatureHelp = {
+                  enable = true,
+                },
+                type = {
+                  castNumberToInteger = true,
+                },
+                telemetry = {
+                  enable = false,
+                },
+              })
+
+            client.notify("workspace/didChangeConfiguration", {
+              settings = client.config.settings,
+            })
           end,
         },
         kotlin_lsp = {
