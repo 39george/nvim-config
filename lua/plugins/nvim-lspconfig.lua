@@ -158,7 +158,7 @@ return {
                 },
                 workspace = {
                   library = libs,
-                  checkThirdParty = true,
+                  checkThirdParty = false,
                   maxPreload = 5000,
                   preloadFileSize = 500,
                 },
