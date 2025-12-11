@@ -47,6 +47,7 @@ vim.keymap.set("n", "<S-A-l>", function() require("bufferline").move(1) end, { d
 vim.keymap.set("n", "<S-A-h>", function() require("bufferline").move(-1) end, { desc = "Move buffer left"})
 vim.keymap.set("n", "<A-b>", function() require("bufferline").pick() end, { desc = "Pick buffer"})
 vim.keymap.set("n", "<A-d>", function() Snacks.bufdelete.delete() end, { desc = "Close Buffer" })
+vim.keymap.set("n", "<leader>br", ":BufferLineTabRename ", { desc = "Rename Tab" })
 
 -- Clear search, diff update and redraw
 -- taken from runtime/lua/_editor.lua
