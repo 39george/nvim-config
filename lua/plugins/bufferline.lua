@@ -4,9 +4,7 @@ return {
   dependencies = "nvim-tree/nvim-web-devicons",
   opts = {
     options = {
-      close_command = function()
-        require("mini.bufremove").delete(0, false)
-      end,
+      close_command = function() Snacks.bufdelete.delete() end,
       right_mouse_command = false,
       offsets = {
         {

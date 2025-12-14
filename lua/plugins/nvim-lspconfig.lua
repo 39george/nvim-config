@@ -65,9 +65,7 @@ return {
               local seen = {}
 
               local ok, out = pcall(vim.fn.system, "luarocks path --lr-path")
-              if not ok or type(out) ~= "string" then
-                out = ""
-              end
+              if not ok or type(out) ~= "string" then out = "" end
 
               for path in out:gmatch("([^;]+)") do
                 path = path
@@ -104,9 +102,7 @@ return {
               if ok and type(out) == "string" then
                 for line in out:gmatch("[^\r\n]+") do
                   local name = line:match("^([^%s]+)")
-                  if name and name ~= "" then
-                    table.insert(globals, name)
-                  end
+                  if name and name ~= "" then table.insert(globals, name) end
                 end
               end
 
@@ -304,9 +300,7 @@ return {
                 end
                 local params = vim.lsp.util.make_text_document_params(bufnr)
                 client.request(method_name, params, function(err, result)
-                  if err then
-                    error(tostring(err))
-                  end
+                  if err then error(tostring(err)) end
                   if not result then
                     vim.notify("corresponding file cannot be determined")
                     return
