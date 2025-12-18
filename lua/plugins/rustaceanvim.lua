@@ -50,5 +50,20 @@ return {
     { "<leader>rD", function() vim.cmd.RustLsp({ "openDocs" }) end, mode = "n", desc = "Open docs", },
     { "<leader>rp", function() vim.cmd.RustLsp({ "parentModule" }) end, mode = "n", desc = "Open parent module", },
     { "<leader>rf", function() vim.cmd.RustLsp({ "flyCheck" }) end, mode = "n", desc = "Fly check", },
+    {
+  "<leader>rF",
+      function()
+        local features_input = vim.fn.input("Cargo features (with a space): ")
+        local features = vim.split(features_input, "%s+")
+        features = vim.tbl_filter(function(f)
+          return f ~= ""
+        end, features)
+        local features_str = vim.inspect(features)
+        local settings_str = "{ cargo = { features = " .. features_str .. " } }"
+        vim.cmd.RustAnalyzer({ "config", settings_str })
+      end,
+      mode = "n",
+      desc = "Fly check with custom features",
+    }
   },
 }
