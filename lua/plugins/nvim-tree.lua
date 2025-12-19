@@ -31,6 +31,13 @@ return {
       hijack_cursor = true,
       sync_root_with_cwd = true,
       respect_buf_cwd = true,
+      update_cwd = true,
+      actions = {
+        change_dir = {
+          enable = true,
+          global = false,
+        },
+      },
       tab = {
         sync = {
           open = false,
