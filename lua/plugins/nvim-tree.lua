@@ -29,6 +29,15 @@ return {
     local opts = {
       on_attach = my_on_attach,
       hijack_cursor = true,
+      sync_root_with_cwd = true,
+      respect_buf_cwd = true,
+      tab = {
+        sync = {
+          open = false,
+          close = false,
+          ignore = {},
+        },
+      },
       sort = {
         sorter = "case_sensitive",
       },
