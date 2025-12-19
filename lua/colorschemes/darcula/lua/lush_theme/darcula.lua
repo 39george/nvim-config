@@ -308,16 +308,22 @@ return lush(function(injected_functions)
     Yank { fg = bg, bg = cool_gray.li(25).sa(45) },
 
     -- NvimTree
-    NvimTreeNormal { bg = jet, fg = fg },
+    NvimTreeNormal { fg = fg },
     NvimTreeCursorLine { bg = subtle.sa(3).rotate(-20), fg = fg },
     NvimTreeIndentMarker { fg = hsl(204, 3, 32) },
     NvimTreeRootFolder { fg = folder },
     NvimTreeFolderIcon { fg = folder },
     NvimTreeGitNewIcon { Added },
     NvimTreeGitRenamedIcon { Changed },
-    NvimTreeGitDirtyIcon { Changed },
+    NvimTreeGitDirtyIcon { Changed, gui = "bold" },
+    NvimTreeGitFileDirtyHL { Changed, gui = "bold" },
+    -- NvimTreeModifiedFileHL { fg = yellow, gui = "bold"},
+    -- NvimTreeModifiedFolderHL { fg = yellow, gui = "bold"},
+    NvimTreeDiagnosticErrorFileHL { fg = red, gui = "bold" },
+    NvimTreeDiagnosticWarnFileHL { fg = orange, gui = "bold" },
 
-    -- NvimTree
+
+    -- NeoTree
     NeoTreeNormal { fg = fg },
     NeoTreeTitleBar { fg = fg.da(5), bg = TabLineSel.bg },
     NeoTreeGitUnstaged { fg = cool_gray },

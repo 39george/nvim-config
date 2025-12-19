@@ -8,7 +8,7 @@ return {
       right_mouse_command = false,
       offsets = {
         {
-          filetype = "neo-tree",
+          filetype = "NvimTree",
           text = "File Explorer",
           highlight = "Directory",
           separator = " ",

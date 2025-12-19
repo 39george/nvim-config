@@ -7,7 +7,6 @@ return {
     { "<leader>e", "<cmd>NvimTreeToggle<CR>", desc = "Toggle File Tree" },
     { "<leader>E", "<cmd>NvimTreeFindFile<CR>", desc = "Reveal current buffer in File Tree" },
   },
-  cond = false,
   opts = function()
     local function my_on_attach(bufnr)
       local nvimtree = require("nvim-tree.api")
@@ -29,18 +28,77 @@ return {
     end
     local opts = {
       on_attach = my_on_attach,
+      hijack_cursor = true,
       sort = {
         sorter = "case_sensitive",
       },
       view = {
         width = 30,
       },
-      renderer = {
-        group_empty = true,
-      },
       filters = {
         dotfiles = true,
         custom = { ".uid" },
+      },
+      git = {
+        enable = true,
+      },
+      diagnostics = {
+        enable = true,
+      },
+      renderer = {
+        group_empty = true,
+        indent_markers = {
+          enable = true,
+          inline_arrows = true,
+          icons = {
+            corner = "└",
+            edge = "│",
+            item = "│",
+            bottom = "─",
+            none = " ",
+          },
+        },
+        highlight_modified = "all", -- "all", "name", "icon" или "none"
+        highlight_diagnostics = "all", -- "all", "name", "icon" или "none"
+        highlight_git = "all", -- "all", "name", "icon" или "none"
+        icons = {
+          show = {
+            folder_arrow = false,
+            file = true,
+            folder = true,
+            git = true,
+          },
+          padding = {
+            icon = " ", -- Отступ между иконкой и именем
+            folder_arrow = " ", -- Отступ между стрелкой и иконкой папки
+          },
+          glyphs = {
+            default = "",
+            symlink = "",
+            bookmark = "󰆤",
+            modified = "✗",
+            hidden = "󰜌",
+            folder = {
+              arrow_closed = "",
+              arrow_open = "",
+              default = "",
+              open = "",
+              empty = "",
+              empty_open = "",
+              symlink = "",
+              symlink_open = "",
+            },
+            git = {
+              unstaged = "●",
+              staged = "✓",
+              unmerged = "",
+              renamed = "➜",
+              untracked = "★",
+              deleted = "",
+              ignored = "◌",
+            },
+          },
+        },
       },
     }
     return opts

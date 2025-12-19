@@ -179,8 +179,4 @@ end
 -- Snacks
 vim.keymap.set( "n", "<leader>ps", function() Snacks.profiler.scratch() end, { desc = "Profiler scratchbuffer" })
 
--- Neo-tree
-vim.keymap.set( "n", "<leader>e", "<cmd>Neotree toggle<CR>", { desc = "Profiler scratchbuffer" })
-vim.keymap.set( "n", "<leader>E", "<cmd>Neotree reveal<CR>", { desc = "Profiler scratchbuffer" })
-
 -- stylua: ignore end
