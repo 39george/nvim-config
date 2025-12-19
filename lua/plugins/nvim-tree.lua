@@ -49,7 +49,12 @@ return {
         sorter = "case_sensitive",
       },
       view = {
-        width = 30,
+        width = {
+          min = 30,
+          max = -1,
+          padding = 1,
+          lines_excluded = { "root" },
+        },
       },
       filters = {
         dotfiles = true,
