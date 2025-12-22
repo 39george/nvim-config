@@ -26,6 +26,22 @@ return {
       vim.keymap.set("n", "l", nvimtree.node.open.edit, opts("Open"))
       vim.keymap.set("n", "h", nvimtree.node.open.edit, opts("Close"))
     end
+    vim.api.nvim_create_autocmd({ "BufWinEnter", "WinEnter" }, {
+      callback = function(ev)
+        if vim.bo[ev.buf].filetype ~= "NvimTree" then return end
+        vim.schedule(function()
+          for _, win in ipairs(vim.fn.win_findbuf(ev.buf)) do
+            vim.api.nvim_win_call(win, function()
+              if vim.w.nvimtree_dotfile_match_id then return end
+
+              local pat = [[\v(^|[^[:alnum:]_])\zs\.[^/ ]+]]
+              vim.w.nvimtree_dotfile_match_id =
+                vim.fn.matchadd("NvimTreeDotfile", pat, 100)
+            end)
+          end
+        end)
+      end,
+    })
     local opts = {
       on_attach = my_on_attach,
       hijack_cursor = true,
