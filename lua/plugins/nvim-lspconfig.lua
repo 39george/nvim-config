@@ -198,27 +198,6 @@ return {
             })
           end,
         },
-        kotlin_lsp = {
-          cmd = {
-            "/home/george/.local/bin/kotlin-lsp/kotlin-lsp.sh",
-            "--stdio",
-          },
-          filetypes = { "kotlin" },
-          root_dir = function(bufnr, on_dir)
-            on_dir(vim.fs.root(bufnr, {
-              "settings.gradle",
-              "settings.gradle.kts",
-              "pom.xml",
-              "build.gradle",
-              "build.gradle.kts",
-              "workspace.json",
-            }) or vim.fn.getcwd())
-          end,
-          init_options = {
-            storagePath = vim.fn.stdpath("cache") .. "/kotlin_lsp",
-          },
-          single_file_support = true,
-        },
         bashls = {
           cmd = { "bash-language-server", "start" },
           settings = {
