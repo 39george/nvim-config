@@ -63,7 +63,7 @@ return {
         vim.cmd.RustAnalyzer({ "config", settings_str })
       end,
       mode = "n",
-      desc = "Fly check with custom features",
+      desc = "Set cargo features",
     }
   },
 }
