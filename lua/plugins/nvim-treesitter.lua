@@ -75,6 +75,7 @@ return {
       "gdscript",
       "godot_resource",
       "gdshader",
+      "ini",
       -- "rust_with_rstml",
     },
     auto_install = false,

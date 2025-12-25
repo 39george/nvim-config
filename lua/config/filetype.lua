@@ -13,3 +13,14 @@ vim.filetype.add({
     -- ["%.env%.[%w_.-]+"] = "dotenv",
   },
 })
+
+vim.filetype.add({
+  extension = {
+    conf = "ini",
+    config = "erlang",
+  },
+  filename = {
+    ["rabbitmq.conf"] = "ini",
+    ["enabled_plugins"] = "erlang",
+  },
+})

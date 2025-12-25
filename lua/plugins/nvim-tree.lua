@@ -95,9 +95,9 @@ return {
             none = " ",
           },
         },
-        highlight_modified = "all", -- "all", "name", "icon" или "none"
+        highlight_modified = "icon", -- "all", "name", "icon" или "none"
         highlight_diagnostics = "all", -- "all", "name", "icon" или "none"
-        highlight_git = "all", -- "all", "name", "icon" или "none"
+        highlight_git = "icon", -- "all", "name", "icon" или "none"
         icons = {
           show = {
             folder_arrow = false,
