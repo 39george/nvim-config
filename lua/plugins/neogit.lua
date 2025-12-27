@@ -12,11 +12,11 @@ return {
   cmd = "Neogit",
   opts = {
     -- Hides the hints at the top of the status buffer
-    disable_hint = false,
+    disable_hint = true,
     -- Disables changing the buffer highlights based on where the cursor is.
-    disable_context_highlighting = false,
+    disable_context_highlighting = true,
     -- Disables signs for sections/items/hunks
-    disable_signs = false,
+    disable_signs = true,
     -- Changes what mode the Commit Editor starts in. `true` will leave nvim in normal mode, `false` will change nvim to
     -- insert mode, and `"auto"` will change nvim to insert mode IF the commit message is empty, otherwise leaving it in
     -- normal mode.
@@ -25,7 +25,7 @@ return {
     -- events.
     filewatcher = {
       interval = 5000,
-      enabled = true,
+      enabled = false,
     },
     -- "ascii"   is the graph the git CLI generates
     -- "unicode" is the graph like https://github.com/rbong/vim-flog
@@ -64,7 +64,7 @@ return {
     use_default_keymaps = true,
     -- Neogit refreshes its internal state after specific events, which can be expensive depending on the repository size.
     -- Disabling `auto_refresh` will make it so you have to manually refresh the status after you open it.
-    auto_refresh = true,
+    auto_refresh = false,
     -- Value used for `--sort` option for `git branch` command
     -- By default, branches will be sorted by commit date descending
     -- Flag description: https://git-scm.com/docs/git-branch#Documentation/git-branch.txt---sortltkeygt
