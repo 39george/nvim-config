@@ -219,6 +219,19 @@ return {
           end,
           single_file_support = true,
         },
+        tsp_server = {
+          cmd = { "tsp-server", "--stdio" },
+          filetypes = { "typespec" },
+          root_dir = function(bufnr, on_dir)
+            on_dir(
+              vim.fs.root(
+                bufnr,
+                { "tsconfig.json", "jsconfig.json", "package.json", ".git" }
+              ) or vim.fn.getcwd()
+            )
+          end,
+          single_file_support = true,
+        },
         ts_ls = {
           init_options = { hostInfo = "neovim" },
           cmd = { "typescript-language-server", "--stdio" },

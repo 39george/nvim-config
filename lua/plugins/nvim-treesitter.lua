@@ -30,6 +30,7 @@ return {
       "vim",
       "vimdoc",
       "typescript",
+      "typespec",
       "tsx",
       "toml",
       "sql",

@@ -5,3 +5,6 @@ vim.cmd(
   [[autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 expandtab]]
 )
 vim.cmd([[autocmd FileType proto setlocal shiftwidth=2 tabstop=2 expandtab]])
+vim.cmd(
+  [[autocmd FileType typespec setlocal shiftwidth=2 tabstop=2 expandtab commentstring=\/\/\ %s]]
+)
