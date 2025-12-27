@@ -231,6 +231,8 @@ return lush(function(injected_functions)
     Error { fg = red },     --  any erroneous construct
     Todo { gui = bf },      --  anything that needs extra attention
 
+    NotifyBackground { bg = bg },
+
     ---- TREESITTER ----------------------------------------------------------------
 
     sym "@constant" { Constant },

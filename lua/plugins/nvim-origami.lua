@@ -12,6 +12,6 @@
 return {
   "chrisgrieser/nvim-origami",
   event = { "BufReadPost", "BufNewFile", "BufWritePre" },
-  -- cond = false,
+  cond = false,
   opts = {}, -- needed even when using default config
 }

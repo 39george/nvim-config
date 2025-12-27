@@ -4,7 +4,7 @@ return {
     local notify = require("notify")
     notify.setup({
       stages = "fade",
-      fps = 3,
+      -- fps = 3,
     })
     vim.notify = notify
   end,

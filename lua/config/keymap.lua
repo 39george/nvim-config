@@ -49,6 +49,15 @@ vim.keymap.set("n", "<A-b>", function() require("bufferline").pick() end, { desc
 vim.keymap.set("n", "<A-d>", function() Snacks.bufdelete.delete() end, { desc = "Close Buffer" })
 vim.keymap.set("n", "<leader>br", ":BufferLineTabRename ", { desc = "Rename Tab" })
 
+-- barbar
+-- vim.keymap.set("n", "<A-l>", "<Cmd>BufferNext<CR>", { desc = "Next buffer" })
+-- vim.keymap.set("n", "<A-h>", "<Cmd>BufferPrevious<CR>", { desc = "Previous buffer" })
+-- vim.keymap.set("n", "<S-A-l>", "<Cmd>BufferMoveNext<CR>", { desc = "Move buffer right" })
+-- vim.keymap.set("n", "<S-A-h>", "<Cmd>BufferMovePrevious<CR>", { desc = "Move buffer left" })
+-- vim.keymap.set("n", "<A-b>", "<Cmd>BufferPick<CR>", { desc = "Pick buffer" })
+-- vim.keymap.set("n", "<A-d>", "<Cmd>BufferClose<CR>", { desc = "Close Buffer" })
+-- vim.keymap.set("n", "<leader>br", ":BufferRename ", { desc = "Rename Buffer" })
+
 -- Clear search, diff update and redraw
 -- taken from runtime/lua/_editor.lua
 vim.keymap.set( "n", "<leader>ur", "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>", { desc = "Redraw / Clear hlsearch / Diff Update" })

@@ -12,3 +12,16 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   end,
   desc = "Highlight text after yanking", -- Description of the autocommand
 })
+
+-- Remember folds
+vim.api.nvim_create_augroup("remember_folds", { clear = true })
+vim.api.nvim_create_autocmd("BufWinLeave", {
+  pattern = "*.*",
+  callback = function() vim.cmd.mkview() end,
+  group = "remember_folds",
+})
+vim.api.nvim_create_autocmd("BufWinEnter", {
+  pattern = "*.*",
+  callback = function() vim.cmd([[silent! loadview]]) end,
+  group = "remember_folds",
+})

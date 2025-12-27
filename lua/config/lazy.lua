@@ -37,23 +37,26 @@ vim.g.maplocalleader = "\\"
 
 -- General options
 
+-- FOLD settings
 -- stylua: ignore
-function _G.CustomFoldText()
-  local foldstart = vim.v.foldstart
-  local foldend = vim.v.foldend
-  local start = vim.fn.substitute(vim.fn.getline(foldstart), "\\t", vim.fn['repeat'](" ", vim.o.tabstop), "")
-  return start .. " ... " .. vim.fn.getline(foldend):gsub("^%s*", "") .. " 󰁂 " .. foldend - foldstart + 1
+do
+  -- function _G.CustomFoldText()
+  --   local foldstart = vim.v.foldstart
+  --   local foldend = vim.v.foldend
+  --   local start = vim.fn.substitute(vim.fn.getline(foldstart), "\\t", vim.fn['repeat'](" ", vim.o.tabstop), "")
+  --   return start .. " ... " .. vim.fn.getline(foldend):gsub("^%s*", "") .. " 󰁂 " .. foldend - foldstart + 1
+  -- end
+  -- vim.o.foldcolumn = "1"
+  -- vim.opt.foldtext = "v:lua.CustomFoldText()"
+  -- vim.o.foldmethod = "expr"
+  -- vim.o.foldexpr = "nvim_treesitter#foldexpr()"
+  -- vim.o.foldlevel = 99
+  -- vim.o.foldlevelstart = 99
+  -- vim.o.foldenable = true
+  vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
 end
 
-vim.o.foldcolumn = "1"
 vim.opt.scrolloff = 5
-vim.opt.foldtext = "v:lua.CustomFoldText()"
-vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
-vim.o.foldmethod = "expr"
-vim.o.foldexpr = "nvim_treesitter#foldexpr()"
-vim.o.foldlevel = 99
-vim.o.foldlevelstart = 99
-vim.o.foldenable = true
 vim.o.winblend = 1
 
 vim.cmd("set termguicolors")
