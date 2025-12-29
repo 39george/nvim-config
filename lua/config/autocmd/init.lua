@@ -13,15 +13,20 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   desc = "Highlight text after yanking", -- Description of the autocommand
 })
 
--- Remember folds
-vim.api.nvim_create_augroup("remember_folds", { clear = true })
+-- Remember folds / views
+local group = vim.api.nvim_create_augroup("remember_folds", { clear = true })
+local function is_real_file(buf)
+  return vim.bo[buf].buftype == "" and vim.api.nvim_buf_get_name(buf) ~= ""
+end
 vim.api.nvim_create_autocmd("BufWinLeave", {
-  pattern = "*.*",
-  callback = function() vim.cmd.mkview() end,
-  group = "remember_folds",
+  group = group,
+  callback = function(args)
+    if is_real_file(args.buf) then vim.cmd("silent! mkview") end
+  end,
 })
 vim.api.nvim_create_autocmd("BufWinEnter", {
-  pattern = "*.*",
-  callback = function() vim.cmd([[silent! loadview]]) end,
-  group = "remember_folds",
+  group = group,
+  callback = function(args)
+    if is_real_file(args.buf) then vim.cmd("silent! loadview") end
+  end,
 })

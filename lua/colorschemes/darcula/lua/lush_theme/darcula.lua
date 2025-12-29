@@ -390,7 +390,18 @@ return lush(function(injected_functions)
     NavbuddyNormalFloat { fg = fadefg, bg = raisin_black, blend = 5 },
 
     -- Snacks (picker)
-    SnacksPicker       { fg = fg, bg = bg },
+    SnacksPicker              { fg = fg, bg = bg },
+    SnacksDashboardHeader     { fg = fg },
+    SnacksDashboardDesc       { Comment },
+    SnacksDashboardDir        { SnacksDashboardDesc },
+    SnacksDashboardFile       { SnacksDashboardDesc },
+    SnacksDashboardIcon       { SnacksDashboardDesc },
+    SnacksDashboardFooter     { SnacksDashboardHeader },
+    SnacksDashboardSpecial    { fg = yellow },
+    SnacksDashboardKey       { fg = cool_gray },
+    -- SnacksDashboardTitle     { fg = crayola },
+    -- SnacksDashboardNormal   
+    -- SnacksDashboardTerminal
 
     -- Bufferline
     BufferlineOffsetSeparator       { bg = raisin_black.da(10) },

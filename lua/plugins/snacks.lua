@@ -17,33 +17,15 @@ end
 return {
   {
     "folke/snacks.nvim",
-    opts = function()
-      Snacks.toggle.profiler():map("<leader>pp")
-      Snacks.toggle.profiler_highlights():map("<leader>ph")
-    end,
-  },
-  {
-    "folke/snacks.nvim",
-    ---@type snacks.Config
-    opts = {
-      -- scroll = {},
-    },
-  },
-  {
-    "folke/snacks.nvim",
-    ---@type snacks.Config
+    priority = 1000,
+    lazy = false,
     opts = {
       indent = {
         char = "▏",
-        animate = { enabled = false },
       },
-    },
-  },
-  {
-    "folke/snacks.nvim",
-    opts = function(_, opts)
-      opts.dashboard = {
-        width = 60,
+      dashboard = {
+        enabled = not vim.env.CELERIS,
+        width = 41,
         row = nil, -- dashboard position. nil for center
         col = nil, -- dashboard position. nil for center
         pane_gap = 4, -- empty columns between vertical panes
@@ -57,15 +39,44 @@ return {
           -- Set your custom keymaps here.
           -- When using a function, the `items` argument are the default keymaps.
           ---@type snacks.dashboard.Item[]
-          keys = {},
+          keys = {
+            {
+              icon = " ",
+              key = "f",
+              desc = "Find File",
+              action = ":lua Snacks.dashboard.pick('files')",
+            },
+            {
+              icon = " ",
+              key = "n",
+              desc = "New File",
+              action = ":ene | startinsert",
+            },
+            {
+              icon = " ",
+              key = "g",
+              desc = "Find Text",
+              action = ":lua Snacks.dashboard.pick('live_grep')",
+            },
+            {
+              icon = " ",
+              key = "r",
+              desc = "Recent Files",
+              action = ":lua Snacks.dashboard.pick('oldfiles')",
+            },
+            {
+              icon = " ",
+              key = "c",
+              desc = "Config",
+              action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})",
+            },
+            { icon = " ", key = "q", desc = "Quit", action = ":qa" },
+          },
           -- Used by the `header` section
           header = [[
-███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗
-████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║
-██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║
-██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║
-██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║
-╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝]],
+/\_/\
+( o.o )
+> ^ <]],
         },
         -- item field formatters
         formats = {
@@ -100,11 +111,22 @@ return {
         },
         sections = {
           { section = "header" },
-          { section = "keys", gap = 1, padding = 1 },
+          { section = "keys", gap = 0, padding = 0 },
           { section = "startup" },
         },
-      }
-      if vim.env.CELERIS == "1" then opts.dashboard.enabled = false end
-    end,
+      },
+    },
+    keys = {
+      {
+        "<leader>pp",
+        function() Snacks.toggle.profiler():toggle() end,
+        desc = "Profiler",
+      },
+      {
+        "<leader>ph",
+        function() Snacks.toggle.profiler_highlights():toggle() end,
+        desc = "Profiler highlights",
+      },
+    },
   },
 }
