@@ -69,6 +69,23 @@ local sky_magenta         = hsl(310, 40, 64)
 
 local onyx                = hsl(209, 4, 24)
 
+-- Kubectl.nvim palette
+local kubectl = {
+  header       = blue.li(20).sa(10),
+  warning      = yellow.li(5).sa(15),
+  error        = red.li(5).sa(10),
+  info         = cyan.li(55).sa(35),
+  debug        = purple.li(10).sa(20),
+  success      = teal.li(35).sa(25),
+  pending      = magenta.li(5).sa(10),
+  deprecated   = crayola.da(5),
+  experimental = coral,
+  note         = blue.li(30).sa(10),
+  gray         = fadefg,
+
+  pselect_bg   = selection,
+}
+
 return lush(function(injected_functions)
   local sym = injected_functions.sym
   return {
@@ -405,6 +422,24 @@ return lush(function(injected_functions)
 
     -- Bufferline
     BufferlineOffsetSeparator       { bg = raisin_black.da(10) },
+
+     ---- KUBECTL.NVIM -------------------------------------------------------------
+
+    KubectlHeader       { fg = kubectl.header, gui = bf },
+    KubectlWarning      { fg = kubectl.warning, gui = bf },
+    KubectlError        { fg = kubectl.error, gui = bf },
+    KubectlInfo         { fg = kubectl.info },
+    KubectlDebug        { fg = kubectl.debug },
+    KubectlSuccess      { fg = kubectl.success, gui = bf },
+    KubectlPending      { fg = kubectl.pending },
+    KubectlDeprecated   { fg = kubectl.deprecated, gui = it },
+    KubectlExperimental { fg = kubectl.experimental },
+    KubectlNote         { fg = kubectl.note },
+    KubectlGray         { fg = kubectl.gray },
+
+    KubectlPselect      { bg = kubectl.pselect_bg },
+    KubectlPmatch       { KubectlWarning },
+    KubectlUnderline    { gui = un },
 
     ---- RUST ----------------------------------------------------------------------
     rustMacro { fg = coral },
