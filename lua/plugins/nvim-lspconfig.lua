@@ -44,6 +44,7 @@ return {
           },
         },
         glsl_analyzer = {},
+        systemd_lsp = {},
         lua_ls = {
           cmd = { "lua-language-server" },
           filetypes = { "lua" },
