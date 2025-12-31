@@ -145,11 +145,11 @@ vim.keymap.set( "n", "<leader><tab>l", "<cmd>tablast<cr>", { desc = "Last Tab" }
 vim.keymap.set( "n", "<leader><tab>o", "<cmd>tabonly<cr>", { desc = "Close Other Tabs" })
 vim.keymap.set( "n", "<leader><tab>f", "<cmd>tabfirst<cr>", { desc = "First Tab" })
 vim.keymap.set( "n", "<leader><tab><tab>", "<cmd>tabnew<cr>", { desc = "New Tab" })
-vim.keymap.set( "n", "<leader><tab>]", "<cmd>tabnext<cr>", { desc = "Next Tab" })
-vim.keymap.set( "n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 vim.keymap.set( "n", "<leader><tab>d", "<cmd>tabclose<cr>", { desc = "Close Tab" })
-vim.keymap.set( "n", "<leader><tab>y", "<cmd>tabm +1<cr>", { desc = "Move Tab Up" })
-vim.keymap.set( "n", "<leader><tab>e", "<cmd>tabm -1<cr>", { desc = "Move Tab Down" })
+vim.keymap.set( "n", "<A-n>", "<cmd>tabnext<cr>", { desc = "Next Tab" })
+vim.keymap.set( "n", "<A-p>", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
+vim.keymap.set( "n", "<S-A-n>", "<cmd>tabm +1<cr>", { desc = "Move Tab Forward" })
+vim.keymap.set( "n", "<S-A-p>", "<cmd>tabm -1<cr>", { desc = "Move Tab Backward" })
 
 vim.keymap.set( { "n", "v" }, "<leader>y", [["+y]], { desc = "Yank into os clipboard" })
 

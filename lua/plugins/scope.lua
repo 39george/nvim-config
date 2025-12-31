@@ -3,6 +3,9 @@ return {
   opts = {
     hooks = {
       pre_tab_leave = function()
+        if vim.bo.filetype == "snacks_dashboard" then
+          pcall(function() require("snacks").dashboard.close() end)
+        end
         vim.api.nvim_exec_autocmds("User", { pattern = "ScopeTabLeavePre" })
       end,
 

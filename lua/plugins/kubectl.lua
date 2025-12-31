@@ -1,10 +1,14 @@
----@diagnostic disable: missing-parameter
+---@diagnostic disable: missing-parameter, missing-fields
 
 return {
   {
     "ramilito/kubectl.nvim",
     version = "2.*",
     dependencies = "saghen/blink.download",
+	  -- stylua: ignore
+    keys = {
+      { "<leader>k", mode = "n", function() require("kubectl").toggle() end, desc = "Toggle kubectl", { noremap = true, silent = true }},
+    },
     -- stylua: ignore 
     config = function()
       require("kubectl").setup({
@@ -14,7 +18,6 @@ return {
           since = "1h",
         },
       })
-      vim.keymap.set( "n", "<leader>k", function() require("kubectl").toggle() end, { noremap = true, silent = true })
       vim.api.nvim_create_autocmd("FileType", {
         group = group,
         pattern = "k8s_*",
