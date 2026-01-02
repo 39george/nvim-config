@@ -20,8 +20,21 @@ return {
     priority = 1000,
     lazy = false,
     opts = {
+      styles = {
+        notification = {
+          wo = {
+            wrap = true,
+            linebreak = true,
+            breakindent = true,
+          },
+        },
+      },
       indent = {
         char = "▏",
+      },
+      notifier = {
+        timeout = 5000,
+        width = { min = 20, max = 50 },
       },
       dashboard = {
         enabled = not vim.env.CELERIS,
@@ -116,17 +129,11 @@ return {
         },
       },
     },
+    -- stylua: ignore
     keys = {
-      {
-        "<leader>pp",
-        function() Snacks.toggle.profiler():toggle() end,
-        desc = "Profiler",
-      },
-      {
-        "<leader>ph",
-        function() Snacks.toggle.profiler_highlights():toggle() end,
-        desc = "Profiler highlights",
-      },
+      { "<leader>pp", function() Snacks.toggle.profiler():toggle() end, desc = "Profiler" },
+      { "<leader>ph", function() Snacks.toggle.profiler_highlights():toggle() end, desc = "Profiler highlights" },
+      { "<leader>sn", function() Snacks.notifier.show_history() end, desc = "Notification history" },
     },
   },
 }

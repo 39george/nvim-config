@@ -33,7 +33,7 @@ return {
     { "<leader>ca",   vim.lsp.buf.code_action,                                                      mode = { "n", "v" }, desc = "Code actions" },
 
     -- other
-    { "<leader>sn",   function() require("telescope").extensions.notify.notify() end,               desc = "Telescope notifications" },
+    -- { "<leader>sn",   function() require("telescope").extensions.notify.notify() end,               desc = "Telescope notifications" },
   },
   opts = function()
     local actions = require("telescope.actions")
