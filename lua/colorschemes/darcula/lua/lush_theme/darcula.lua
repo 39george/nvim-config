@@ -86,6 +86,12 @@ local kubectl = {
   pselect_bg   = selection,
 }
 
+
+local function dim_border(c)
+  local BORDER_FADE = 50
+  return c.mix(bg, BORDER_FADE).desaturate(10)
+end
+
 return lush(function(injected_functions)
   local sym = injected_functions.sym
   return {
@@ -415,10 +421,15 @@ return lush(function(injected_functions)
     SnacksDashboardIcon       { SnacksDashboardDesc },
     SnacksDashboardFooter     { SnacksDashboardHeader },
     SnacksDashboardSpecial    { fg = yellow },
-    SnacksDashboardKey       { fg = cool_gray },
+    SnacksDashboardKey        { fg = cool_gray },
     -- SnacksDashboardTitle     { fg = crayola },
     -- SnacksDashboardNormal   
     -- SnacksDashboardTerminal
+    SnacksNotifierBorderInfo  { fg = dim_border(cyan) },
+    SnacksNotifierBorderWarn  { fg = dim_border(yellow) },
+    SnacksNotifierBorderError { fg = dim_border(red) },
+    SnacksNotifierBorderDebug { fg = dim_border(purple) },
+    SnacksNotifierBorderTrace { fg = dim_border(cool_gray) },
 
     -- Bufferline
     BufferlineOffsetSeparator       { bg = raisin_black.da(10) },
