@@ -3,7 +3,7 @@
 -- All trailing .<value> in plugin name replaced with -<value>
 
 -- Session options
-vim.o.sessionoptions = "buffers,curdir,folds,help,tabpages,winsize,terminal"
+vim.o.sessionoptions = "buffers,folds,help,tabpages,winsize,terminal"
 
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
