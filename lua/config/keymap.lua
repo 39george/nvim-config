@@ -153,19 +153,57 @@ vim.keymap.set( "n", "<S-A-p>", "<cmd>tabm -1<cr>", { desc = "Move Tab Backward"
 
 vim.keymap.set( { "n", "v" }, "<leader>y", [["+y]], { desc = "Yank into os clipboard" })
 
--- Go to (lsp)
-vim.keymap.set( "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { desc = "Goto Definition" })
-vim.keymap.set( "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", { desc = "References" })
-vim.keymap.set( "n", "gI", "<cmd>lua vim.lsp.buf.implementation()<CR>", { desc = "Goto Implementation" })
-vim.keymap.set( "n", "gy", "<cmd>lua vim.lsp.buf.type_definition()<CR>", { desc = "Goto T[y]pe Definition" })
-vim.keymap.set( "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", { desc = "Goto Declaration" })
--- To avoid ↑ collision
-if not vim.fn.has("win32") then 
-  vim.keymap.del( "n", "gri")
-  vim.keymap.del( "n", "grr")
-  vim.keymap.del( { "n", "x" }, "gra")
-  vim.keymap.del( "n", "grn")
-end 
+-- -- Go to (lsp)
+-- vim.keymap.set( "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { desc = "Goto Definition" })
+-- vim.keymap.set( "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", { desc = "References" })
+-- vim.keymap.set( "n", "gI", "<cmd>lua vim.lsp.buf.implementation()<CR>", { desc = "Goto Implementation" })
+-- vim.keymap.set( "n", "gy", "<cmd>lua vim.lsp.buf.type_definition()<CR>", { desc = "Goto T[y]pe Definition" })
+-- vim.keymap.set( "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", { desc = "Goto Declaration" })
+-- -- To avoid ↑ collision
+-- if not vim.fn.has("win32") then 
+--   vim.keymap.del( "n", "gri")
+--   vim.keymap.del( "n", "grr")
+--   vim.keymap.del( { "n", "x" }, "gra")
+--   vim.keymap.del( "n", "grn")
+-- end
+
+-- LSP → Telescope (buffer-local, only when LSP attaches)
+local function lsp_keymaps(bufnr)
+  local map = function(lhs, rhs, desc)
+    vim.keymap.set("n", lhs, rhs, { buffer = bufnr, silent = true, desc = desc })
+  end
+
+  map("gd", function()
+    local ok, tb = pcall(require, "telescope.builtin")
+    if ok then tb.lsp_definitions({ reuse_win = true }) else vim.lsp.buf.definition() end
+  end, "Goto Definition (Telescope)")
+
+  map("gr", function()
+    local ok, tb = pcall(require, "telescope.builtin")
+    if ok then tb.lsp_references({ reuse_win = true, include_declaration = false }) else vim.lsp.buf.references() end
+  end, "References (Telescope)")
+
+  map("gI", function()
+    local ok, tb = pcall(require, "telescope.builtin")
+    if ok then tb.lsp_implementations({ reuse_win = true }) else vim.lsp.buf.implementation() end
+  end, "Goto Implementation (Telescope)")
+
+  map("gy", function()
+    local ok, tb = pcall(require, "telescope.builtin")
+    if ok then tb.lsp_type_definitions({ reuse_win = true }) else vim.lsp.buf.type_definition() end
+  end, "Type Definitions (Telescope)")
+
+  map("gD", function()
+    local ok, tb = pcall(require, "telescope.builtin")
+    if ok then tb.lsp_declarations({ reuse_win = true }) else vim.lsp.buf.declaration() end
+  end, "Goto Declaration (Telescope)")
+end
+
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(args)
+    lsp_keymaps(args.buf)
+  end,
+})
 
 -- Temporary fix until release nvim-0.11 ready, and blink updated
 if vim.fn.has('nvim-0.11') == 1 then

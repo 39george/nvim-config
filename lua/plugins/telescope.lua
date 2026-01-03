@@ -82,10 +82,20 @@ return {
           theme = "ivy",
           bufnr = nil, -- set by keymaps
         },
+        lsp_definitions = {
+          initial_mode = "normal",
+        },
         lsp_references = {
+          initial_mode = "normal",
           theme = "ivy",
           include_declaration = true,
           show_line = true,
+        },
+        lsp_implementations = {
+          initial_mode = "normal",
+        },
+        lsp_type_definitions = {
+          initial_mode = "normal",
         },
         lsp_dynamic_workspace_symbols = {
           -- dropdown keeps it tidy; dynamic = live-like updates
