@@ -2,6 +2,7 @@ return {
   "tiagovla/scope.nvim",
   opts = (function()
     -- Snacks dashboard workaround: start
+    -- Scope не должен считать dashboard табовым буфером и не должен таскать его по табам/сессиям
     local dashboard_buf ---@type integer|nil
     local inited = false
 
@@ -14,7 +15,7 @@ return {
 
     local function make_safe(buf)
       -- Preserve wipe on close
-      vim.bo[buf].bufhidden = "hide"
+      vim.bo[buf].bufhidden = "wipe"
       vim.bo[buf].buflisted = false
     end
 
