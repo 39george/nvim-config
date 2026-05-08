@@ -4,7 +4,6 @@ return {
   {
     "ramilito/kubectl.nvim",
     version = "2.*",
-    dependencies = "saghen/blink.download",
 	  -- stylua: ignore
     keys = {
       { "<leader>k", mode = "n", function() require("kubectl").toggle() end, desc = "Toggle kubectl", { noremap = true, silent = true }},

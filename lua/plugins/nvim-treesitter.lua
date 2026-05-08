@@ -2,27 +2,42 @@
 
 return {
   "nvim-treesitter/nvim-treesitter",
-  event = { "BufReadPost", "BufNewFile", "BufWritePre" },
+  branch = "main",
+  lazy = false,
   build = ":TSUpdate",
-  cmd = { "TSUpdateSync", "TSUpdate", "TSInstall" },
-  opts_extend = { "ensure_installed" },
-  opts = {
-    parser_install_dir = vim.fn.stdpath("data") .. "/nvim-treesitter/parsers",
-    highlight = {
-      enable = true,
-      -- disable = { "lua", "rust" },
-      additional_vim_regex_highlighting = false,
-    },
-    -- highlight = { enable = true, additional_vim_regex_highlighting = false },
-    indent = { enable = true },
-    injections = {
-      enable = true,
-    },
-    ensure_installed = {
+
+  init = function()
+    local ts_disabled = {
+      lua = true,
+      rust = true,
+    }
+
+    vim.api.nvim_create_autocmd("FileType", {
+      callback = function(args)
+        local ft = vim.bo[args.buf].filetype
+        if ts_disabled[ft] then return end
+
+        -- Enable treesitter highlighting and disable regex syntax
+        pcall(vim.treesitter.start, args.buf)
+
+        -- Enable treesitter-based indentation
+        vim.bo[args.buf].indentexpr =
+          "v:lua.require'nvim-treesitter'.indentexpr()"
+      end,
+    })
+  end,
+
+  config = function()
+    local ts = require("nvim-treesitter")
+
+    ts.setup({
+      install_dir = vim.fn.stdpath("data") .. "/site",
+    })
+
+    ts.install({
       "rust",
       "yaml",
       "json",
-      "jsonc",
       "http",
       "wgsl",
       "glsl",
@@ -72,30 +87,10 @@ return {
       "proto",
       "solidity",
       "mermaid",
-      "blueprint",
       "gdscript",
       "godot_resource",
       "gdshader",
       "ini",
-      -- "rust_with_rstml",
-    },
-    auto_install = false,
-    sync_install = false,
-    incremental_selection = {
-      enable = true,
-      keymaps = {
-        init_selection = "<C-n>",
-        node_incremental = "<C-n>",
-        scope_incremental = false,
-        node_decremental = "<bs>",
-      },
-    },
-  },
-  ---@param opts TSConfig
-  config = function(_, opts)
-    vim.opt.runtimepath:append(
-      vim.fn.stdpath("data") .. "/nvim-treesitter/parsers"
-    )
-    require("nvim-treesitter.configs").setup(opts)
+    })
   end,
 }

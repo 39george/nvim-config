@@ -175,27 +175,27 @@ local function lsp_keymaps(bufnr)
 
   map("gd", function()
     local ok, tb = pcall(require, "telescope.builtin")
-    if ok then tb.lsp_definitions({ reuse_win = true }) else vim.lsp.buf.definition() end
+    if ok then tb.lsp_definitions({ reuse_win = false }) else vim.lsp.buf.definition() end
   end, "Goto Definition (Telescope)")
 
   map("gr", function()
     local ok, tb = pcall(require, "telescope.builtin")
-    if ok then tb.lsp_references({ reuse_win = true, include_declaration = false }) else vim.lsp.buf.references() end
+    if ok then tb.lsp_references({ reuse_win = false, include_declaration = false }) else vim.lsp.buf.references() end
   end, "References (Telescope)")
 
   map("gI", function()
     local ok, tb = pcall(require, "telescope.builtin")
-    if ok then tb.lsp_implementations({ reuse_win = true }) else vim.lsp.buf.implementation() end
+    if ok then tb.lsp_implementations({ reuse_win = false }) else vim.lsp.buf.implementation() end
   end, "Goto Implementation (Telescope)")
 
   map("gy", function()
     local ok, tb = pcall(require, "telescope.builtin")
-    if ok then tb.lsp_type_definitions({ reuse_win = true }) else vim.lsp.buf.type_definition() end
+    if ok then tb.lsp_type_definitions({ reuse_win = false }) else vim.lsp.buf.type_definition() end
   end, "Type Definitions (Telescope)")
 
   map("gD", function()
     local ok, tb = pcall(require, "telescope.builtin")
-    if ok then tb.lsp_declarations({ reuse_win = true }) else vim.lsp.buf.declaration() end
+    if ok then tb.lsp_declarations({ reuse_win = false }) else vim.lsp.buf.declaration() end
   end, "Goto Declaration (Telescope)")
 end
 
