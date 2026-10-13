@@ -14,5 +14,16 @@ return {
       enable = false, -- don't auto-enable preview on open
       filetypes = { "markdown" },
     },
+    latex = {
+      enable = true,
+    },
+
+    markdown = {
+      enable = true,
+    },
+
+    markdown_inline = {
+      enable = true,
+    },
   },
 }

@@ -18,9 +18,8 @@ return {
         if ts_disabled[ft] then return end
 
         -- Enable treesitter highlighting and disable regex syntax
-        pcall(vim.treesitter.start, args.buf)
+        if not pcall(vim.treesitter.start, args.buf) then return end
 
-        -- Enable treesitter-based indentation
         vim.bo[args.buf].indentexpr =
           "v:lua.require'nvim-treesitter'.indentexpr()"
       end,
@@ -91,6 +90,7 @@ return {
       "godot_resource",
       "gdshader",
       "ini",
+      "latex",
     })
   end,
 }

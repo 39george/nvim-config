@@ -74,7 +74,7 @@ return {
       },
       filters = {
         dotfiles = true,
-        custom = { ".uid" },
+        custom = { "\\.uid$" },
       },
       git = {
         enable = true,

@@ -16,9 +16,11 @@ return {
           timestamps = false,
           since = "1h",
         },
+        statusline = {
+          enabled = true
+        },
       })
       vim.api.nvim_create_autocmd("FileType", {
-        group = group,
         pattern = "k8s_*",
         callback = function(ev)
           local k = vim.keymap
@@ -26,6 +28,7 @@ return {
           k.set("n", "7", "<Plug>(kubectl.view_overview)", opts)
         end,
       })
+
       goto skip
       -- Documentation
       local group = vim.api.nvim_create_augroup("kubectl_mappings", { clear = true })

@@ -57,7 +57,7 @@ do
 end
 
 vim.opt.scrolloff = 5
-vim.o.winblend = 1
+vim.o.winblend = 0
 
 vim.cmd("set termguicolors")
 vim.cmd("set number")

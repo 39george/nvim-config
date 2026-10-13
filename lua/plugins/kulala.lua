@@ -1,5 +1,7 @@
 return {
   "mistweaverco/kulala.nvim",
+  -- v6.6.0 has ui bugs
+  -- version = "v6.4.0",
   ft = "http",
   opts = {
     -- Display mode, possible values: "split", "float"
@@ -41,5 +43,7 @@ return {
       lualine = "󱜿 ",
       textHighlight = "WarningMsg", -- highlight group for request elapsed time
     },
+    -- kulala_keymaps = false,
+    kulala_keymaps_prefix = "<leader>",
   },
 }

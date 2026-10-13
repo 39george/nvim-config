@@ -13,9 +13,7 @@ vim.keymap.set( "n", "<C-l>", "<C-w>l", { desc = "Go to Right Window", remap = t
 -- 'gj' and 'gk' will treat wrapped lines as separate lines for moving,
 -- by default j and k do not that
 vim.keymap.set( { "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
-vim.keymap.set( { "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
 vim.keymap.set( { "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
-vim.keymap.set( { "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
 
 -- Resize window using <ctrl> arrow keys
 vim.keymap.set( "n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase Window Height" })
@@ -88,8 +86,6 @@ vim.keymap.set( "v", ">", ">gv")
 -- commenting
 vim.keymap.set( "n", "gco", "o<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Add Comment Below" })
 vim.keymap.set( "n", "gcO", "O<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Add Comment Above" })
--- To avoid ↑ collision
-vim.keymap.del( "n", "gc")
 
 -- lazy
 vim.keymap.set("n", "<leader>l", "<cmd>Lazy<cr>", { desc = "Lazy" })
@@ -108,13 +104,12 @@ vim.keymap.set("n", "]q", vim.cmd.cnext, { desc = "Next Quickfix" })
 ---@param severity string?
 ---@return function 
 local diagnostic_goto = function(next, severity)
-  local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
----@diagnostic disable-next-line: cast-local-type
-  severity = severity and vim.diagnostic.severity[severity] or nil
+  local sev = severity and vim.diagnostic.severity[severity] or nil
   return function()
-    go({ severity = severity })
+    vim.diagnostic.jump({ count = next and 1 or -1, severity = sev, float = true })
   end
 end
+
 vim.keymap.set( "n", "<leader>cdr", function() vim.diagnostic.reset() end, { desc = "Reset Diagnostics" })
 vim.keymap.set( "n", "<leader>cdd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
 vim.keymap.set( "n", "]d", diagnostic_goto(true), { desc = "Next Diagnostic" })
@@ -204,24 +199,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
     lsp_keymaps(args.buf)
   end,
 })
-
--- Temporary fix until release nvim-0.11 ready, and blink updated
-if vim.fn.has('nvim-0.11') == 1 then
-  -- Ensure that forced and not configurable `<Tab>` and `<S-Tab>`
-  -- buffer-local mappings don't override already present ones
-  local expand_orig = vim.snippet.expand
-  vim.snippet.expand = function(...)
-    local tab_map = vim.fn.maparg('<Tab>', 'i', false, true)
-    local stab_map = vim.fn.maparg('<S-Tab>', 'i', false, true)
-    expand_orig(...)
-    vim.schedule(function()
-      tab_map.buffer, stab_map.buffer = 1, 1
-      -- Override temporarily forced buffer-local mappings
-      vim.fn.mapset('i', false, tab_map)
-      vim.fn.mapset('i', false, stab_map)
-    end)
-  end
-end
 
 -- Snacks
 vim.keymap.set( "n", "<leader>ps", function() Snacks.profiler.scratch() end, { desc = "Profiler scratchbuffer" })

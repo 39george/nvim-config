@@ -322,6 +322,20 @@ return lush(function(injected_functions)
 
     sym "@error" { fg = red },                -- syntax/parser errors.
     sym "@markup.link.label.markdown_inline" { Comment },
+    sym "@function.method"      { Function },
+    sym "@module"               { PreProc },
+    sym "@keyword.import"       { PreProc },
+    sym "@keyword.conditional"  { Conditional },
+    sym "@keyword.repeat"       { Repeat },
+    sym "@keyword.exception"    { Exception },
+    sym "@string.regexp"        { Character },
+    sym "@markup.heading"       { fg = orange },
+    sym "@markup.italic"        { fg = fg, gui = it },
+    sym "@markup.strong"        { fg = fg, gui = bf },
+    sym "@markup.underline"     { fg = fg, gui = un },
+    sym "@markup.strikethrough" { Comment, gui = "strikethrough" },
+    sym "@markup.raw"           { String },
+    sym "@markup.link.url"      { fg = green, gui = it },
 
     ---- LSP -----------------------------------------------------------------------
 

@@ -26,9 +26,10 @@ vim.g.rustaceanvim = {
           ignored = { tauri = { "generate_context" } },
         },
         diagnostics = {
-          enable = true,
-          -- disabled = { "unresolved-proc-macro", "macro-error" },
-          enableExperimental = true,
+          experimental = {
+            enable = false,
+            -- disabled = { "unresolved-proc-macro", "macro-error" },
+          },
         },
       },
     },

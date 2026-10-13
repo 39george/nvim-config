@@ -5,6 +5,8 @@ return {
     "nvim-lua/plenary.nvim",
     -- native sorter for fzf-like speed
     { "nvim-telescope/telescope-fzf-native.nvim", build = "make", cond = function() return vim.fn.executable("make") == 1 end },
+    "xiyaowong/telescope-emoji.nvim",
+    "nvim-telescope/telescope-ui-select.nvim",
   },
   keys = {
     -- keep your shortcuts 1:1
@@ -102,6 +104,7 @@ return {
         },
       },
       extensions = {
+        ["ui-select"] = { require("telescope.themes").get_dropdown({}) },
         fzf = {
           fuzzy = true,                    -- true will override the generic sorter
           override_generic_sorter = true,  -- override the generic sorter
@@ -114,5 +117,6 @@ return {
   config = function(_, opts)
     require("telescope").setup(opts)
     pcall(require("telescope").load_extension, "fzf")
+    pcall(require("telescope").load_extension, "ui-select")
   end,
 }

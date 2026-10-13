@@ -6,9 +6,7 @@ require("config.autocmd.separator").setup({
 -- Highlight text on yank
 vim.api.nvim_create_autocmd("TextYankPost", {
   pattern = "*", -- Apply to all buffers
-  callback = function()
-    vim.highlight.on_yank({ higroup = "Yank", timeout = 300 })
-  end,
+  callback = function() vim.hl.on_yank({ higroup = "Yank", timeout = 300 }) end,
   desc = "Highlight text after yanking", -- Description of the autocommand
 })
 
