@@ -35,6 +35,7 @@ return {
       objcpp = { "clang_format" },
       cuda = { "clang_format" },
       proto = { "clang_format" },
+      sql = { "pg_format" },
     },
     formatters = {
       shfmt = {
@@ -62,9 +63,7 @@ return {
         args = { "fmt", "-f", "-" },
         stdin = true,
         condition = function(ctx)
-          if vim.fn.executable("dx") ~= 1 then
-            return false
-          end
+          if vim.fn.executable("dx") ~= 1 then return false end
           local found =
             vim.fs.find("Dioxus.toml", { upward = true, path = ctx.dirname })
           return #found > 0
@@ -85,6 +84,7 @@ return {
       if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
         return
       end
+      if vim.bo[bufnr].filetype == "sql" then return end
       return { timeout_ms = 1000, lsp_format = "fallback" }
     end,
   },

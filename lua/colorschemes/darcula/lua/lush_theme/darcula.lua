@@ -323,7 +323,7 @@ return lush(function(injected_functions)
     sym "@error" { fg = red },                -- syntax/parser errors.
     sym "@markup.link.label.markdown_inline" { Comment },
     sym "@function.method"      { Function },
-    sym "@module"               { PreProc },
+    -- sym "@module"               { PreProc },
     sym "@keyword.import"       { PreProc },
     sym "@keyword.conditional"  { Conditional },
     sym "@keyword.repeat"       { Repeat },

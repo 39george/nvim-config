@@ -8,8 +8,8 @@ return {
 
   init = function()
     local ts_disabled = {
-      lua = true,
-      rust = true,
+      -- lua = true,
+      -- rust = true,
     }
 
     vim.api.nvim_create_autocmd("FileType", {
