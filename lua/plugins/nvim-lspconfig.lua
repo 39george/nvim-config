@@ -405,6 +405,17 @@ return {
             less = { validate = true },
           },
         },
+        qmlls = {
+          cmd = { "/usr/lib/qt6/bin/qmlls" },
+          filetypes = { "qml", "qmljs" },
+          root_dir = function(bufnr, on_dir)
+            -- .qmlls.ini — корень конфига Quickshell, его заполняет сам qs
+            on_dir(
+              vim.fs.root(bufnr, { ".qmlls.ini", ".git" }) or vim.fn.getcwd()
+            )
+          end,
+          single_file_support = true,
+        },
       },
     }
     return opts

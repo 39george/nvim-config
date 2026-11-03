@@ -1,7 +1,7 @@
 vim.g.rustaceanvim = {
   -- Plugin configuration
   tools = {
-    enable_clippy = false,
+    enable_clippy = true,
   },
   -- LSP configuration
   server = {

@@ -17,6 +17,7 @@ return {
   opts = {
     log_level = vim.log.levels.DEBUG,
     formatters_by_ft = {
+      qml = { "qmlformat" },
       -- Good defaults
       lua = { "stylua" },
       -- Conform will run multiple formatters sequentially
@@ -38,6 +39,11 @@ return {
       sql = { "pg_format" },
     },
     formatters = {
+      qmlformat = {
+        command = "/usr/lib/qt6/bin/qmlformat",
+        args = { "$FILENAME" },
+        stdin = false,
+      },
       shfmt = {
         prepend_args = { "-i", "2" },
       },

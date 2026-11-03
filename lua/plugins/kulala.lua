@@ -1,7 +1,5 @@
 return {
-  "mistweaverco/kulala.nvim",
-  -- v6.6.0 has ui bugs
-  -- version = "v6.4.0",
+  "39george/kulala.nvim",
   ft = "http",
   opts = {
     -- Display mode, possible values: "split", "float"

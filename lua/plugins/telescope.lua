@@ -71,13 +71,18 @@ return {
         dynamic_preview_title = true,
       },
       pickers = {
-        -- find_files = {
-        --   hidden = true,
-        --   no_ignore = false,
-        --   theme = "dropdown", -- compact like your fzf UI
-        -- },
+        find_files = {
+          follow = true,
+          -- hidden = true,
+          -- no_ignore = false,
+          -- theme = "dropdown", -- compact like your fzf UI
+        },
         live_grep = {
           theme = "ivy",
+          additional_args = { "--follow" },
+        },
+        grep_string = {
+          additional_args = { "--follow" },
         },
         diagnostics = {
           theme = "ivy",

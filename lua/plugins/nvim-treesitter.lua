@@ -91,6 +91,7 @@ return {
       "gdshader",
       "ini",
       "latex",
+      "qmljs",
     })
   end,
 }

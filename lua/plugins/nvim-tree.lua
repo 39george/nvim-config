@@ -84,6 +84,7 @@ return {
       },
       renderer = {
         group_empty = true,
+        symlink_destination = false,
         indent_markers = {
           enable = true,
           inline_arrows = true,

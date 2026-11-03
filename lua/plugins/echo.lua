@@ -1,5 +1,6 @@
 return {
   "melmass/echo.nvim",
+  enabled = false,
   opts = {
     amplify = 0.5, -- the default level of amplification if not provided
     -- (defaults to 1.0)
