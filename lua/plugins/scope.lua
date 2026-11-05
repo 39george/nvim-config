@@ -15,8 +15,13 @@ return {
 
     local function make_safe(buf)
       -- Preserve wipe on close
-      vim.bo[buf].bufhidden = "wipe"
-      vim.bo[buf].buflisted = false
+      if vim.bo[buf].bufhidden ~= "wipe" then vim.bo[buf].bufhidden = "wipe" end
+      if vim.bo[buf].buflisted then
+        local ei = vim.o.eventignore
+        vim.o.eventignore = "all"
+        pcall(function() vim.bo[buf].buflisted = false end)
+        vim.o.eventignore = ei
+      end
     end
 
     local function find_existing_dashboard()
